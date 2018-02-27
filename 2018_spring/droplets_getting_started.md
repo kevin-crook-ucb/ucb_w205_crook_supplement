@@ -34,6 +34,12 @@ When prompted for password, enter the password given to you by your instructor.
 
 You can repeat the process in other command lines to have multiple sessions open as you like and it's generally recommended to have several open.
 
+## Inside Docker / Outside Docker
+
+Some commands will be run inside of a Docker container.  Some commands will be run outside a Docker container.
+
+One rule of thumb:  if the command starts with "docker" or "docker-compose" then it's to be run outside of a docker container.
+
 ## Find your droplet home directory and make the w205 directory
 
 Find your home directory using the following commands:
