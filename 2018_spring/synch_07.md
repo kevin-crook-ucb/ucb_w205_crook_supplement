@@ -185,6 +185,9 @@ Start the docker cluster:
 docker-compose up -d
 ```
 
+(as far as I've gotten with cleaning up the formatting - Kevin)
+
+
 As before 
 ```
 docker-compose logs -f kafka
@@ -415,41 +418,8 @@ messages_as_strings.select('value').take(1)[0].value
 Nico Williams
 :::
 
-## Breakout
-
-- Change around some of the fields to print different aspects of the commit
-
 ## Down
 
     docker-compose down
 
-
-#
-## Assignment 07
-- Step through this process using the Project 2 data
-- What you turn in:
-- In your `/assignment-07-<user-name>` repo:
-  * your `docker-compose.yml` 
-  * once you've run the example on your terminal
-    * Run `history > <user-name>-history.txt`
-    * Save the relevant portion of your history as `<user-name>-annotations.md`
-    * Annotate the file with explanations of what you were doing at each point.
-
-
-
-#
-## Summary
-
-![](images/streaming-bare.svg){style="border:0;box-shadow:none"}
-
-
-::: notes
-- Review what we just did
-:::
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
 
