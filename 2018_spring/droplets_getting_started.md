@@ -12,13 +12,13 @@ Secure Shell (ssh) will be used, which requires port 22 to be unblocked for outb
 
 ### Windows Users:
 
-Down PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/ target="_blank")
+Down PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/)
 
 It is recommended that you download the portable version rather than the installed version, the zip file containing everything usually works best, but be sure to unzip after you download it or it will not work correctly.
 
 Run PuTTY, enter your IP address for the Hostname.  If you want you can set the font you want to use on the left menu with Window => Appearance.  If you want, you can save the setting using the Save button and load saved settings using the Load button.  To open a session, click the Open button.  Enter science for the username and enter the password given to you by your instructor.
 
-Once you have a terminal open, you can easily open more by clicking the upper left and selecting New Session.  You can have as many sessions open as you like and it's generally recommended to have several open.
+Once you have a terminal open, you can easily open more by clicking the upper left and selecting Duplicate Session.  You can have as many sessions open as you like and it's generally recommended to have several open.
  
 ### Mac Users:
 
@@ -95,7 +95,7 @@ mkdir w205
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 ```
 
-## Docker cleanup - you may want to run a quick cleanup of all containers and images before class and before 
+## Docker cleanup commands
 
 See the Docker containers that are currently running:
 ```
@@ -141,4 +141,10 @@ Remove all Docker images:
 ```
 docker rmi $(docker images -aq)
 ```
+
+# Suggestion - before class and before you do any substantial work
+
+* Always pull down the latest version of course content GitHub repo as there are frequent fixes.  You don't want to be chasing a bug that's already been fixed
+* Always check for an remove old containers, unless you specifically know what they are and are attempting to restart them.
+* If you are getting strange errors, it may be image corruption.  Remove all images and bring them down again.  Since it's in a droplet in the cloud, it has very high speed Internet connections and will be pretty fast. 
 
