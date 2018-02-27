@@ -34,33 +34,16 @@ cp ~/w205/course-content/07-Sourcing-Data/docker-compose.yml .
 Edit the yml file we just copied.  During class we will talk through it.  For volume mounts, you may need to change them to fully qualified path names.  If you are running Windows desktop, you will need to change them to a fully qualified Windows path:
 
 Start the docker cluster:
-
 ```
 docker-compose up -d
 ```
 
-If you want to see the kafka logs live as it comes up use the following command: 
-
+If you want to see the kafka logs live as it comes up use the following command. The -f tells it to keep checking the file for any new additions to the file and print them.  To stop this command, use a control-C: 
 ```
 docker-compose logs -f kafka
 ```
 
-::: notes
-Now spin up the cluster
-```
-docker-compose up -d
-```
-and watch it come up
-```
-    docker-compose logs -f kafka
-```
-when this looks like it's done, you can safely detach with `Ctrl-C`.
-
-:::
-
-
-## create a topic
-
+Create a topic called foo in the kafka container using the kafka-topisc utility:
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -72,18 +55,17 @@ docker-compose exec kafka \
     --zookeeper zookeeper:32181
 ```
 
-::: notes
-First, create a topic `foo`
-
+The same command on 1 line to make it easy to copy and paste:
+```
 docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
-:::
+```
 
-## Should show
+You should see the following message to let us know the topic foo was created correctly
+```
+Created topic "foo".
+```
 
-    Created topic "foo".
-
-## Check the topic
-
+Check the topic in the kafka container using the kafka-topics utility:
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -92,15 +74,18 @@ docker-compose exec kafka \
   --zookeeper zookeeper:32181
 ```
 
-## Should show
+The same command on 1 line to make it easy to copy and paste:
+```
+docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+```
 
-    Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
-    Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+You should see the following or similar output from the previous command:
+```
+Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
+Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+```
 
-
-
-## Publish some stuff to kafka
-
+Now that we have the topic created in kafka, we want to publish the numbers from 1 to 42 to that topic.  We use the kafka container with the kafka-console-producer utility:
 ```
 docker-compose exec kafka \
   bash -c "seq 42 | kafka-console-producer \
@@ -109,37 +94,22 @@ docker-compose exec kafka \
     --topic foo && echo 'Produced 42 messages.'"
 ```
 
-::: notes
-Use the kafka console producer to publish some test messages to that topic
-
+The same command on 1 line to make it easy to copy and paste:
+```
 docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list kafka:29092 --topic foo && echo 'Produced 42 messages.'"
+```
 
-:::
+You should see the following or similar output from the previous command:
+```
+Produced 42 messages.
+```
 
-## Should show
-
-    Produced 42 messages.
-
-
-#
-## Run spark using the `spark` container
-
+In the spark container, run the python spark command line utility called pyspark:
 ```
 docker-compose exec spark pyspark
 ```
 
-::: notes
-Spin up a pyspark process using the `spark` container
-
-docker-compose exec spark pyspark
-
-We have to add some kafka library dependencies on the cli for now.
-:::
-
-## read stuff from kafka
-
-At the pyspark prompt,
-
+Using pyspark, we will write some python spark code to consumer from the kafka topic:
 ```
 numbers = spark \
   .read \
@@ -151,39 +121,21 @@ numbers = spark \
   .load() 
 ```
 
-::: notes
-At the pyspark prompt,
+The same command on 1 line to make it easy to copy and paste:
+```
+numbers = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
+```
 
-read from kafka
-
-numbers = spark \
-  .read \
-  .format("kafka") \
-  .option("kafka.bootstrap.servers", "kafka:29092") \
-  .option("subscribe","foo") \
-  .option("startingOffsets", "earliest") \
-  .option("endingOffsets", "latest") \
-  .load() 
-
-:::
-
-## See the schema
-
+Print the schema for the RDD:
 ```
 numbers.printSchema()
 ```
 
-## Cast it as strings 
-
+Create a new RDD which stores the numbers as strings.  Note the RDD's are immutable, so we cannot change them in place, we have to make a copy:
 ```
 numbers_as_strings=numbers.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
-::: notes
-cast it as strings (you can totally use `INT`s if you'd like)
-
-numbers_as_strings=numbers.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-:::
 
 ## Take a look
 
