@@ -40,6 +40,8 @@ Some commands will be run inside of a Docker container.  Some commands will be r
 
 One rule of thumb:  if the command starts with "docker" or "docker-compose" then it's to be run outside of a docker container.
 
+How to tell if you are inside Docker or outside Docker: at the left of the command prompt is the username.  If the username is science then you are not in Docker, you are at the droplet command line.  If the username is root and the hostname is a long hex string, then you are in a container.
+
 ## Find your droplet home directory and make the w205 directory
 
 Find your home directory using the following commands:
