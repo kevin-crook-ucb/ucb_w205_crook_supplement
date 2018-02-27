@@ -1,6 +1,6 @@
 # Getting started with your Digital Ocean (DO) Droplet
 
-This document will cover the basics of how to connect and login to your digital ocean droplet, how to run git on the command line to pull down the course content repo, and how to run Docker in your droplet.
+This document will cover the basics of how to connect and login to your digital ocean droplet, how to run Docker in your droplet, how to run git on the command line to pull down the course content repo, how to cleanup Docker, and suggestions to prepare for class and for working on your assignments.
 
 ## Connecting to and logging into your droplet
 
@@ -34,31 +34,17 @@ When prompted for password, enter the password given to you by your instructor.
 
 You can repeat the process in other command lines to have multiple sessions open as you like and it's generally recommended to have several open.
 
-## Run git on the command line and connect to GitHub
-
-Find your username using the following command:
-```
-whoami
-```
+## Find your droplet home directory and make the w205 directory
 
 Find your home directory using the following commands:
 ```
 echo $HOME
 ```
 
-Issue the following command to clone down the course content repo:
+Create the w205 directory:
 ```
 cd
-git clone https://github.com/mids-w205-crook/course-content
-```
-
-You can look at an copy files from this repo as much as you want, but if you make changes to the repo, you may not be able to synch with the GitHub repo to pull updates in the future.
-
-Issue the following command to update your course content repo.  The course content repo is being updated with fixes all the time, so it' recommended that before each class and before you work on anything requiring the repo, that you pull the latest using the following command:
-
-```
-cd ~/course-content
-git pull --all
+mkdir w205
 ```
 
 ## Run Docker in your droplet
@@ -90,9 +76,24 @@ docker run --rm hello-world
 
 Run the mids w205 image with a bash shell connected to a terminal and local volume mounted:
 ```
-cd
-mkdir w205
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+## Run git on the command line and connect to GitHub
+
+Issue the following command to clone down the course content repo:
+```
+cd
+git clone https://github.com/mids-w205-crook/course-content
+```
+
+You can look at an copy files from this repo as much as you want, but if you make changes to the repo, you may not be able to synch with the GitHub repo to pull updates in the future.
+
+Issue the following command to update your course content repo.  The course content repo is being updated with fixes all the time, so it' recommended that before each class and before you work on anything requiring the repo, that you pull the latest using the following command:
+
+```
+cd ~/course-content
+git pull --all
 ```
 
 ## Docker cleanup commands
