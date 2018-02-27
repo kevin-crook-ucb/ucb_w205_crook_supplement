@@ -136,64 +136,56 @@ Create a new RDD which stores the numbers as strings.  Note the RDD's are immuta
 numbers_as_strings=numbers.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
+Use some of the methods of the RDD to display various things:
 
-## Take a look
-
+Display the entire RDD:
 ```
 numbers_as_strings.show()
 ```
+
+Display the schema for the RDD:
 ```
 numbers_as_strings.printSchema()
 ```
 
+Display the number of items in the RDD:
 ```
 numbers_as_strings.count()
 ```
-::: notes
-then you can exit pyspark using either `ctrl-d` or `exit()`.
 
-`numbers_as_strings.show()`
+Exit pyspark using:
+```
+exit()
+```
 
-numbers_as_strings.printSchema()
-
-:::
-
-
-## down
+Tear down the docker cluster:
 ```
 docker-compose down
 ```
 
+Verify the docker cluster is down:
+```
+docker-compose ps -a
+```
 
-#
-## Spark stack with Kafka with "real" messages
+## Activity 2
 
+Continue in our same directory with the same yml file:
+```
+~/w205/spark-with-kafka
+```
 
-::: notes
-:::
-
-## docker-compose.yml file
-
-- same 
-- still in your `~/w205/spark-with-kafka`
-
-::: notes
-- same `docker-compose.yml` from above
-:::
-
-
-## Pull data
-
+Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
 ```
 curl -L -o github-example-large.json https://goo.gl/Hr6erG
 ```
 
-## Spin up the cluster & check
-
+Start the docker cluster:
 ```
 docker-compose up -d
 ```
 
+As before 
 ```
 docker-compose logs -f kafka
 ```
