@@ -12,7 +12,7 @@ Secure Shell (ssh) will be used, which requires port 22 to be unblocked for outb
 
 ### Windows Users:
 
-[Download PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/)
+Down PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/ target="_blank")
 
 It is recommended that you download the portable version rather than the installed version, the zip file containing everything usually works best, but be sure to unzip after you download it or it will not work correctly.
 
