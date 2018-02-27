@@ -16,7 +16,9 @@ Secure Shell (ssh) will be used, which requires port 22 to be unblocked for outb
 
 It is recommended that you download the portable version rather than the installed version, the zip file containing everything usually works best, but be sure to unzip after you download it or it will not work correctly.
 
-Run PuTTY, enter your IP address for the Hostname, click the Open button.  Enter science for the username and enter the password given to you by your instructor.
+Run PuTTY, enter your IP address for the Hostname.  If you want you can set the font you want to use on the left menu with Window => Appearance.  If you want, you can save the setting using the Save button and load saved settings using the Load button.  To open a session, click the Open button.  Enter science for the username and enter the password given to you by your instructor.
+
+Once you have a terminal open, you can easily open more by clicking the upper left and selecting New Session.  You can have as many sessions open as you like and it's generally recommended to have several open.
  
 ### Mac Users:
 
@@ -30,6 +32,28 @@ Where your_ip_address is replaced by the one given to you by your instructor.
 
 When prompted for password, enter the password given to you by your instructor.
 
+You can repeat the process in other command lines to have multiple sessions open as you like and it's generally recommended to have several open.
 
+## Run git on the command line and connect to GitHub
+
+Find your username using the following command:
+```
+whoami
+```
+
+Find your home directory using one of the following commands:
+```
+echo $HOME
+```
+```
+cd 
+pwd
+```
+```
+cd ~
+pwd
+```
+
+Using a Chrome web browser on your desktop, 
   
   
