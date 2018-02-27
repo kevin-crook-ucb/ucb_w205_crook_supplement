@@ -74,7 +74,7 @@ Run Docker hello world test program:
 docker run --rm hello-world
 ```
 
-Run the mids w205 image with a bash shell connected to a terminal and local volume mounted:
+## Run the mids w205 image with a bash shell connected to a terminal and local volume mounted:
 ```
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 ```
