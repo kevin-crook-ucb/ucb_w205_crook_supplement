@@ -81,7 +81,7 @@ docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 
 ## Run git on the command line and connect to GitHub
 
-Issue the following command to clone down the course content repo:
+Issue the following command to clone down the course content repo (inside container):
 ```
 cd
 git clone https://github.com/mids-w205-crook/course-content
@@ -89,7 +89,7 @@ git clone https://github.com/mids-w205-crook/course-content
 
 You can look at an copy files from this repo as much as you want, but if you make changes to the repo, you may not be able to synch with the GitHub repo to pull updates in the future.
 
-Issue the following command to update your course content repo.  The course content repo is being updated with fixes all the time, so it' recommended that before each class and before you work on anything requiring the repo, that you pull the latest using the following command:
+Issue the following command to update your course content repo.  The course content repo is being updated with fixes all the time, so it' recommended that before each class and before you work on anything requiring the repo, that you pull the latest using the following command (inside container):
 
 ```
 cd ~/course-content
