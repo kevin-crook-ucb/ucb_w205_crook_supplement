@@ -31,7 +31,7 @@ Copy the yml file to the spark with kafka directory we should be in:
 cp ~/w205/course-content/07-Sourcing-Data/docker-compose.yml .
 ```
 
-Edit the yml file we just copied.  During class we will talk through it.  For volume mounts, you may need to change them to fully qualified path names.  If you are running Windows desktop, you will need to change them to a fully qualified Windows path:
+Edit the yml file we just copied.  During class we will talk through it.  For volume mounts, you may need to change them to fully qualified path names.  If you are running Windows desktop, you will need to change them to a fully qualified Windows path.
 
 Start the docker cluster:
 ```
@@ -43,7 +43,7 @@ If you want to see the kafka logs live as it comes up use the following command.
 docker-compose logs -f kafka
 ```
 
-Create a topic called foo in the kafka container using the kafka-topisc utility:
+Create a topic called foo in the kafka container using the kafka-topics utility:
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -60,7 +60,7 @@ The same command on 1 line to make it easy to copy and paste:
 docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
-You should see the following message to let us know the topic foo was created correctly
+You should see the following message to let us know the topic foo was created correctly:
 ```
 Created topic "foo".
 ```
@@ -109,7 +109,7 @@ In the spark container, run the python spark command line utility called pyspark
 docker-compose exec spark pyspark
 ```
 
-Using pyspark, we will write some python spark code to consumer from the kafka topic:
+Using pyspark, we will write some python spark code to consume from the kafka topic. numbers will be a spark data frame which is built on top of a spark RDD:
 ```
 numbers = spark \
   .read \
@@ -126,29 +126,29 @@ The same command on 1 line to make it easy to copy and paste:
 numbers = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
-Print the schema for the RDD:
+Print the schema for the data frame.  Note that the values are shown in binary, which we as humans have a hard time reading.:
 ```
 numbers.printSchema()
 ```
 
-Create a new RDD which stores the numbers as strings.  Note the RDD's are immutable, so we cannot change them in place, we have to make a copy:
+Since we have a hard time reading binary for the value, let's translate the key and value into strings so we can read them.  Create a new data frame which stores the numbers as strings.  Note the data frames are immutable, so we cannot change them in place, we have to make a copy:
 ```
 numbers_as_strings=numbers.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
-Use some of the methods of the RDD to display various things:
+Use some of the methods of the data frame to display various things:
 
-Display the entire RDD:
+Display the entire data frame.  Note that now we can read the key and value:
 ```
 numbers_as_strings.show()
 ```
 
-Display the schema for the RDD:
+Display the schema for the data frame:
 ```
 numbers_as_strings.printSchema()
 ```
 
-Display the number of items in the RDD:
+Display the number of items in the data frame:
 ```
 numbers_as_strings.count()
 ```
@@ -172,7 +172,7 @@ docker-compose ps -a
 
 Continue in our same directory with the same yml file:
 ```
-~/w205/spark-with-kafka
+cd ~/w205/spark-with-kafka
 ```
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
