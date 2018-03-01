@@ -34,6 +34,12 @@ When prompted for password, enter the password given to you by your instructor.
 
 You can repeat the process in other command lines to have multiple sessions open as you like and it's generally recommended to have several open.
 
+Mac users may want to consider a third party terminal emulation software if you want more functionality than the command line provides.  PuTTY is not available for the Mac.
+
+## Security warning message
+
+The first time you login to a particular host using ssh, you will get a security warning message in a popup.  Anytime you use Secure Sockets Layer (SSL), which is used by Secure Shell (ssh), it will attempt a third party authentication.  For example, if you go to a website such as google.com using the secure version of http called https, it will attempt third party authentication with a certificate authority.  If the certficate is registered and deemed to be authentic, the public key from the server will automatically be downloaded.  If the certificate is not registered or deemed invalid or expired, you will get a warning message.  Since our droplets are not registered, we will get this warning message. Go ahead and accept the public key.  Note that anytime you run virtual machines in any cloud service you will get this warning.
+
 ## Inside Docker / Outside Docker
 
 Some commands will be run inside of a Docker container.  Some commands will be run outside a Docker container.
