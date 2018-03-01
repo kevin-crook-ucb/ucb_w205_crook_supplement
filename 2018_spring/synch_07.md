@@ -14,8 +14,8 @@ Overview of today's synch session:
   * Same docker cluster as above.
   * Pull down a json format file of GitHub data
   * Create a kafka topic and publish the GitHub data to the topic
-  * Start pyspark and write spark code in python to consume the messages from the topic and place them into a spark RDD (Resilient Distributed Dataset).  An RDD is essentially a parallel list.
-  * Do some manipulations to filter and format the data in the spark RDD.
+  * Start pyspark and write spark code in python to consume the messages from the topic and place them into a spark data frame which is built using a spark RDD (Resilient Distributed Dataset).  An RDD is essentially a parallel list.
+  * Do some manipulations to filter and format the data in the spark data frame.
   * tear down the cluster
   
 ## Activity 1
@@ -170,36 +170,28 @@ docker-compose ps -a
 
 ## Activity 2
 
+Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
+```
+cd ~/w205
+curl -L -o github-example-large.json https://goo.gl/Hr6erG
+```
+
 Continue in our same directory with the same yml file:
 ```
 cd ~/w205/spark-with-kafka
 ```
 
-Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
-```
-curl -L -o github-example-large.json https://goo.gl/Hr6erG
-```
-
-Start the docker cluster:
+Start the docker cluster (same as we did before):
 ```
 docker-compose up -d
 ```
 
-(as far as I've gotten with cleaning up the formatting - Kevin)
-
-
-As before 
+Check the kafka logs (same as we did before) Remember to hit the control-C to exit:
 ```
 docker-compose logs -f kafka
 ```
 
-::: notes
-when this looks like it's done, detach with `Ctrl-C`
-:::
-
-
-## create a topic
-
+Create a topic called foo (same as we did before):
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -211,17 +203,17 @@ docker-compose exec kafka \
 	  --zookeeper zookeeper:32181
 ```
 
-::: notes
+The same command on 1 line to make it easy to copy and paste:
+```
 docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
-:::
+```
 
-## Should see something like
+You should see the following message to let us know the topic foo was created correctly:
+```
+Created topic "foo".
+```
 
-    Created topic "foo".
-
-## Check the topic
-
-
+Check the topic (same as we did before):
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -230,44 +222,29 @@ docker-compose exec kafka \
     --zookeeper zookeeper:32181
 ```
 
-::: notes
+The same command on 1 line to make it easy to copy and paste:
+```
 docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
-:::
-## Should see something like
+```
 
-    Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
-    Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+You should see the following or similar output from the previous command:
+```
+Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
+Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+```
 
-
-
-#
-## Publish some stuff to kafka
-
-## Check out our messages
-
+We will execute a bash shell commands in the mids container as microservices.  Remember with microservices, we start a container, run one command, and then exit the container when the command completes.  In the first one, we just print out the json file as is.  In the second one, we print out the json file and pipe it to the utility jq for formatting.  Try running these in different windows and compare the results:
 ```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json"
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
 ```
 
-::: notes
-ugly 1st
-pretty print
-:::
-
-
-## Individual messages
-
+One thing I find strange about json files is that we are not allowed to just have a file of json objects.  We have to place a wrapper around the json objects that consists of an open square bracket at the beginning of the file, comma separated json objects, and a close square bracket at the end of the file.  The following command uses jq to remove this outer wrapper.  It also uses a compact format which is good for computers, but hard for humans to read.  Try running this command if a different window and compare it side by side with the previous two commands:
 ```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
 ```
 
-::: notes
-Go over | jq stuff
-:::
-
-## Publish some test messages to that topic with the kafka console producer
-
+Execute a bash shell in the mids container to run a microservice.  The cat piped into jq, we are already familiar with from the previous command.  We add a step to pipe it into the kafkacat utility with the -P option.  The -P option tells it to publish messages.  The -t options gives it the topic name of foo.  The kafka:29092 tells it the container name and the port number where kafka is running.
 ```
 docker-compose exec mids \
   bash -c "cat /w205/github-example-large.json \
@@ -275,15 +252,17 @@ docker-compose exec mids \
     | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
 ```
 
-::: notes
+The same command on 1 line to make it easier to copy and paste:
+```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
-:::
+```
 
-## Should see something like
+You should see the following or similar output from the previous command:
+```
+Produced 100 messages.
+```
 
-    Produced 100 messages.
-
-
+(krc - end of my reformatting)
 
 
 
