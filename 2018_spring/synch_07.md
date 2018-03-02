@@ -104,6 +104,12 @@ You should see the following or similar output from the previous command:
 Produced 42 messages.
 ```
 
+Previously, we used two methods to consume messages from the topic:
+* the kafka-console-consumer utility
+* the kafkacat utility
+
+Instead of using those utilities, we are going to use spark to consume the messages.
+
 In the spark container, run the python spark command line utility called pyspark:
 ```
 docker-compose exec spark pyspark
@@ -262,28 +268,13 @@ You should see the following or similar output from the previous command:
 Produced 100 messages.
 ```
 
-(krc - end of my reformatting)
-
-
-
-#
-## Run spark using the `spark` container
+We are going to start pyspark to use spark via python (same as we did before):
 
 ```
 docker-compose exec spark pyspark
 ```
 
-::: notes
-Spin up a pyspark process using the `spark` container
-
-docker-compose exec spark pyspark
-
-We have to add some kafka library dependencies on the cli for now.
-:::
-
-## read stuff from kafka
-
-At the pyspark prompt,
+At the pyspark prompt, we will write some python code to consume the messages (same as we did before):
 
 ```
 messages = spark \
@@ -296,79 +287,54 @@ messages = spark \
   .load() 
 ```
 
-::: notes
-At the pyspark prompt,
+The same command on 1 line to make it easy to copy and paste:
+```
+numbers = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
+```
 
-read from kafka
-
-messages = spark \
-  .read \
-  .format("kafka") \
-  .option("kafka.bootstrap.servers", "kafka:29092") \
-  .option("subscribe","foo") \
-  .option("startingOffsets", "earliest") \
-  .option("endingOffsets", "latest") \
-  .load() 
-
-:::
-
-## See the schema
-
+Print the schema for the data frame (same as we did before).
 ```
 messages.printSchema()
 ```
 
-## See the messages
-
+Show the messages.  Note that they values are in binary, which humans have a hard time reading:
 ```
 messages.show()
 ```
 
-## Cast as strings 
-
-
+Since we have a hard time reading binary for the value, let's translate the key and value into strings so we can read them.  Create a new data fram which stores the numbers as strings.  Note the data frames are immutable, so we cannot change them in place, we have to make a copy:
 ```
 messages_as_strings=messages.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
-::: notes
-cast it as strings (you can totally use `INT`s if you'd like)
+Use some of the methods of the data frame to display various things:
 
-messages_as_strings=messages.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-:::
-
-## Take a look
-
+Display the entire data frame.  Note that we can now read the key and value:
 ```
 messages_as_strings.show()
 ```
 
+Display the schema for the data frame:
 ```
 messages_as_strings.printSchema()
 ```
 
+Display the number of items in the data frame:
 ```
 messages_as_strings.count()
 ```
 
-::: notes
-then you can exit pyspark using either `ctrl-d` or `exit()`.
+Let's look at "unrolling" the json data.
 
-`messages_as_strings.show()`
-
-messages_as_strings.printSchema()
-
-messages_as_strings.count()
-:::
-
-## Unrolling json
+Use the take method to extract individual data from json.  Try the following and see what they do:
 ```
 messages_as_strings.select('value').take(1)
-```
-
-```
 messages_as_strings.select('value').take(1)[0].value
 ```
+
+One mistake that people who are new to spark make is knowing when to use the spark parallel methods and when to use the python core and/or pandas methods.  If we are going to manipulate an entire data frame (or RDD) we should use parallel methods.  Using python core or pandas methods on large data frames defeats the purpose of using spark in the first place.  If we are going to manipulate 1 record or a small number of records, we should use python core or pandas.  
+
+In the following example, we are extracting 1 json object from the spark data frame.  In this case we want to use python core to manipulate it since it's only 1 record.
 
 ```
 import json
@@ -386,19 +352,20 @@ first_message
 print(first_message['commit']['committer']['name'])
 ```
 
-::: notes
-messages_as_strings.select('value').take(1)
-
-messages_as_strings.select('value').take(1)[0].value
->>> import json
->>> first_message=json.loads(messages_as_strings.select('value').take(1)[0].value)
->>> first_message
->>> print(first_message['commit']['committer']['name'])
+Should see the following output:
+```
 Nico Williams
-:::
+```
 
-## Down
+Exit pyspark using the well formed method:
+```
+exit()
+```
 
-    docker-compose down
+Tear down the docker cluster:
+```
+docker-compose down
+```
+
 
 
