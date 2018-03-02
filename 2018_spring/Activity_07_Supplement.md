@@ -12,7 +12,7 @@ In assignment 7, continue your work on assignment 6 adding the steps to consumin
 
 Please follow our usual process in git command line and GitHub of:
 * creating a branch in the repo
-* making changes to the branch, staging them, checking them in, and pushing them to GitHub
+* making changes to the branch, staging them, committing them, and pushing them to GitHub
 * in GitHub, create a pull request with your instructor as a reviewer (remove any other default reviewers)
 
 The following should be in your repo:
