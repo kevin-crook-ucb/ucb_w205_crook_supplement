@@ -1,5 +1,5 @@
 
-## Assignment 07
+## Assignment 07 - Kevin Crook supplemental notes
 
 In class week 6, we created a docker cluster with zookeeper, kafka, spark, and mids containers.  We first went through the process of creating a topic in kafka, publishing the numbers 1 to 42 to the topic, and then consuming the numbers 1 to 42.  We then used curl to download a json file from the internet containing GitHub data.  We then went through the process of creating a topic in kafka, publishing the json data to the topic (after formatting it with jq), and then consuming the json data using Python pandas.
 
