@@ -1,34 +1,23 @@
-# Project 2: Tracking User Activity
-
-- In this project, you work at an ed tech firm. You've created a service that delivers assessments, and now lots of different customers (e.g., Pearson) want to publish their assessments on it. You need to get ready for data scientists who work for these customers to run queries on the data. 
-
-- Through 3 different activites, you will spin up existing containers and prepare the infrastructure to land the data in the form and structure it needs to be to be queried. 
-  1) Publish and consume messages with kafka.
-  2) Use spark to transform the messages.
-  3) Use spark to transform the messages so that you can land them in hdfs.
-
-_______________________________________________________________________________________________________
 
 ## Assignment 07
 
-- In this assignment, you'll spin up a cluster with kafka, zookeeper, and spark containers and the mids container. We're adding consuming messages with spark to last week's activity.
+In class week 6, we created a docker cluster with zookeeper, kafka, spark, and mids containers.  We first went through the process of creating a topic in kafka, publishing the numbers 1 to 42 to the topic, and then consuming the numbers 1 to 42.  We then used curl to download a json file from the internet containing GitHub data.  We then went through the process of creating a topic in kafka, publishing the json data to the topic (after formatting it with jq), and then consuming the json data using Python pandas.
 
-### Follow the steps we did in class for the github data with the assessment data:
+In assignment 6, we downloaded a json file of assessment attempts and repeated the process of creating a topic in kafka and then  publishing the json data to the topic (after formatting it with jq).  
 
-#### Get the data:
+In assignment 7, continue your work on assignment 6 adding the steps to consuming the json data using both of the following methods as demonstrated in the week 6 material:
 
-    curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/f5bRm4
+* command that uses: kafka-console-consumer
+* command that uses: karkacat -C
 
-#### Use this docker-compose exec command:
+Please follow our usual process in git command line and GitHub of:
+* creating a branch in the repo
+* making changes to the branch, staging them, checking them in, and pushing them to GitHub
+* in GitHub, create a pull request with your instructor as a reviewer (remove any other default reviewers)
 
-    docker-compose exec mids bash -c "cat /w205/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+The following should be in your repo:
 
-
-#### What you turn in:
-- In your `/assignment-07-<user-name>` repo:
-	* your `docker-compose.yml` 
-	* once you've run the example on your terminal
-	  * Run `history > <user-name>-history.txt`
-	  * Save the relevant portion of your history as `<user-name>-annotations.md`
-	  * Annotate the file with explanations of what you were doing at each point.
+* your docker-compose.yml file
+* a file named <username>-annotations.md containing all command with detailed explanations following the example given.
+* the instructions mention a history file, but since some students are running Windows, this will be optional
 
