@@ -8,7 +8,7 @@ In assignment 6, we downloaded a json file of assessment attempts and repeated t
 In assignment 7, continue your work on assignment 6 adding the steps to consuming the json data using both of the following methods as demonstrated in the week 6 material:
 
 * command that uses: kafka-console-consumer
-* command that uses: karkacat -C
+* command that uses: kafkacat -C
 
 Please follow our usual process in git command line and GitHub of:
 * creating a branch in the repo
