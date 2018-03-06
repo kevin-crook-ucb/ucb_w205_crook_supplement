@@ -145,7 +145,7 @@ Run the python script using the following command.  This will tie up this linux 
 docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
 ```
 
-Using another linux command line window, use curl to make web API calls.  You will need to change localhost with the IP address of your droplet.  Note that TCP port 5000 is the port we are using.
+Using another linux command line window, use curl to make web API calls. Note that TCP port 5000 is the port we are using.
 ```
 docker-compose exec mids curl http://localhost:5000/
 docker-compose exec mids curl http://localhost:5000/purchase_a_sword
