@@ -15,17 +15,17 @@ Overview of today's synch session:
     * docker pull confluentinc/cp-kafka:latest
     * docker pull midsw205/base:latest
 * Activity
-  * Purpose: setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using a web browser make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working.  subject matter is a mobile game developer who sells game events such as purcase a sword, purchase a knife, join a guild, etc.  In our mids container we will use flask, which is a simple lightweight python based web server.
+  * Purpose: setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working.  subject matter is a mobile game developer who sells game events such as purcase a sword, purchase a knife, join a guild, etc.  In our mids container we will use flask, which is a simple lightweight python based web server.
   * Create a docker cluster with 3 containers: zookeeper, kafka, and mids
   * Create a kafka topic called events
   * Install flask into out mids container
   * Write a python scipt using the flash module to implement a simple web service and print the results to standard output
   * Run our python script in the mids container
-  * Using a web browser, we will surf our website and run some web API calls manually
+  * Using a curl, we will make some web API calls manually
   * Stop flask
   * Beef up our python script using flash to write to the kafka topic instead of standard output.  We will use the KafkaProducer class in python.
   * Run our beefed up python script in the mids container
-  * Using a web browser, we will surf out website and run some web API calls manually
+  * Using curl, we will make some web API calls manually
   * Consume the kafka topic events
   * stop flask and tear down the cluster
 * Project 3 overview
