@@ -1,6 +1,6 @@
 # Kevin Crook's week 8 synchronous session supplemental notes
 
-Overview of today's class:
+Overview of today's synch session:
 
 * Before class in your droplet:
   * get rid of any old docker containers, unless you know you are running something:
@@ -20,96 +20,63 @@ Overview of today's class:
   * Purpose: add hadoop to our docker cluster to store json data of world cup players, seeing problems with unicode characters, encoding unicode with utf-8 to fix those problems, writing to parquet format in the hadoop hdfs (hadoop distributed file system)
   * create a docker cluster with 5 containers: zookeeper, kafka, cloudera (hadoop distribution), spark, and mids
   * access the hadoop hdfs
-  * create a kafka topic players
+  * create a kafka topic called players
   * download a json file of world cup players
+  * publish the json data of world cup player to the kafka topic players
+  * using spark consume the json data from the kafka topic
   * write the json data to parquet format in hdfs
   * see that the json data has unicode characters
   * encode the unicode characters with utf-8 to fix the issue
   * write the json data in utf-8 to hdfs
-  
 * Activity 2:
-  * Purpose: 
+  * Purpose: similar the activity 1, use but use the github dataset, see that the github dataset is nested and not flat like the world cup dataset was, use spark methods to handle the nested structure, including spark sql queries and deriving data frames from spark sql queries, save to parquet format in hdfs
+  * we will use the running cluster above without terminating it
+  * create a kafka topic called commits
+  * download the json file of github commits data
+  * publish the json file of github commits data to the kafka topic commits
+  * using spark consume the json data from the kafka topic
+  * write the json data to parquet format in hdfs
+  * see that the json data is nested
+  * use spark sql to handle the nested data
+  * extract part of the data using spark sql and write that to parquet format in hdfs
   
-  , download data of world cup players in json format, create a kafka topic called players, use kafkacat to publish the json data to our topic players, use pyspark to consume the kafka topic, write the json data in parquet format to the hadoop hdfs (hadoop distributed file system), we will see that we have some unicode characters, we will use utf-8 encoding to fix this, 
+## Activity 1
 
-
-::: notes
-- Last week we  consume messages with Spark and take a look at them
-- Now, we'll transform them in spark so we can land them in hdfs
-- added cloudera but that's just a distribution of hadoop
-:::
-
-# 
-## Spark Stack with Kafka and HDFS
-
-## Setup
-
-`mkdir ~/w205/spark-with-kafka-and-hdfs`
-
-`cd ~/w205/spark-with-kafka-and-hdfs`
-
+Create a directory for spark with kafka and hadoop hadfs
 ```
-cp ~/w205/course-content//08-Querying-Data/docker-compose.yml .
+mkdir ~/w205/spark-with-kafka-and-hdfs
+cd ~/w205/spark-with-kafka-and-hdfs
 ```
 
+Copy the yml file:
+```
+cp ~/w205/course-content/08-Querying-Data/docker-compose.yml .
+```
 
-::: notes
-Walk through the docker-compose.yml file
-:::
+We will go through the yml file in class.  You will need to edit the file and change the volume mapping as we have done before.
 
-## Spin up the cluster
-
+Start the docker cluser
 ```
 docker-compose up -d
 ```
+
+As we did before, you may want to use the following command to watch kafka come up. Multiple command line windows work best for this.  Remember to use control-C to exit.
 ```
 docker-compose logs -f kafka
 ```
 
-
-
-::: notes
-Now spin up the cluster
-```
-docker-compose up -d
-```
-and watch it come up
-```
-    docker-compose logs -f kafka
-```
-when this looks like it's done, you can safely detach with `Ctrl-C`.
-
-:::
-
-
-## Example: World Cup Players
-
-## Check out Hadoop
-
+The hadoop hdfs is a separate file system from our local linux file system.  The directories are different and have different paths.  You will need to use the following command to view a directory listing of the hdfs directory /tmp.  If the cluster is first coming up, or if you have recently added a directory or file, it may take time to show up.  Remember that big data architectures are eventually consistent and not immediately consistent.
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
 ```
-::: notes
-- look at tmp/ dir in hdfs and see that what we want to write isn't there already
-- Can do ls options (h etc) to find out more
-:::
 
-## Should see something like:
-
-	funwithflags:~/w205/spark-with-kafka-and-hdfs $ docker-compose exec cloudera hadoop fs -ls /tmp/
-	Found 2 items
-	drwxrwxrwt   - mapred mapred              0 2018-02-06 18:27 /tmp/hadoop-yarn
-	drwx-wx-wx   - root   supergroup          0 2018-02-20 22:31 /tmp/hive
-
-::: notes
-Let's check out hdfs before we write anything to it
+The output should look similar to this.  Remember it may take a while to show consistency:
 ```
-docker-compose exec cloudera hadoop fs -ls /tmp/
+drwxrwxrwt   - mapred mapred              0 2018-02-06 18:27 /tmp/hadoop-yarn
+drwx-wx-wx   - root   supergroup          0 2018-02-20 22:31 /tmp/hive
 ```
-:::
 
-## Create a topic `players`
-
+Create a kafka topic called players.  This is the same procedure we have used several times before with the foo topic:
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -121,33 +88,24 @@ docker-compose exec kafka \
     --zookeeper zookeeper:32181
 ```
 
-::: notes
-First, create a topic `players`
+The same command on 1 line for convenience:
 ```
 docker-compose exec kafka kafka-topics --create --topic players --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
-- Benefit, now don't have to tear this down, we'll have 2 different topics in the same kafka broker
-:::
-
-## Should show
-
-    Created topic "players".
-
-## Download the dataset for github players
-
-- In `~/w205/`
-
+You should see the following or similar:
 ```
+Created topic "players".
+```
+
+Download the dataset for world cup players in json format.  Remember our downloads go into the ~/w205 directory:
+```
+cd ~/w205/
 curl -L -o players.json https://goo.gl/jSVrAe
+cd ~/w205/spark-with-kafka-and-hdfs
 ```
 
-::: notes
-easier than github dataset b/c it's flat
-:::
-
-## Use kafkacat to produce test messages to the `players` topic
-
+Use kafkacat to publish the world cup players json data to the kafka topic players:
 ```
 docker-compose exec mids \
   bash -c "cat /w205/players.json \
@@ -155,30 +113,17 @@ docker-compose exec mids \
     | kafkacat -P -b kafka:29092 -t players"
 ```
 
-
-::: notes
+The same command on 1 line for convenience:
 ```
 docker-compose exec mids bash -c "cat /w205/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
 ```
-:::
 
-
-#
-## Spin up a pyspark process using the `spark` container
+Start a spark pyspark shell in the spark container.  Remember that pyspark is the python interface to spark.
 ```
 docker-compose exec spark pyspark
 ```
 
-::: notes
-```
-docker-compose exec spark pyspark
-```
-
-- Will move to ipython shell around week 9
-:::
-
-## At the pyspark prompt, read from kafka
-
+Write python code in pyspark to consume from the kafka topic:
 ```
 raw_players = spark \
   .read \
@@ -190,130 +135,66 @@ raw_players = spark \
   .load() 
 ```
 
-::: notes
-or, without the line-conitunations,
+The same command on 1 line for convenience:
 ```
 raw_players = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","players").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
-:::
 
-
-## Cache this to cut back on warnings later
+The following command will cache the spark data structure.  Without it every time something isn't in memory it will generate a warning message.  The warning messages don't hurt anything, but are very distracting.  This is due to spark's use of "lazy evaluation" which is a hallmark of big data architecture.  Add that to our big data architecture we have seen so far: immutable, eventually consistent, lazy evaluation.
 ```
 raw_players.cache()
 ```
 
-::: notes
-- Caching this to avoid warnings bc trying to hold a persistent handle to this topic.
-- Warning messages, e.g., you haven't set your state to be good with kafka etc
-- What is caching?
-- Lazy evaluation
-  * You won't always get errors (it will be quiet) often until you do eval.
-:::
-
-## See what we got
+Before you print the schema, what do you expect to see?  It's the same shema we have seen when consuming a kafka topic in the past:
 ```
 raw_players.printSchema()
 ```
 
-## Cast it as strings (you can totally use `INT`s if you'd like)
+Remember that the value attribute of a kafka schema will be stored as raw bytes which is not easily human readable.  So we convert it to strings so humans can read it:
 ```
 players = raw_players.select(raw_players.value.cast('string'))
 ```
 
-or
+An alternative way to the previous command (you only need to do one):
 ```
 players = raw_players.selectExpr("CAST(value AS STRING)")
 ```
 
-## Write this to hdfs
+Write the players data frame to a parquet file in hadoop hdfs.  Note that this is writing to hadoop hdfs and not to the local linux file system - big difference.  hdfs is intended to have a virtual presence on all nodes in the hadoop cluster.  Parquet format is a binary format for storing data in binary format in a file in columnar format.  Parquet files are immutable.  Remember that immutable files are a  hallmark of big data architecture.  It allows them to be pushed out in a hadoop cluster, stored in object store (which we could use an elastic query resource against), delivered in content delivery networks, etc.
 ```
 players.write.parquet("/tmp/players")
 ```
 
-::: notes
-- this is writing it out to hadoop
-:::
-
-#
-## Check out results (from another terminal window)
-
+Using another command line window, (keep pyspark running), use the following hdfs command to see the directory and files we just created. Another hallmark of big data architecture is that when we write, we usually specify a directory rather than a file. In this case see the players is a directory and not a file. Note the unique naming convention of the data files.  In our case we only see 1 file.  But if we had multiple nodes, each node would have it's own file.  This is so they can write in parallel.  We can do this due the "shared nothing architecture" which is another hallmark of big data architecture.  Also note that files will have a maximum size of 2 GiB.  This is so they can be written using 32 bit pointers rather than 64 bit pointers.  
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
-```
-
-and
-```
-
 docker-compose exec cloudera hadoop fs -ls /tmp/players/
 ```
 
-::: notes
-You can see results in hadoop (from another terminal window)
-```
-docker-compose exec cloudera hadoop fs -ls /tmp/
-```
-and
-```
-docker-compose exec cloudera hadoop fs -ls /tmp/players/
-```
-
-- Can do our h option for human readable
-:::
-
-## However (back in spark terminal window)
-
-- What did we actually write?
-
+Going back to our pyspark, let's look at the data we wrote.  We may see some unicode characters.  Most western alphabets need only 7 bits to store all characters, so we can store it in 1 byte (8 bits).  (We used to call it ASCII).  However, other languages of the world have their own alphabets and need 2 bytes to store a single character.   Unicode is the standard for this, but unicode has the disadvantage of storing 2 bytes for every character whether it needs it or not.  As a compromise, utf-8 format was invented.  This format will use only 1 byte if the character needs only 1 byte, and 2 bytes if the character needs 2 bytes.  It can do this by using the extra bit as a signal.
 ```
 players.show()
 ```
 
-::: notes
-- That's pretty ugly... let's extract the data, promote data cols to be real dataframe columns.
-- We have a single column which is a strign, our jsonlines, 
-- can do the take 1, take players, get value etc
-- But that's kinda lame
-- We want it to be easily queriable, 
-- So, now let's go in and unroll the json but let's do it a dataframe at a time instead of a row at a time
-:::
-
-## Extract Data
-
-## Deal with unicode 
-
+The following code will set standard output to write data using utf-8 instead of unicode.  In the modern era, it's almost always a good idea to always use utf-8:
 ```
 import sys
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 ```
 
-::: notes
-- If a dataset gripes about parsing `ascii` characters, you might need to default to unicode... 
-- it's good practice in any case
-:::
-
-
-## What do we have?
-- Take a look at
-
+Take a look at the players data formatted for json:
 ```
 import json
 players.rdd.map(lambda x: json.loads(x.value)).toDF().show()
 ```
 
-::: notes
-- from the dataset, I'm going to get rdd (spark's distributed dataset), apply a map to it (to work a df at a time)
-- taken a df, mapped it onto an rdd, ....., convert back to a spark dataframe and now we're goig to show that
-- OK,so we have our unicode errors showing up, so go back to our unicode slide, and rerun
-- this is a df that looks like the content of our json and that's nice
-- have to go through mapping bc you won;t have huge json file, you'll have events that are json coming from kafka etc
-:::
-
-
-##
+Create a new data frame to hold the data in json format:
 ```
 extracted_players = players.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
+
+(krc - stopped reformatting here)
+As an alternative to the previous command, we 
 ```
 from pyspark.sql import Row
 extracted_players = players.rdd.map(lambda x: Row(**json.loads(x.value))).toDF()
