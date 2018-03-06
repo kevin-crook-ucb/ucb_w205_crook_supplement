@@ -1,28 +1,37 @@
----
-title: Fundamentals of Data Engineering
-author: Week 08 - sync session
-...
+# Kevin Crook's week 8 synchronous session supplemental notes
 
----
+Overview of today's class:
 
-#
-## Assignment Review
-- Review your Assignment 07
-- Get ready to share
+* Before class in your droplet:
+  * get rid of any old docker containers, unless you know you are running something:
+    * docker rm -f $(docker ps -aq)
+  * update course-content:
+    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+    * cd ~/course-content
+    * git pull --all
+    * exit
+  * update the following docker images: 
+    * docker pull confluentinc/cp-zookeeper:latest
+    * docker pull confluentinc/cp-kafka:latest
+    * docker pull midsw205/cdh-minimal:latest
+    * docker pull midsw205/spark-python:0.0.5
+    * docker pull midsw205/base:latest
+* Activity 1:
+  * Purpose: add hadoop to our docker cluster to store json data of world cup players, seeing problems with unicode characters, encoding unicode with utf-8 to fix those problems, writing to parquet format in the hadoop hdfs (hadoop distributed file system)
+  * create a docker cluster with 5 containers: zookeeper, kafka, cloudera (hadoop distribution), spark, and mids
+  * access the hadoop hdfs
+  * create a kafka topic players
+  * download a json file of world cup players
+  * write the json data to parquet format in hdfs
+  * see that the json data has unicode characters
+  * encode the unicode characters with utf-8 to fix the issue
+  * write the json data in utf-8 to hdfs
+  
+* Activity 2:
+  * Purpose: 
+  
+  , download data of world cup players in json format, create a kafka topic called players, use kafkacat to publish the json data to our topic players, use pyspark to consume the kafka topic, write the json data in parquet format to the hadoop hdfs (hadoop distributed file system), we will see that we have some unicode characters, we will use utf-8 encoding to fix this, 
 
-::: notes
-Breakout at about 5 after the hour:
-- Check in with each group 
-- have students share screen
-:::
-
-
-## Due Friday (PR)
-
-#
-## { data-background="images/streaming-bare.svg" } 
-
-## { data-background="images/streaming-bare-logos.jpg" } 
 
 ::: notes
 - Last week we  consume messages with Spark and take a look at them
