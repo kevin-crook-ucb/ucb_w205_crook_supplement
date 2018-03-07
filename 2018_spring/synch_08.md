@@ -5,6 +5,7 @@ Overview of today's synch session:
 * Before class in your droplet:
   * get rid of any old docker containers, unless you know you are running something:
     * docker rm -f $(docker ps -aq)
+      * note that if there are not any containers to clean up you will get an error message saying docker rm needs at least 1 argument.  That's find just ignore it.
   * update course-content:
     * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
     * cd ~/course-content
