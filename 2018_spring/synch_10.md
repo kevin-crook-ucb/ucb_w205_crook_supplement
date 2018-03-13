@@ -120,7 +120,6 @@ Same command on 1 line for convenience:
 ```
 docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_json_events.py flask run --host 0.0.0.0
 ```
-:::
 
 Run the curl utility in the mids container of our docker cluster to make API calls.  Try each command several times in random order.
 ```
@@ -155,8 +154,7 @@ Leave the cluster running for activity 2.  We will also use the same kafka topic
 
 ## Activity 2
 
-krc - as far as I've gotten with reformatting
-
+Replace the contents of the file game_api_with_json_events.py with the following python code.  This enhances the events even more:
 ```python
 #!/usr/bin/env python
 import json
@@ -186,50 +184,45 @@ def purchase_a_sword():
     return "Sword Purchased!\n"
 ```
 
-## Run it
+Run the python flash script in the mids container of our docker cluster. This will run and print output to the command line each time we make a web API call.  It will hold the command line until we exit it with a control-C.  So you will need another command line prompt:
 ```
 docker-compose exec mids \
   env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_extended_json_events.py \
   flask run --host 0.0.0.0
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_extended_json_events.py flask run --host 0.0.0.0
 ```
-:::
 
-## Test it - generate events
+Run the curl utility in the mids container of our docker cluster to make API calls.  Try each command several times in random order.
 ```
 docker-compose exec mids curl http://localhost:5000/
-```
-```    
 docker-compose exec mids curl http://localhost:5000/purchase_a_sword
 ```
 
-::: notes
-```
-    docker-compose exec mids curl http://localhost:5000/
-    docker-compose exec mids curl http://localhost:5000/purchase_a_sword
-```
-:::
-
-## Read from kafka
+Run the kafkacat utility in the mids container of our docker cluster to consume the topic:
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning -e
 ```
 
-
-::: notes
+Same command on 1 line for convenience:
 ```
 docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning -e
 ```
-:::
 
-## Should see 
-
+You should see similar to the following.  The first events with the old format that we wrote to the topic are still there for replay:
 ```
+{"event_type": "default"}
+{"event_type": "default"}
+{"event_type": "default"}
+{"event_type": "purchase_sword"}
+{"event_type": "purchase_sword"}
+{"event_type": "purchase_sword"}
+{"event_type": "purchase_sword"}
+...
 {"Host": "localhost:5000", "event_type": "default", "Accept": "*/*", "User-Agent": "curl/7.47.0"}
 {"Host": "localhost:5000", "event_type": "default", "Accept": "*/*", "User-Agent": "curl/7.47.0"}
 {"Host": "localhost:5000", "event_type": "default", "Accept": "*/*", "User-Agent": "curl/7.47.0"}
@@ -240,24 +233,14 @@ docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning -e
 ...
 ```
 
-
-
-
-# 
-## Spark it up
-
-## Run a spark shell
+Run a pyspark shell (may want another command line windows for this):
 ```
 docker-compose exec spark pyspark
 ```
 
-::: notes
-check out `course-content/tutorials/tutorial-alternative-spark-clients.md` to
-spin up the pyspark shell with `ipython` or `jupyter`!
-:::
+Last time, we used the method cache() to cache our data frames to prevent warning messages, which are very distracting if you are new to spark.  Now that we are getting more familiar with spark, let's leave it off, so we will be getting warnings.
 
-## Read from kafka
-
+Using pyspark, consume the kafka topic:
 ```
 raw_events = spark \
   .read \
@@ -269,79 +252,37 @@ raw_events = spark \
   .load() 
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
  raw_events = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","events").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
-:::
 
-## Explore our events
+As we have done several times before, the value will be binary which is not easily human readable.  We won't be using the other attributes.  We will create a new data frame with just the value in string format.
 ```
 events = raw_events.select(raw_events.value.cast('string'))
 ```
+
+As we have done several times before, we will extract the values into individual json objects:
 ```
 extracted_events = events.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
+
+Take a look at the extracted json values:
 ```
 extracted_events.show()
 ```    
 
-::: notes
-maybe turn on streaming?
-(add the console appender as a sink)
-`import json`
-- Cache this to cut back on warnings
+Exit pyspark with:
 ```
-raw_events.cache()
+exit()
 ```
-:::
 
-## down
+Exit flask with:
+```
+control-C
+```
 
-    docker-compose down
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-
-## Summary
-
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
-
-::: notes
-(repeat from earlier)
-
-Let's walk through this
-- user interacts with mobile app
-- mobile app makes API calls to web services
-- API server handles requests:
-    - handles actual business requirements (e.g., process purchase)
-    - logs events to kafka
-- spark then:
-    - pulls events from kafka
-    - filters/flattens/transforms events
-    - writes them to storage
-- presto then queries those events
-:::
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
+Tear down the cluster with:
+```
+docker-compose down
+```
