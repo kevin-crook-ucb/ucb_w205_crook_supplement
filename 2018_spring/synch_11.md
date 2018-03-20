@@ -1,6 +1,3 @@
-# Work in progress - please wait for it to be finalized
-
-
 # Kevin Crook's week 11 synchronous session supplemental notes
 
 Overview of today's synch session:
@@ -30,97 +27,24 @@ Overview of today's synch session:
   * Using telnet from the droplet to connect to our flask web server and issue API commands
   * Using telnet from your laptop to connect to our flask web server and issue API commands
   * Using PuTTY from your laptop to connect to our flask web server and issue API commands
-* Activity 
-  * Purpose: So far in past weeks, we have 
+* Activity
+  * Purpose: So far in past weeks, we have created a docker cluster with containers for zookeeper, kafka, spark, and mids.  We have created a small web API server using flask, which has written web logs to a kafka topic in json format, we have read the kafka topic with spark and done some processing.  Continuing this week, we are going to add cloudera hadoop to our docker cluster and we will write from spark to hdfs as we did in the previous project.  We have been using pyspark to run spark.  We will now run spark-submit to submit jobs to the spark cluster.  We will look at code for submitting spark to other types of clusters, such as standalone, yarn, mesos, and kubernetes.  We will look at doing some munging on spark events.  We will also look at separating events.
 * Time permitting - remainder of class time for group meetings
 
----
-title: Fundamentals of Data Engineering
-author: Week 11 - sync session
-...
+## Activity
 
----
-
- 
-
-#
-## Assignment Review
-- Review your Assignment 10
-- Get ready to share
-- `docker pull midsw205/base:latest`
-- `git pull` in `~/w205/course-content`
-
-::: notes
-
-#### Breakout at about 5 after the hour:
-- Check in with each group 
-- have students share screen
-:::
-
-
-## Due Friday (PR)
-
-#
-
-
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
-
-::: notes
-Let's walk through this
-- user interacts with mobile app
-- mobile app makes API calls to web services
-- API server handles requests:
-    - handles actual business requirements (e.g., process purchase)
-    - logs events to kafka
-- spark then:
-    - pulls events from kafka
-    - filters/flattens/transforms events
-    - writes them to storage
-- presto then queries those events
-:::
-
-#
-## Project 3 Group Breakout
-
-- Plan for project
-- Which events will you include?
-- Which parameters will you include?
-- What will you track the state of?
-- How will you need to change:
-  * flask app code?
-  * pyspark code?
-  * code to implement tracking state?
-
-
-::: notes
-- If a person isn't doing in group, put together groups of people doing that option, to brainstorm/plan for class.
-- Which option:
-- All: Game shopping cart data used for homework (flask app) 
-- Advanced option 1: Generate (in flask) and filter (in spark) more types of items.
-- Advanced option 2: Enhance the API (in flask) to accept parameters for purchases (sword/item type) and filter (in spark) 
-- Advanced option 3: Shopping cart data & track state (e.g., user's inventory) and filter (in spark) 
-
-:::
-
-
-# 
-## Running Spark Jobs
-
-
-#
-## Setup
-
-## Set up directory, get docker-compose
+Create our directory and change to it:
 ```
 mkdir ~/w205/spark-from-files/
 cd ~/w205/spark-from-files
-cp ~/w205/course-content/11-Storing-Data-III/docker-compose.yml .
-cp ~/w205/course-content/11-Storing-Data-III/*.py .
 ```
 
-## The `docker-compose.yml` 
+Copy our docker-compose.yml file into our local directory.  Use vi to update the volume mounts if needed.  We have had some issues with volume mounts.  To be safe the docker support recommended putting double quotes around the mount points.  
+```
+cp ~/w205/course-content/11-Storing-Data-III/docker-compose.yml .
+```
 
-Create a `docker-compose.yml` with the following
+Walk through the docker-compose.yml file. We are adding the cloudera hadoop container to what we have done so far.  We are also exposing port 5000 so we can connect to our flask web API from both the droplet and from our desktop:
 ```yaml
 ---
 version: '2'
@@ -196,51 +120,25 @@ services:
       - "moby:127.0.0.1"
 ```
 
-::: notes
-- no need for a datafile on this one.
-- Walk through the docker-compose.yml file
-:::
 
+Copy the python files we will be using:
+```
+cp ~/w205/course-content/11-Storing-Data-III/*.py .
+```
 
-## Spin up the cluster
-
+Starup the docker cluster:
 ```
 docker-compose up -d
 ```
 
-::: notes
-Now spin up the cluster
-```
-docker-compose up -d
-```
-:::
-
-## Wait for things to come up
+Wait for the cluster to come up.  Open a separate linux command line window for each of these.  Cloudera hadoop may take a while to come up.  You may want to also check the hadoop file system to see how eventual consistency works for the two directories for yarn and hive to both show up.  You may also want to check kafka.  Sometimes kafka has to reorg and it can take a while to come up.   Remember to use control-C to exit processes with the -f option. 
 ```
 docker-compose logs -f cloudera
-```
-::: notes
-- Go through what's happening in logs
-```
-docker-compose logs -f cloudera
-```
-:::
-
-## Check out hadoop
-
-```
 docker-compose exec cloudera hadoop fs -ls /tmp/
+docker-compose logs -f kafka
 ```
 
-::: notes
-Let's check out hdfs before we write anything to it
-```
-docker-compose exec cloudera hadoop fs -ls /tmp/
-```
-:::
-
-## Create a topic
-
+Create a topic in kafka (same as we have been doing):
 ```
 docker-compose exec kafka \
   kafka-topics \
@@ -251,23 +149,17 @@ docker-compose exec kafka \
     --if-not-exists --zookeeper zookeeper:32181
 ```
 
-::: notes
-- First, create a topic `events`
+Same command on 1 line for convenience:
 ```
 docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
-:::
 
-## Should show
+You should see:
+```
+Created topic "events".
+```
 
-    Created topic "events".
-
-
-#
-## Flask
-
-## Take our flask app - with request.headers
-
+Review the file game_api.py:
 ```python
 #!/usr/bin/env python
 import json
@@ -297,46 +189,36 @@ def purchase_a_sword():
     return "Sword Purchased!\n"
 ```
 
-## Run it
+Run flask with our game_api.py python code:
 ```
 docker-compose exec mids \
   env FLASK_APP=/w205/spark-from-files/game_api.py \
   flask run --host 0.0.0.0
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 docker-compose exec mids env FLASK_APP=/w205/spark-from-files/game_api.py flask run --host 0.0.0.0
 ```
-:::
 
-## Generate events from browser
-- localhost:5000/
-- localhost:5000/purchase_a_sword
-
-::: notes
+In another linux command line window, use curl to test our web API server.  (Later we can try this from some other options)
 ```
-    docker-compose exec mids curl http://localhost:5000/
-    docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+docker-compose exec mids curl http://localhost:5000/
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
 ```
-:::
 
-## Read from kafka
+Read the topic in kafka to see the generated events (same as we have done before):
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning -e
 ```
 
-::: notes
-ok to skip this
-
+Same command but on 1 line for convenience:
 ```
 docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning -e
 ```
-:::
 
-## Should see 
-
+We Should see similar to this output:
 ```
 {"Host": "localhost:5000", "event_type": "default", "Accept": "*/*", "User-Agent": "curl/7.47.0"}
 {"Host": "localhost:5000", "event_type": "default", "Accept": "*/*", "User-Agent": "curl/7.47.0"}
@@ -348,12 +230,7 @@ docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning -e
 ...
 ```
 
-
-#
-## Spark
-
-## Capture our pyspark code in a file this time
-
+Review the following python spark file extract_events.py.  Instead of using pyspark we will be using the spark-submit.  (Later we can retry this with pyspark and with Jupyter Notebook):
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
@@ -391,29 +268,19 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-- Same as before, but you need to create a spark session when you use spark submit
-- What's a spark session?
-- add `printSchema()` and `show()` liberally throughout the rest of these examples
-- [optional] run against an empty topic first to show spark exceptions
-:::
-
-## run it
-
+Submit our extract_events.py file to spark using spark-submit:
 ```
 docker-compose exec spark \
   spark-submit \
     /w205/spark-from-files/extract_events.py
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 docker-compose exec spark spark-submit /w205/spark-from-files/extract_events.py
 ```
-:::
 
-## if you didn't generate any events
-
+If you try this without having any kafka events, you will get the following error messages or similar:
 ```
 Traceback (most recent call last):
   File "/w205/spark-from-files/extract_events.py", line 35, in <module>
@@ -428,32 +295,17 @@ Traceback (most recent call last):
 ValueError: RDD is empty
 ```
 
-## check out results in hadoop
-
+Since our code wrote to the hadoop hdfs file system, let's check out and verify this:
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
-```
-and
-```
-    docker-compose exec cloudera hadoop fs -ls /tmp/extracted_events/
+docker-compose exec cloudera hadoop fs -ls /tmp/extracted_events/
 ```
 
-::: notes
-:::
-
-
-#
-## Deploying a Spark job to a cluster
-
-##
-
+Note that the following command that we used earlier:
 ```
 docker-compose exec spark spark-submit filename.py
 ```
-
-is really just
-
-
+is short for this:
 ```
 docker-compose exec spark \
   spark-submit \
@@ -461,31 +313,15 @@ docker-compose exec spark \
     filename.py
 ```
 
-::: notes
-To submit a spark job to a cluster, you need a "master"
-:::
-
-## standalone
-
+We are running a spark "pseudo-distributed" cluster (aka not really a cluster with a "master" and "workers").  If we run a standalone cluster with a master node and worker nodes, we have to be more specific (this is just an example and won't work on our cluster):
 ```
 docker-compose exec spark \
   spark-submit \
     --master spark://23.195.26.187:7077 \
     filename.py
 ```
-(this won't work here)
 
-::: notes
-In a spark standalone cluster, there are multiple containers... a single
-spark "master" and many spark "workers"
-
-To submit a job, you point to the spark "master"
-
-Of course, in `docker-compose` you'd use a dns name `spark://spark-master:7077`
-:::
-
-## yarn
-
+If we were running our spark inside of a hadoop cluster, we would need to submit to yarn which is the resource manager for hadoop 2 (this is just an example and won't work on our cluster):
 ```
 docker-compose exec spark \
   spark-submit \
@@ -493,15 +329,8 @@ docker-compose exec spark \
     --deploy-mode cluster \
     filename.py
 ```
-(this won't work here)
 
-::: notes
-In a yarn cluster, you tell it to talk to the cluster's ResourceManager
-(address is usually already set in hadoop config)
-:::
-
-## mesos
-
+If we were running our spark inside of a mesos cluster, we would need to submit to mesos master (this is just an example and won't work on our cluster):
 ```
 docker-compose exec spark \
   spark-submit \
@@ -509,14 +338,8 @@ docker-compose exec spark \
     --deploy-mode cluster \
     filename.py
 ```
-(this won't work here)
 
-::: notes
-In a mesos cluster, you tell it to talk to the mesos master
-:::
-
-## kubernetes
-
+If we were running our spark inside of a kubernetes cluster, we would need to submit to kubernetes master (this is just an example and won't work on our cluster):
 ```
 docker-compose exec spark \
   spark-submit \
@@ -526,11 +349,7 @@ docker-compose exec spark \
 ```
 (this won't work here)
 
-
-#
-## More Spark!
-
-##
+More spark variations that we can try in our cluster (time permitting we will try them in pyspark and Jupyter Notebook):
 
 ```python
 #!/usr/bin/env python
@@ -663,50 +482,7 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-And here's one that filters out multiple events.
-
-This works, but...
-
-Question:  What happens with events that have different schema?
-
-- Problem here is if you're exploding flat json, you'll have some decisions to make
-
-:::
-
-
-#
-## Remember to tear down your cluster
-
-    docker-compose down
-
-
-#
-
-## Summary
-
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
-
-::: notes
-(repeat from earlier)
-
-Let's walk through this
-- user interacts with mobile app
-- mobile app makes API calls to web services
-- API server handles requests:
-    - handles actual business requirements (e.g., process purchase)
-    - logs events to kafka
-- spark then:
-    - pulls events from kafka
-    - filters/flattens/transforms events
-    - separates event types
-    - writes to storage
-- presto then queries those events
-:::
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
-
-  
+Tear down the cluster:
+```
+docker-compose down
+```
