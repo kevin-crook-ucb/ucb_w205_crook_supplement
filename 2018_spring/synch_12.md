@@ -1,62 +1,34 @@
 # Under construction, please wait
 
 
----
-title: Fundamentals of Data Engineering
-author: Week 12 - sync session
-...
+# Kevin Crook's week 12 synchronous session supplemental notes
 
----
+Overview of today's synch session:
 
-
-#
-## Assignment Review
-- Review your Assignment 11
-- Get ready to share
-- `docker pull midsw205/base:latest`
-- `git pull` in `~/w205/course-content`
-
-::: notes
-
-- Breakout at about 5 after the hour:
-- Check in with each group 
-- have students share screen
-:::
-
-
-## Due Friday (PR)
-
-#
+* Before class in your droplet:
+  * get rid of any old docker containers, unless you know you are running something:
+    * docker rm -f $(docker ps -aq)
+  * update course-content:
+    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+    * cd ~/course-content
+    * git pull --all
+    * exit
+  * update the following docker images: 
+    * docker pull confluentinc/cp-zookeeper:latest
+    * docker pull confluentinc/cp-kafka:latest
+    * docker pull midsw205/cdh-minimal:latest
+    * docker pull midsw205/spark-python:0.0.5
+    * docker pull midsw205/base:0.1.9
+* Activity
+  * Previously: So far, in project 3, we have built a docker cluster with zookeeper, kafka, cloudera hadoop, spark w python, and mids containers.  We have designed and run a web API server, generated API calls using curl on the command line, a real web browser, telnet, and PuTTY raw mode.  We have created a kafka topic and written API events and supporting web logs to the kafka topic.  We have used spark to read the kafka topic and filter, flatten, transform, etc. events using massively parallel processing methods.  We have used spark in the pyspark python oriented command line, using the spark-submit job submission style interface, and using jupyter notebook.  We have also written our spark data frames using the massively parallel processing methods out to parquet format in hadoop hdfs.  We also used spark SQL to query our data frame using convenience SQL instead of the transforms.
+  * This week: we will add the following: Use kafkacat in an interactive mode where it will show events as they come through. Use Apache Bench (now added to midsw205/base) to automate stress testing of our web API.  Last time our spark code assumed we had events with all the same type schema, and if we didn't our spark code broke.  We will add some code to spark to process events with different schemas.  We are going to add a new event type to our flask app.  In the past, when we wrote out from spark we received an error if the directory already existed, and we had to manually delete it or pick a new name.  This week will will use the overwrite option to automatically overwrite it if it already exists.  Previously we wrote spark data frames out, but didn't read them back in.  Today we will read them back in.  We will also query using SQL.  We will also see how to get the results of a query into Pandas (if it will fit!) and use the more convenient Pandas functions to process our results.
+* ssh - we will also look at ssh in more depth, along with public key / private key asymetric encryption and how to make better use of it for our droplets.
+* presto - students have been asking about presto - we will be adding presto to the mix in coming weeks.
 
 
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
+## Activity
 
-::: notes
-Let's walk through this
-- user interacts with mobile app
-- mobile app makes API calls to web services
-- API server handles requests:
-    - handles actual business requirements (e.g., process purchase)
-    - logs events to kafka
-- spark then:
-    - pulls events from kafka
-    - filters/flattens/transforms events
-    - writes them to storage
-- presto then queries those events
-:::
-
-
-# 
-## Flask-Kafka-Spark-Hadoop-Presto Part I
-::: notes
-- last week we did spark from files
-- ended with spark files reading from kafka, did some munging events, extracted events, json explode, did some filtering for event types.
-:::
-
-#
-## Setup
-
-## Set up directory, get docker-compose
+Create the full stack directory in your droplet.  Copy the yml file.  Copy the python files we will be using.
 ```
 mkdir ~/w205/full-stack/
 cd ~/w205/full-stack
@@ -64,14 +36,8 @@ cp ~/w205/course-content/12-Querying-Data-II/docker-compose.yml .
 cp ~/w205/course-content/12-Querying-Data-II/*.py .
 ```
 
-::: notes
-:::
-
-
-## The `docker-compose.yml` 
-
-Create a `docker-compose.yml` with the following
-```
+Review the docker compose file (same as before).  Like before, we may need to vi the file and change the directory mounts.
+```yml
 ---
 version: '2'
 services:
@@ -146,45 +112,22 @@ services:
       - "moby:127.0.0.1"
 ```
 
-and with no need for a datafile on this one.
-
-::: notes
-:::
-
-## Spin up the cluster
-
+Startup the cluster (same as before):
 ```
 docker-compose up -d
 ```
 
-::: notes
-Now spin up the cluster
-```
-docker-compose up -d
-```
-:::
-
-
-## Create a topic `events`
-
+Create a kafka topic called events (same as before):
 ```
 docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
-
-::: notes
-First, create a topic `events`
+We should see (same as before):
 ```
-docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+Created topic "events".
 ```
-which should show
 
-    Created topic "events".
-::: 
-
-# 
-## Web-app
-
+Review our python code for are web API server (same as before):
 - Take our instrumented web-app from before
 `~/w205/full-stack/game_api.py`
 
@@ -217,66 +160,49 @@ def purchase_a_sword():
     return "Sword Purchased!\n"
 ```
 
-::: notes
-full blown one that adds in request headers
-:::
-
-## run flask
+Run our python flask code for our web API server (same as before):
 ```
 docker-compose exec mids \
   env FLASK_APP=/w205/full-stack/game_api.py \
   flask run --host 0.0.0.0
 ```
 
-::: notes
-
+For convenience, the command above on 1 line:
 ```
 docker-compose exec mids env FLASK_APP=/w205/full-stack/game_api.py flask run --host 0.0.0.0
 ```
 
-:::
-
-## Set up to watch kafka
-
+Something new:  we will run kafkacat in continuous mode this time in a separate window so we can see events as they come through.  We do this by leaving off the -e to give the endpoint:
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning
 ```
 
-
-::: notes
-- new terminal window, leave up
-- running kafkacat without -e so it will run continuously
-
+For convenience, the command above on 1 line:
 ```
 docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning
 ```
-:::
 
-## Apache Bench to generate data
-
+Apache Bench is a utility designed to stress test web servers using a high volume of data in a short amount of time.  We will use apache bench as shown below to generate multiple requests of the same thing.  The -n option is used below to specify 10 of each:
 ```
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/
-```
-```
+    
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/purchase_a_sword
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user2.att.com" \
     http://localhost:5000/
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
@@ -284,29 +210,16 @@ docker-compose exec mids \
     http://localhost:5000/purchase_a_sword
 ```
 
-::: notes
-- Choose to generate events with apache bench, curl from browser, but not mixing for now.
-- generating 10 events for now, can up that as much as needed, e.g., 100K
-
+For convenience, the commands above on 1 line:
 ```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
 ```
 
-:::
+Last time we wrote the following spark code using python and submitted it using spark-submit.  Let's review it before we go to this week's code.  Note that it can only handle 1 schema for events and would break if we gave it 2 different schemas for events.:
 
-# 
-## More Spark
-
-## last time
 `~/w205/spark-from-files/separate_events.py`
 
 ```python
@@ -374,28 +287,19 @@ if __name__ == "__main__":
     main()
 ```
 
-
-::: notes
-- single data frame created
-- filter on event type
-:::
-
-## which we ran
-
+We used this command to run it:
 ```
 docker-compose exec spark \
   spark-submit /w205/spark-from-files/separate_events.py
 ```
 
-::: notes
+For convenience, the command above on 1 line:
 ```
 docker-compose exec spark spark-submit /w205/spark-from-files/separate_events.py
 ```
-:::
 
-## what if different event types have different schema?
+Let's change our previous code to handle multiple schemas for events:
 
-##
 `~/w205/full-stack/just_filtering.py`
 
 ```python
@@ -449,31 +353,18 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-- usually going to have default responses with our events
-- so will have different schemas,
-- going to start doing filtering on the raw json before we explode it up into schema aware df
-- send it through boolean udf here to filter on event type
-- also write to hdfs as before
-- this is just one approach, what's another?
-:::
-
-## run this
-
+Use the following code to run it using spark-submit (similar to last time):
 ```
 docker-compose exec spark \
   spark-submit /w205/full-stack/just_filtering.py
 ```
 
-::: notes
+For convenience, the command above on 1 line:
 ```
 docker-compose exec spark spark-submit /w205/full-stack/just_filtering.py
 ```
-:::
 
-## we can play with this
-
-add a new event type to the flask app...
+Let's play around with our flask web API server.  Stop the flask web API server.  Add a new event type of purchase_a_knife.  Restart the flask web API server.  Modify our spark code to handle it.
 
 ```python
 @app.route("/purchase_a_knife")
@@ -484,21 +375,7 @@ def purchase_a_knife():
     return "Knife Purchased!\n"
 ```
 
-::: notes
-- optional
-- can experiment with different event types
-- ok with data already in kafka
-- now trick is how do we get that all the way through spark
-:::
-
-
-# 
-## Write Events
-
-::: notes
-:::
-
-##
+Let's modify our spark code to write out using massively parallel processing to hadoop hdfs in parquet format.  Last week, we got an error if the directory already existed and had to delete it or pick a new name for the directory.  This week we will use the overwrite option.  Remember that we want to do it this way so we can read it back in quickly if it's a large data set. 
 `full-stack/filtered_writes.py`
 
 ```python
@@ -557,41 +434,24 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-:::
-
-## run this
-
+Submit it to spark using spark-submit (same as before)
 ```
 docker-compose exec spark \
   spark-submit /w205/full-stack/filtered_writes.py
 ```
 
-::: notes
+For convenience, the command above on 1 line:
 ```
 docker-compose exec spark spark-submit /w205/full-stack/filtered_writes.py
 ```
 
-:::
-
-
-## should see purchases in hdfs
-
+Check our hadoop hdfs to make sure it's there
 ```
+docker-compose exec cloudera hadoop fs -ls /tmp/
 docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 ```
 
-::: notes
-:::
-
-# 
-## Queries From Spark
-
-::: notes
-:::
-
-## spin up a notebook
-
+Startup a jupyter notebook.  Remember that to access it from our laptop web browser, we will need to change the IP address to the IP address of our droplet.
 ```
 docker-compose exec spark \
   env \
@@ -600,60 +460,42 @@ docker-compose exec spark \
   pyspark
 ```
 
-::: notes
+For convenience, the command above on 1 line:
 ```
 docker-compose exec spark env PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root' pyspark
 ```
 
-- use a notebook as our pyspark driver
-:::
-
-
-## New python3 notebook and play
-
+In our jupyter notebook, run each of the following in a separate cell.
 ```
 purchases = spark.read.parquet('/tmp/purchases')
 purchases.show()
 purchases.registerTempTable('purchases')
+purchases_by_example2 = spark.sql("select * form purchases where Host = 'example2.com')
 purchases_by_example2.show()
-newdf = purchases_by_example2.toPandas()
-newdf.describe()
+df = purchases_by_example2.toPandas()
+df.describe()
 ```
 
-::: notes
-:::
+Let's discuss the "easy" spark workflow using the "netflix architecture":  We usually receive files in csv or json format, which in a cloud environment, we may want to put in object store (such as AWS S3).  We load the file (sequentially - not parallel) into spark.  We filter and process the data until we get it into spark tables like we need for analytics.  We use SQL as much as we can, go to lambda transforms for things that we cannot, and using special purpose libraries, such as MLLib for machine learning.   We save the file out using massively parallel processing to object store. We may also write our results out to object store.  At this point our cluster can die and our data in object store will outlive the cluster  (similar concept to our docker volume mount outliving the docker container). Next time we need our data, we can read it back in using massively parallel processing, which will be much faster than the original sequential read.
+
+Note: netflix architecture is actually a very specific architecture using object store (AWS S3) and an elastic form of hadoop cluster (AWS EMR - Elastic MapReduce).  However, industry slang tends to call any use of object store => load and process in a temporary cluster => save results to object store as "netflix architecture".
+
+Tear down our cluster (as before):
+```
+docker-compose down
+```
+
+# krc - as far as I've gotten with comments
+
+# SecureShell (SSH)
 
 
-# 
-## down
-
-    docker-compose down
-
-::: notes
-:::
+ssh science@xxx.xxx.xxx.xxx
 
 
-# 
-## SecureShell (SSH)
-
-#
-## remote terminal connections
-
-##
-
-    ssh science@xxx.xxx.xxx.xxx
-
-::: notes
 for your cloud instance, look up:
 - the ip address
 - password for the `science` user
-:::
-
-
-#
-## copying files
-
-##
 
 On your laptop, run
 
