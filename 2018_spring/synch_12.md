@@ -1,6 +1,3 @@
-# Under construction, please wait
-
-
 # Kevin Crook's week 12 synchronous session supplemental notes
 
 Overview of today's synch session:
