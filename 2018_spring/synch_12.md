@@ -467,7 +467,7 @@ In our jupyter notebook, run each of the following in a separate cell.
 purchases = spark.read.parquet('/tmp/purchases')
 purchases.show()
 purchases.registerTempTable('purchases')
-purchases_by_example2 = spark.sql("select * form purchases where Host = 'example2.com')
+purchases_by_example2 = spark.sql("select * from purchases where Host = 'user1.comcast.com'")
 purchases_by_example2.show()
 df = purchases_by_example2.toPandas()
 df.describe()
