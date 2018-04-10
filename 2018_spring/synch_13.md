@@ -1,5 +1,3 @@
-# under construction, please wait
-
 # Kevin Crook's week 13 synchronous session supplemental notes
 
 Overview of today's synch session:
@@ -677,7 +675,7 @@ docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
 ```
 
-
+We will now enhance our python spark code to write to hadoop hdfs in parquet format instead of just writing to the console.  Note that with schema-on-read and immutability, we can keep putting files in the hdfs directory and they will become part of the data.
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
