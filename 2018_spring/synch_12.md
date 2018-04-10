@@ -482,104 +482,69 @@ Tear down our cluster (as before):
 docker-compose down
 ```
 
-# krc - as far as I've gotten with comments
-
 # SecureShell (SSH)
 
+Let's review some basics of encryption:
+
+Symmetric - traditional encryption since early times.  One key encrypts and the same key decrypts.  Big problem is key exchange.
+
+Asymmetric - 1990's - Public / Private Key Pairs.  Public key encrypts, but cannot decrypt.  Public key can be placed in the public without any worries.  Private key decrypts.  Solves the problem of key exchange.
+
+One Way Hashed - can encrypt, but cannot decrypt.  MD5, SHA, etc.  Good for storing a hash of a password without storing the actual password. Used in Block Chain.  Used in signed code.  
+
+
+ssh - can be used in 2 main ways:
+* can be used to encrypt traffic between your terminal and a host.  Always want to encrypt the username and password.
+* can be used to present a private key to the server so a password is not needed.
 
 ssh science@xxx.xxx.xxx.xxx
 
+scp - secure copy:
 
 for your cloud instance, look up:
 - the ip address
 - password for the `science` user
 
-On your laptop, run
-
-    scp some_file science@xxx.xxx.xxx.xxx:
-
+Mac users can run these commands (Windows users can use WinSCP):
+```
+scp some_file science@xxx.xxx.xxx.xxx:
+```
 or 
-
-    scp some_file science@xxx.xxx.xxx.xxx:/tmp/
-
-
-::: notes
-copying files from your laptop to the instance
-
-note the colon!
-:::
-
-##
+```
+scp some_file science@xxx.xxx.xxx.xxx:/tmp/
+```
 
 On your laptop, run
+```
+scp science@xxx.xxx.xxx.xxx:~/w205/a_file.py .
 
-    scp science@xxx.xxx.xxx.xxx:~/w205/a_file.py .
-
-
-::: notes
-copying files from the instance to your laptop
-
-note the period!
-:::
-
-
-# 
-## keys
-
-::: notes
-passwords suck... use keys
-:::
-
-## generate a keypair
+ssh - generate a key pair - hit return on all prompts:
 
     ssh-keygen -t rsa -b 2048
 
-::: notes
-hit return at all the prompts
-
-windows users... use a bash shell please
-:::
-
-## this creates
+This creates:
 
 a public key
 
     ~/.ssh/id_rsa.pub
 
-and a secret key
+and a private key
 
     ~/.ssh/id_rsa
 
-::: notes
-public key safe to share/post
-:::
+Public keys are safe to post on the internet as mentioned before.  GitHub is often used to store public keys.  
 
-## add your pubkey to github
-
-
-## verify your pubkey is on github
-
+How to see your public keys on github:
 ```
 curl https://github.com/<your-gh-id>.keys
 ```
-(note the `https`!)
 
-::: notes
-now no more passwords for git commands
-:::
+If you want you can add your public key from github to your droplet using the following utility:
+```
+ssh-import-id-gh <your-gh-id>
+```
 
-## add pubkey to instance
-
-On your cloud instance, run
-
-    ssh-import-id-gh <your-gh-id>
-
-::: notes
-
-:::
-
-## you should see something like
-
+You should see something like this:
 ```
 science@smmm-mmm-1:~$ ssh-import-id-gh mmm
 2018-04-02 18:09:29,091 INFO Starting new HTTPS connection (1): api.github.com
@@ -587,20 +552,7 @@ science@smmm-mmm-1:~$ ssh-import-id-gh mmm
 2018-04-02 18:09:29,287 INFO [1] SSH keys [Authorized]  
 ```
 
-
-## now no more passwords
-
-    ssh science@xxx.xxx.xxx.xxx
-
-::: notes
-from your laptop
-:::
-
-
-#
-## Summary
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
+Now you don't have to use a password to connect:
+```
+ssh science@xxx.xxx.xxx.xxx
+```
