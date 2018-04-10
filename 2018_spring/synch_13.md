@@ -446,21 +446,12 @@ docker-compose exec cloudera hadoop fs -ls /tmp/
 docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 ```
 
-
+We now introduce Presto.  Presto is a query engine which can query data from numerous different types of sources, including hive.  We will now use it to query our hive data we just defined.  It will connect to the hive metastore and pull our metadata (schemas).  Note that at this point we have basically built out an architecture similar to the architecture in our query project where we queried using Google Big Query against the bike share dataset.
 ```
 docker-compose exec presto presto --server presto:8080 --catalog hive --schema default
 ```
 
-::: notes
-- Presto just a query engine
-- it's talking to the hive thrift server to get the table we just added
-- connected to hdfs to get the data
-- Querying with presto instead of spark bc presto scales well, handles a wider range of sql syntax, can start treating like a database, can configure it to talk to cassandra, s3 directly, kafka directly, mysql, good front end for your company's data lake
-
-:::
-
-## What tables do we have in Presto?
-
+Play around with presto to see a table list, the schema of a table, query a table, etc.
 ```
 presto:default> show tables;
    Table   
@@ -471,11 +462,7 @@ presto:default> show tables;
 Query 20180404_224746_00009_zsma3, FINISHED, 1 node
 Splits: 2 total, 1 done (50.00%)
 0:00 [1 rows, 34B] [10 rows/s, 342B/s]
-```
 
-## Describe `purchases` table
-
-```
 presto:default> describe purchases;
    Column   |  Type   | Comment 
 ------------+---------+---------
@@ -489,11 +476,7 @@ presto:default> describe purchases;
 Query 20180404_224828_00010_zsma3, FINISHED, 1 node
 Splits: 2 total, 1 done (50.00%)
 0:00 [5 rows, 344B] [34 rows/s, 2.31KB/s]
-```
 
-## Query `purchases` table
-
-```
 presto:default> select * from purchases;
  accept |       host        |   user-agent    |   event_type   |        timestamp        
 --------+-------------------+-----------------+----------------+-------------------------
@@ -505,12 +488,7 @@ presto:default> select * from purchases;
  ...
  ```
 
-
-# 
-## Streaming
-
-## Simpler spark
-
+Up until now, we have been inferring the schema from kafka.  Suppose we want to make that a bit more formal and define a schema to be imposed on the kafka data?  The code below has been enhanced to do this.  This will get us ready for spark streaming which needs to have a defined schema.
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
@@ -581,33 +559,12 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-- specify purchase_sword_event_schema schema in the job (before were inferring schema)
-- rename is_purchase so specific to swords
-- Combining a bunch of steps from before
-- Not going to the rdd
-- Start with raw events, filter whether they're sword purchases, 
-- The from json has two pieces - the actual column and the schema
-- select 3 columns: value, timestamp, the json created
-- Best practices
-- Robust against different schema, but that can be a gotcha if you end up with data that isn't formatted how you thought it was
-- Streaming datasets don't allow you to access the rdd as we did before
-- This isn't writing the hive table for us
-:::
-
-
-## Run
-
+Run our python spark code using spark-submit (as before):
 ```
 docker-compose exec spark spark-submit /w205/full-stack2/filter_swords_batch.py
 ```
-::: notes
 
-:::
-
-
-## Turn that into a stream
-
+Now we introduce Spark Streaming.  Spark Streaming will run continuously and as we specified in the code below, every 10 seconds it will read kafka, process our data, and write it to the console.
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
@@ -680,48 +637,31 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-- In batch one, we tell it offsets, and tell it to read
-- In streaming, no offsets
-- query = and query.awaitTermination are differences
-:::
-
-
-## Run it
-
+Run our new spark streaming code using spark-submit.  Note that it will run indefinitely, so we will need to run it in a separate linux command line, and we will need to eventually stop it using control-C.  We will keep it running for now.
 ```
 docker-compose exec spark spark-submit /w205/full-stack2/filter_swords_stream.py
 ```
-::: notes
-- run in stream,
-- kick some events 
-- feed it to automaically generate events, can see that grow in hdfs
-:::
 
-## Kick some more events
-
+We will see it write our previous kafka data to the console and wait for more data.  We will test adding more data using apache bench as we did before:
 ```
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/purchase_a_sword
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user2.att.com" \
     http://localhost:5000/
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
@@ -729,23 +669,14 @@ docker-compose exec mids \
     http://localhost:5000/purchase_a_sword
 ```
 
-::: notes
-
+Same commands on 1 line for convenience:
 ```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
 ```
 
-
-## Write from a stream
 
 ```python
 #!/usr/bin/env python
@@ -822,14 +753,12 @@ if __name__ == "__main__":
     main()
 ```
 
-## Run it
-
+Run our spark python code using spark-submit (as we did before):
 ```
 docker-compose exec spark spark-submit /w205/full-stack2/write_swords_stream.py
 ```
 
-## Feed it
-
+We will see it process the events already on the kafka topic.  We need to verify that new data on the kafka topic will be written out to our parquet files in the same directory in 10 second batches.   Using Apache Bench, we will create more test data.  We should see the test data go through flash, kafka, and now spark streaming.  Note that immutability, a hallmark of big data architecture, and schema-on-read both play into making this possible.  We will use a bash shell while loop that will run indefinitely until we stop it with control-C.
 ```
 while true; do
   docker-compose exec mids \
@@ -838,36 +767,17 @@ while true; do
 done
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 while true; do docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword; done
 ```
-:::
 
-## Check what it wrote to Hadoop
-
+Verify that it wrote to the hadoop hdfs:
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/sword_purchases
 ```
 
-# 
-## down
-
-    docker-compose down
-
-::: notes
-:::
-
-
-
-#
-## summary
-
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
+Tear down our cluster:
+```
+docker-compose down
+```
