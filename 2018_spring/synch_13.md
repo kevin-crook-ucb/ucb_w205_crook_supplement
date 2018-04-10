@@ -50,16 +50,8 @@ Overview of today's synch session:
 
 ## Activity
 
+Create the full-stack2 directory, copy the yml and python files:
 
----
-title: Fundamentals of Data Engineering
-author: Week 13 - sync session
-...
-
----
-
-#
-## Get Started
 ```
 git pull in ~/w205/course-content
 mkdir ~/w205/full-stack2/
@@ -67,48 +59,10 @@ cd ~/w205/full-stack2
 cp ~/w205/course-content/13-Understanding-Data/docker-compose.yml .
 docker-compose pull
 cp ~/w205/course-content/13-Understanding-Data/*.py .
-
 ```
 
-::: notes
-:::
 
-
-
-
-#
-
-
-## { data-background="images/pipeline-steel-thread-for-mobile-app.svg" } 
-
-::: notes
-Let's walk through this
-- user interacts with mobile app
-- mobile app makes API calls to web services
-- API server handles requests:
-    - handles actual business requirements (e.g., process purchase)
-    - logs events to kafka
-- spark then:
-    - pulls events from kafka
-    - filters/flattens/transforms events
-    - writes them to storage
-- presto then queries those events
-:::
-
-
-# 
-## Flask-Kafka-Spark-Hadoop-Presto Part II
-::: notes
-- last week we did spark from files
-- ended with spark files reading from kafka, did some munging events, extracted events, json explode, did some filtering for event types.
-:::
-
-#
-## Setup
-
-## The `docker-compose.yml` 
-
-Create a `docker-compose.yml` with the following
+Review our docker-compose.yml file and update directories as needed.  Note that we have added a new container called presto.  Presto is the basis of querying similar to what we did earlier in the semester with Google Big Query.
 ```
 ---
 version: '2'
@@ -200,30 +154,13 @@ services:
       - "moby:127.0.0.1"
 ```
 
-::: notes
-k, z same
-- cloudera a little thinner, a few extra environment variables
-- presto new conainer
-
-:::
-
-## Spin up the cluster
-
+Starup the docker cluster:
 ```
 docker-compose up -d
 ```
 
-::: notes
-- Now spin up the cluster
-```
-docker-compose up -d
-```
-- Notice we didn't actually create a topic as the broker does this for you
-:::
+Review our python flask web API code (same as before):
 
-## Web-app
-
-- Take our instrumented web-app from before
 `~/w205/full-stack/game_api.py`
 
 ```python
@@ -255,43 +192,30 @@ def purchase_a_sword():
     return "Sword Purchased!\n"
 ```
 
-::: notes
-- same web app as before
-:::
-
-## run flask
+Run our python flask web API server:
 ```
 docker-compose exec mids \
   env FLASK_APP=/w205/full-stack/game_api.py \
   flask run --host 0.0.0.0
 ```
 
-::: notes
-
+Same command as above on 1 line for convenience:
 ```
 docker-compose exec mids env FLASK_APP=/w205/full-stack/game_api.py flask run --host 0.0.0.0
 ```
 
-:::
-
-## Set up to watch kafka
-
+As we introduced last week, we will run kafkacat in continuous mode in a separate window:
 ```
 docker-compose exec mids \
   kafkacat -C -b kafka:29092 -t events -o beginning
 ```
 
-
-::: notes
-- new terminal window, leave up
-- running kafkacat without -e so it will run continuously
-
+Same command as above on 1 line for convenience:
 ```
 docker-compose exec mids kafkacat -C -b kafka:29092 -t events -o beginning
 ```
-:::
 
-## Apache Bench to generate data
+As we introduced last week, we will use Apache Bench to stress test our web API server.  Remember we will spoof host name for debugging purposes.
 
 ```
 docker-compose exec mids \
@@ -299,22 +223,19 @@ docker-compose exec mids \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/
-```
-```
+    
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user1.comcast.com" \
     http://localhost:5000/purchase_a_sword
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
     -H "Host: user2.att.com" \
     http://localhost:5000/
-```
-```
+
 docker-compose exec mids \
   ab \
     -n 10 \
@@ -322,27 +243,15 @@ docker-compose exec mids \
     http://localhost:5000/purchase_a_sword
 ```
 
-::: notes
-- Will do lots more events with streaming later in class.
-
+Same commands as above, but on 1 line each for convenience:
 ```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_sword
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/
-```
-```
 docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_sword
 ```
-:::
 
-# 
-
-## Some Spark to Write Events
-
+As we did last week, we have python spark code we will use spark-submit to run which will read and process our kafka topic.  Note that it will write all data at once to the hadoop hdfs.  (Later today, we will use Spark Streaming to write it out in 10 second batches continuously)
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
@@ -398,63 +307,27 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-::: notes
-- Reminder of pieces and parts
-- Filtering on is_purchase
-- Write to tmp/purchases in hdfs
-:::
-## Run this
 
+Run using spark-submit (same as before):
 ```
 docker-compose exec spark spark-submit /w205/full-stack2/filtered_writes.py
 ```
 
-
-## See purchases in hdfs
-
+Check and make sure the file is created in hadoop hdfs:
 ```
+docker-compose exec cloudera hadoop fs -ls /tmp/
 docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 ```
 
+We will now introduce Hive. Hive is an SQL based data warehousing platform that runs on top of hadoop hdfs.  It's scale out SQL with both horizontal and vertical partitioning.  Hive would be comparable to commercial products such as Teradata, Netezza, Amazon Redshift, etc.  
 
 
-
-#
-## Queries from Presto
-
-## Hive metastore
-
-- Track schema
-- Create a table
-
-::: notes
-- The Hive metastore is a really common tool used to keep track of schema for
-tables used throughout the Hadoop and Spark ecosystem (schema registry).
-
-- To "expose" the schema for our "purchases"... we need to create a table in the
-hive metastore.
-
-- There are two ways
-  * Run hive explicitly and create an external table
-  * Run spark, create a 
-
-:::
-
-## Hard Way
-
-
+Start a hive command prompt in our hadoop container:
 ```
 docker-compose exec cloudera hive
 ```
 
-
-::: notes
-- Run hive in the hadoop container
-- This is what you would do, don't need to actually do it, skip to easier way
-:::
-
-## 
-
+We will run some SQL to impose a schema-on-read on top of our parquet files.  Most traditional databases use schema-on-write.  Schema-on-read allows us to impose schema just in time for querying and to impose multiple schemas on the same data, and works hand and hand with our big data architecture concepts such as immutability, content delivery networks, etc.  Hive calls its repository of schema definitions (also called metadata) the Hive Metastore.  The hive metastore can be used by most big data architecture tools to pull data from hive, including used by spark sql.  
 ```sql
 create external table if not exists default.purchases2 (
     Accept string,
@@ -468,29 +341,19 @@ create external table if not exists default.purchases2 (
   tblproperties ("parquet.compress"="SNAPPY");
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 create external table if not exists default.purchases2 (Accept string, Host string, User_Agent string, event_type string, timestamp string) stored as parquet location '/tmp/purchases'  tblproperties ("parquet.compress"="SNAPPY");
 ```
 
+Another way is to use python spark to impose schema-on-read on parquet tables stored in hdfs.
 
-:::
-
-## Or... we can do this an easier way
-
-
+Starup a pyspark shell:
 ```
 docker-compose exec spark pyspark
 ```
 
-
-::: notes
-- run spark
-:::
-
-
-##
-
+The following code will impose schema-on-read on the parquet files for spark sql:
 ```python
 df = spark.read.parquet('/tmp/purchases')
 df.registerTempTable('purchases')
@@ -504,14 +367,12 @@ create external table purchase_events
 spark.sql(query)
 ```
 
-::: notes
+Same command on 1 line for convenience:
 ```
 spark.sql("create external table purchase_events stored as parquet location '/tmp/purchase_events' as select * from purchases")
 ```
-:::
 
-## Can just include in job
-
+In addition to pyspark, we can do the same thing in our python code we will submit using spark-submit:
 ```python
 #!/usr/bin/env python
 """Extract events from kafka and write them to hdfs
@@ -574,27 +435,17 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-- Modified filtered_writes.py to register a temp table and then run it from w/in spark itself
-:::
-
-## Run this
-
+Command to run our python spark code using pyspark:
 ```
 docker-compose exec spark spark-submit /w205/full-stack2/write_hive_table.py
 ```
 
-## See it wrote to hdfs
-
+See if the files are present in hadoop hdfs (same as before):
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
+docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 ```
-::: notes
-- This is the first spark job to run - it does it all, read, flatten, write, ?query
-:::
-## and now ...
 
-- Query this with presto
 
 ```
 docker-compose exec presto presto --server presto:8080 --catalog hive --schema default
