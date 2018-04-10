@@ -517,7 +517,7 @@ scp some_file science@xxx.xxx.xxx.xxx:/tmp/
 On your laptop, run
 ```
 scp science@xxx.xxx.xxx.xxx:~/w205/a_file.py .
-
+```
 ssh - generate a key pair - hit return on all prompts:
 
     ssh-keygen -t rsa -b 2048
