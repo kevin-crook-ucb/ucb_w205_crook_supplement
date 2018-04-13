@@ -775,6 +775,20 @@ Verify that it wrote to the hadoop hdfs:
 docker-compose exec cloudera hadoop fs -ls /tmp/sword_purchases
 ```
 
+We can also use hive to impose a schema and then test querying from both hive and presto:
+```
+create external table if not exists default.sword_purchases (
+    Accept string,
+    Host string,
+    User_Agent string,
+    event_type string,
+    timestamp string
+  )
+  stored as parquet 
+  location '/tmp/sword_purchases'
+  tblproperties ("parquet.compress"="SNAPPY");
+```
+  
 Tear down our cluster:
 ```
 docker-compose down
