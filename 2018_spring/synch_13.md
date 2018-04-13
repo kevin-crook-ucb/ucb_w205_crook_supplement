@@ -775,7 +775,7 @@ Verify that it wrote to the hadoop hdfs:
 docker-compose exec cloudera hadoop fs -ls /tmp/sword_purchases
 ```
 
-We can also use hive to impose a schema and then test querying from both hive and presto:
+We can also use hive to impose a schema and then test querying from both hive and presto.  You may need to stop and restart presto as presto reads the hive metastore when started:
 ```
 create external table if not exists default.sword_purchases (
     Accept string,
