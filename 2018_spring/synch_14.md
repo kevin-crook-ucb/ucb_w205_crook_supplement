@@ -1,5 +1,3 @@
-# under construction, please wait
-
 # Kevin Crook's week 14 synchronous session supplemental notes
 
 Overview of today's synch session:
@@ -16,44 +14,50 @@ Overview of today's synch session:
     * docker pull confluentinc/cp-zookeeper:latest
     * docker pull confluentinc/cp-kafka:latest
     * docker pull midsw205/hadoop:0.0.2
-      * (instead of midsw205/cdh-minimal:latest)
     * docker pull midsw205/spark-python:0.0.6
-      * (up from 0.0.5)
     * docker pull midsw205/presto:0.0.1
-      * (new image)
     * docker pull midsw205/base:0.1.9
+    
+* Our last class meeting!
+  * Thanks for being our first students on new curriculum - always difficult for both students and instructors!
+  * Available grades will be posted into cal central Friday morning.  They will probably show up to students Saturday morning. Maybe Monday morning.
+  
+* Evaluation
+  * Please fill out our evaluation.  It really does help us do better!
+  
+* W205 going forward - lessons learned from this new curriculum
+  * Droplets days 1 - introduce desktop a few weeks in and make it optional
+  * Prerequisites 
+    * Supposed to be more stringent enforcement going forward from advising and registration
+    * Avoid spending class time and office hour time on prerequisite material
+    * Python - algorithms, computational complexity, data structures, numpy, pandas, matplotlib, jupyter notebook, markdown.
+    * Linux command line
+    * vi editor
+    * Github command line
+    * SQL
+  * Curriculum is built out, no waiting, students can work ahead if they want
+  * Assignments are built out, can edit them and make them more explicite based on questions this time
+  * With curriculum and assignments build out, instructors won't have to spend as much time with new material, so we can get assignments graded quicker.
+  * Suggest groups more strongly at the beginning of the semester
+    
 * Droplets
   * End 4/27/2018 - please have anything you need copied out of them before then
-  * I'll look into info about AWS image with Docker
+  * I'll look into info about AWS image with Docker, but cannot promise a time frame
+  
 * GitHub Repos
   * End 4/27/2018 - please fork or clone you repos by that time.  You can also copy them down to your laptop as an alternative.
+  
 * course-content repo
   * Will maintain access to mids-w205-crook/course-content and this semester will be tagged spring2018.
   * Will be tagged by semester in the future going forward.  Probably easiest to just fork or clone or copy it down.
-* Activity
-  * Previously in Project 3:
-    * We have built a docker cluster with zookeeper, kafka, cloudera hadoop, spark w python, and mids containers.  
-    * We have designed and run a web API server, generated API calls using curl on the command line, a real web browser, telnet, and PuTTY raw mode.  
-    * We have created a kafka topic and written API events and supporting web logs to the kafka topic.  
-    * We have used spark to read the kafka topic and filter, flatten, transform, etc. events using massively parallel processing methods.  
-    * We have used spark in the pyspark python oriented command line, using the spark-submit job submission style interface, and using jupyter notebook.  
-    * We have also written our spark data frames using the massively parallel processing methods out to parquet format in hadoop hdfs.  We saw overwrite errors and handled them by deleting the directory and its contents or by using another name.  We also changed our code to use the overwrite option.  
-    * We have used spark SQL to query our data frame using the convenience of SQL instead of the transforms.
-    * We have used kafkacat in an interactive mode where it will show events as they come through. 
-    * We have used Apache Bench to automate stress testing of our web API.  
-    * We saw that multiple schema types on the kafka topic would break our code, so we beefed up our code to process different schemas differently.
-    * We read in the data frames that we saved out to parquet format in hdfs.  (massively parallel read) 
-    * We copied a spark data frame into a Pandas data frame for more convenient processing of results.
-    * For spark, we have used the interfaces: pyspark command line, Jupyter Notebook, and spark-submit
-  * This week:
-    * We will introduce Hive which is an SQL based data warehouse platform that runs on top of hadoop hdfs.  
-    * We will use hive to create a schema on read for our parquet files stored in hdfs.
-    * We will run some queries from hive against our parquet files stored in hdfs.
-    * We will use python code to see another way to interact with the hive metastore.
-    * We will introduce another tool, Presto, to do ad hoc queries of our parquet files in hadoop hdfs.
-    * (At this point we have basically built the architecture that we used with the query project for the bike share data in the Google Big Query)
-    * We will introduce Spark Streaming.  So far we have just read the entire topic on kafka and written everything to hdfs.  Now we want to define batches of 10 second intervals to write in parquet to hdfs.  We will see how immutability plays into this.
-
+  
+* Continuing with project 3, new for this week (the what we have done list is getting pretty long and we have gone through it several times, so I thought I would skip it this week):
+    * introduce hue a web based gui tool for hadoop - will sit on port 8888 - jupyter notebook will move to 8889
+    * using hive, presto, hue, and hdfs, we will watch the table grow as we add files to hdfs in parquet format
+    * we will remove files from hdfs and watch the table shrink
+    
+* Building Docker Images - build a small docker image and test it out - look at some more complex docker images
+    
 ## Activity
 
 Create directory, change to the directory, copy yml file, copy python files:
@@ -438,6 +442,11 @@ docker-compose exec cloudera hadoop fs -ls /tmp/sword_purchases | wc -l
 ```
 
 In addition to presto and hdfs command line, we can also use hue to run queries against hive and to see hdfs files.
+
+Let's stop spark with a control-C, query the final count in sword_purchases, remove some of the hdfs files, and see the table count shrink.  Use the following command to remove a file from hdfs:
+```
+docker-compose exec cloudera hadoop fs -rm /tmp/sword_purchases/<file name>
+```
 
 Tear down our docker cluster.  
 ```
