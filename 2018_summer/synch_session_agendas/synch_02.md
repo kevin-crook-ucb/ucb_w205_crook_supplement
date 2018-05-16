@@ -1,160 +1,21 @@
----
-title: Fundamentals of Data Engineering
-author: Week 02 - sync session
-...
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #2
 
----
+## Discuss the Query Project
 
-# 
+Involves assignments 2, 3, 4, and 5
 
-## Assignment 1
-- We will usually do a breakout to share solutions and ask questions, but this week's was pretty straightforward.
-- Questions on process?
+Warning: each assignment has the same header.  The header applies to all of 2, 3, 4, and 5.  Do only the detailed in the assignment part below the header.
 
-## Your droplet set up
-
-- repos cloned:
-    - `course-content`
-    - `assignment-01-<user-name>`
-
-## How to do a PR
-
-- Review process from gui 
-
-::: notes
-we defer cli-support for this until next week
-:::
-
-## Due tomorrow morning
-
-
-# 
-## Some things about this class
-
-## How to read
-
-- Two screens (or devices)
-- Reading
-- Following along with coding
-
-## Pacing
-
-- What you can do
-- What you can understand
-
-::: notes
-We'll be reading/watching screencasts ahead of what we can do
-:::
-
-
-# 
-## Where are we in the pipeline
-
-![](images/pipeline-overall.svg)
-
-## Events
-
-- What sort of events feed this pipeline?
-- How were these events captured?
-
-::: notes
-Fed from device events:
-
-- station kiosk (?)
-- user app (?)
-:::
-
-## Main thing to pay attention to
-
-- Pipeline is provided for this example
-- We're _using_ it to answer business questions
-
-::: notes
-How would we build this ourselves?
-:::
-
-
-# 
-## Big Ideas
-
-## Business Decisions
-
-- All about the business
-
-- Data-Driven Business Decisions ...are queries
-
-::: notes
-in order for business decisions to be based on data, you have to be able to interact with the data.
-
-business requirements get encoded as queries of data
-:::
-
-## Translation
-
-- SQL queries are really pretty easy
-- How to get to the queries from the questions, sometimes not so much
-
-
-# 
-## Query Project
-
-- In the Query Project, you will get practice with SQL while learning about Google Cloud Platform (GCP) and BiqQuery. You'll answer business-driven questions using public datasets housed in GCP. To give you experience with different ways to use those datasets, you will use the web UI (BiqQuery) and the command-line tools, and work with them in jupyter notebooks.
-
-- We will be using the Bay Area Bike Share Trips Data (<https://cloud.google.com/bigquery/public-data/bay-bike-share>). 
-
-::: notes
-Go over what the dataset is on the webpage
-:::
-
-## Problem Statement
-- You're a data scientist at Ford GoBike (<https://www.fordgobike.com/>), the company running Bay Area Bikeshare. You are trying to increase ridership, and you want to offer deals through the mobile app to do so. What deals do you offer though? Currently, your company has three options: a flat price for a single one-way trip, a day pass that allows unlimited 30-minute rides for 24 hours and an annual membership. 
-
-## Questions
-
-- Through this project, you will answer these questions: 
-  * What are the 5 most popular trips that you would call "commuter trips"?
-  * What are your recommendations for offers (justify based on your findings)?
-
-
-# 
-## Get Going: Google account
-
-- Go to <https://cloud.google.com/bigquery/>
-- Click on "Try it Free"
-- It asks for credit card, but you get $300 free and it does not autorenew after the $300 credit is used, 
-
-::: notes
-(**OR CHANGE THIS IF SOME SORT OF OTHER ACCESS INFO**)
-:::
-
-
-## Working with BQ gui
-
-<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>
-
-## Tutorial
+## SQL Tutorial
 
 <https://www.w3schools.com/sql/default.asp>
 
+## Signup for Google Cloud account
 
-#
-## Some annoying specific stuff about BQ
+## Link to the google bigquery bike share dataset
 
-## the `;`
+<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>
 
-    SELECT * 
-    FROM Customers;
-
-VS 
-
-    SELECT * 
-    FROM Customers
-
-::: notes
-- Nearly all other sql implementations (and what students will see in the tutorial), end statements with a `;`
-- BQ doesn't
-- btw, the CAPITALIZATION isn't necessary :)
-:::
 
 ## Legacy vs Standard SQL
 
@@ -167,13 +28,6 @@ VS
     #standardSQL
     SELECT * 
     FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-
-::: notes
-- Google was going to create their own sql that worked different :)
-- It's silly, but the way the table reference part, the "FROM" part, is written is different.
-- So, now there's the `#standardSQL` flag
-:::
-
 ## The Big Difference
 
 
