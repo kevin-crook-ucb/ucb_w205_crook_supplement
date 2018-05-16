@@ -100,6 +100,18 @@ git status
 ```
 
 ```
+git branch assignment
+```
+
+```
+git checkout assignment
+```
+
+```
+git status
+```
+
+```
 vi README.md
 ```
 
@@ -130,10 +142,14 @@ git commit -m "change to README.md"
 ```
 
 ```
-git push
+git push origin assignment
 ```
 
 Using GitHub, verify the main branch is untouched, verify the assignment branch exists, verify no other branches exist, verify committs only to the assignment branch.
+
+** Breakout: ** ensure that everyone has done the above
+
+Exit the container, create a new container of the same, make another simple change to the branch and commit it.
 
 Using GitHub, create 1 and only 1 pull request to your instructor on the last commit of the assignment branch.
 
