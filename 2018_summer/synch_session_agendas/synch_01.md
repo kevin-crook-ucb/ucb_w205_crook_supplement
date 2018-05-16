@@ -17,7 +17,7 @@ ssh <ip address>
 
 **Please be sure you manually type in both the username and password keystroke by keystroke (do not paste, it will not work!)**
 
-Breakout: ensure that everyone is connected to their droplet
+**Breakout:** ensure that everyone is connected to their droplet
 
 ##  Run docker with the mids image in your droplet and test the directory mount
 
@@ -41,7 +41,7 @@ df -k
 vi myfile.txt
 ```
 
-Breakout: save the file.  open another terminal window.  verify that myfile.txt show up both in docker and in the droplet.  exit docker and verify the file outlives the container.  create a new docker container and verify it is present.
+**Breakout:** save the file.  open another terminal window.  verify that myfile.txt show up both in docker and in the droplet.  exit docker and verify the file outlives the container.  create a new docker container and verify it is present.
 
 ```
 exit or control-d to exit the container
@@ -70,13 +70,74 @@ cd ~/course-content
 git pull --all
 ```
 
-Breakout: ensure that everyone has properly cloned their repo inside the docker container and can update it
+**Breakout:** ensure that everyone has properly cloned their repo inside the docker container and can update it
 
 ```
 exit or control-d to exit the container
 ```
 
-## 
+## Walk through assignment-00
+
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+```
+cd w205
+```
+
+Retrive you repo for assignment-00 using the technique previously demonstrated and clone it: 
+```
+git clone <repo>
+```
+
+```
+cd <repo>
+```
+
+```
+git status
+```
+
+```
+vi README.md
+```
+
+```
+git status
+```
+
+```
+git add README.md
+```
+
+```
+git status
+```
+
+```
+git commit -m "change to README.md"
+```
+
+First time you commit to a repo, it asks you to set your email and username, if you have not done so already:
+```
+git config --global user.email "you@email.com"
+git config --global user.name "Your Name"
+```
+
+```
+git commit -m "change to README.md"
+```
+
+```
+git push
+```
+
+Using GitHub, verify the main branch is untouched, verify the assignment branch exists, verify no other branches exist, verify committs only to the assignment branch.
+
+Using GitHub, create 1 and only 1 pull request to your instructor on the last commit of the assignment branch.
+
+**Breakout:** ensure that everyone has followed the above instructions.  Verify each other's repos.
 
 
 
