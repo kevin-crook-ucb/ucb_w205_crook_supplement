@@ -13,7 +13,9 @@ Your instructor will send you via slack your droplet ip address, username, and p
 Windows Users will need to use a terminal emulator such as PuTTY [https://www.chiark.greenend.org.uk/~sgtatham/putty/]. There are two options, 1) an install or 2) downloading a zip file, unzipping, and running in place.  Option #2 is recommended.  Please be sure you unzip before trying to run it.
 
 Mac Users will use the terminal with ssh
+```
 ssh <ip address>
+```
 
 **Please be sure you manually type in both the username and password keystroke by keystroke (do not paste, it will not work!)**
 
@@ -158,6 +160,6 @@ Using GitHub, create 1 and only 1 pull request to your instructor on the last co
 
 ## assignment-01 getting started
 
-For assignment-01, let's create a docker container, clone the repo, create an assignment branch, checkout the branch, make a simple change to the README.md, stage the change, commit the change to the branch, push the branch to GitHub.  Do not create a pull request until your last commit and you are read to submit.
+For assignment-01, let's create a docker container, clone the repo, create an assignment branch, checkout the branch, make a simple change to the README.md, stage the change, commit the change to the branch, push the branch to GitHub.  Do not create a pull request until your last commit and you are ready to submit.
 
 **Breakout:** ensure that everyone has followed the above instruction. Verify each other's repos.
