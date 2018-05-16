@@ -1,0 +1,85 @@
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #1
+
+## Introductions
+
+## Review the syllabus and the instructor's syllabus supplement
+
+## Ensure that everyone has gone through the "Checklist Before Your First Synchronous Class Meeting"
+
+## Connect to your droplet
+
+Your instructor will send you via slack your droplet ip address, username, and password.
+
+Windows Users will need to use a terminal emulator such as PuTTY [https://www.chiark.greenend.org.uk/~sgtatham/putty/]. There are two options, 1) an install or 2) downloading a zip file, unzipping, and running in place.  Option #2 is recommended.  Please be sure you unzip before trying to run it.
+
+Mac Users will use the terminal with ssh
+ssh <ip address>
+
+**Please be sure you manually type in both the username and password keystroke by keystroke (do not paste, it will not work!)**
+
+Breakout: ensure that everyone is connected to their droplet
+
+##  Run docker with the mids image in your droplet and test the directory mount
+
+```
+docker pull midsw205/base
+```
+
+```
+mkdir w205
+```
+
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+```
+df -k
+```
+
+```
+vi myfile.txt
+```
+
+Breakout: save the file.  open another terminal window.  verify that myfile.txt show up both in docker and in the droplet.  exit docker and verify the file outlives the container.  create a new docker container and verify it is present.
+
+```
+exit or control-d to exit the container
+```
+
+## Using git command line inside the container, clone the course content repo, go over how to update it (be sure and do this inside the docker container!)
+
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+```
+cd w205
+```
+
+Review how to properly copy a repo link using GitHub. 
+```
+git clone <repo>
+```
+
+The course content repo gets frequently updated.  It's a best practice to always update the course-content repo.  Also, do not make any changes to this directory, as you will not be able to update it.
+```
+cd ~/course-content
+```
+```
+git pull --all
+```
+
+Breakout: ensure that everyone has properly cloned their repo inside the docker container and can update it
+
+```
+exit or control-d to exit the container
+```
+
+## 
+
+
+
+
+
+
