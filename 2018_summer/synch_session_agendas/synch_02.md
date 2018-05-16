@@ -6,6 +6,8 @@ Involves assignments 2, 3, 4, and 5
 
 Warning: each assignment has the same header.  The header applies to all of 2, 3, 4, and 5.  Do only the detailed in the assignment part below the header.
 
+(krc - as far as I've gotten with formatting)
+
 ## SQL Tutorial
 
 <https://www.w3schools.com/sql/default.asp>
