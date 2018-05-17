@@ -14,7 +14,7 @@ Windows Users will need to use a terminal emulator such as PuTTY [https://www.ch
 
 Mac Users will use the terminal with ssh
 ```
-ssh <ip address>
+ssh username@<ip address>
 ```
 
 **Please be sure you manually type in both the username and password keystroke by keystroke (do not paste, it will not work!)**
