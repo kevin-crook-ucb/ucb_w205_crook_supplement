@@ -55,10 +55,6 @@ exit or control-d to exit the container
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 ```
 
-```
-cd w205
-```
-
 Review how to properly copy a repo link using GitHub. 
 ```
 git clone <repo>
@@ -82,10 +78,6 @@ exit or control-d to exit the container
 
 ```
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-```
-
-```
-cd w205
 ```
 
 Retrive you repo for assignment-00 using the technique previously demonstrated and clone it: 
