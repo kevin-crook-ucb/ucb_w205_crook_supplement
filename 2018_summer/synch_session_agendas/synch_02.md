@@ -31,183 +31,99 @@ Warning: each assignment has the same header.  The header applies to all of 2, 3
 
 ## Signup for Google Cloud account 
 
-<https://cloud.google.com>{:target="_blank"}
+<https://cloud.google.com>
 
 Everyone should be signed up for the Google Cloud account before class as mentioned in slack.
 
 Some tips:
 * Use the Chrome browser.  Google makes Google Cloud.  Google makes Chrome.  Google tests Google Cloud using Chrome.  Other browsers will hit things that won't work correctly.
-* You may have multiple Google accounts. After going 
+* You may have multiple Google accounts. Check and switch if necessary to the right account by clicking on the person icon in the upper right corner.
+* You must currently be on a project with billing enabled, otherwise something will work and others that require billing will not.
+* If you attempt to use the bike share dataset in BigQuery and it won't come up, it's probably one of the above.
 
 ## Link to the google bigquery bike share dataset
 
-<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>{:target="_blank"}
-
+<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>
 
 ## Legacy vs Standard SQL
 
+We will be using Standard SQL instead of the Legacy SQL.  It will be required for assignments and points will be deducted if it's not used.  You **must** include the #standardSQL directive both in the query when running and also in assignments or points will be deducted, unless it's covered in other syntax.
 
+Be careful if you are pulling code off the internet, as a lot of it may be specific to Legacy SQL.  
+
+Standard SQL supports more constructs and has more accurate results (is accuracy required for Big Data Analytics?)
+
+Example of Legacy SQL (do not use)
+```sql
     SELECT *
     FROM [bigquery-public-data:san_francisco.bikeshare_trips]
+```
 
-VS 
-
+Same example in Standard SQL (use)
+```sql
     #standardSQL
     SELECT * 
     FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-## The Big Difference
+```
 
-
-    SELECT distinct(bikes_available) 
-    FROM [bigquery-public-data:san_francisco.bikeshare_status]
-
-
-NO
-
-
+Standard SQL supports more constructs such as distinct():
+```sql
     #standardSQL
     SELECT distinct(bikes_available) 
     FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
-YES
+### Let's run some Example Queries
 
-::: notes
-- It's in doing things with distinct that I've noticed the biggest differences from regular (aka "standard" SQL)
-- You get: Error: syntax error at: 1.1 - 1.42. SELECT DISTINCT is currently not supported. Please use GROUP BY instead to get the same effect.
-:::
-
-## For this class
-
+Select all columns, all rows from the bikeshare_status table:
+```sql
 	#standardSQL
 	SELECT * 
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
-
-- More similar to command line bq
-- More like most other SQL implementations
-
-::: notes
-We're doing this one, but you can use either
-:::
-
-
-#
-## Querying Data
-
-## How many events are there?
-
-::: notes
-For the following slides,
-Wait on the question slide for a minute to give everyone a chance to try it.
-
-Then reveal the next slide with query.
-
-- Optional: you can do these in groups and ask people to 
-
-  * report out
-  * share issues, false starts they ran into 
-
-[Obviously more useful on more complicated queries]
-:::
-
-##
-
+How many events are there?
+```sql
 	#standardSQL
 	SELECT count(*)
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
-
-::: notes
-107,501,619
-
-The point: you can use `select *` to actually answer questions.
-:::
-
-## How many stations are there?
-
-##
-
+How many stations are there?
+```sql
 	#standardSQL
 	SELECT count(distinct station_id)
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
-::: notes
-The point: how to count unique
-Answer: something like 75
-:::
-
-
-## How long a time period do these data cover?
-
-##
-
+How long a time period do these data cover?
+```sql
 	#standardSQL
 	SELECT min(time), max(time)
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
+How many bikes does station 90 have (hint: total bikes should be docke_available + bikes_available)?
 
-::: notes
-- 2013-08-29 12:06:01.000 UTC	
-- 2016-08-31 23:58:59.000 UTC	
-:::
-
-## How many bikes does station 90 have?
-
-
-::: notes
-Break into groups here.
-Give them a few minutes, have someone from each group screen share and present their query.
-If they don't tell you, ask why they made the choices they made.
-I decided that a station's total bikes would `= docks_available + bikes_available`.
-:::
-
-
-##
-
+Does this query give us the answer?
+```sql
 	#standardSQL
 	SELECT station_id, 
 	(docks_available + bikes_available) as total_bikes
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
 	WHERE station_id = 90
+```
 
-::: notes
-Stuff to explore:
-
-- each station "has" different unique numbers of bikes [probably b/c e.g., docks are added to stations, etc, etc, etc]
-
-**Next slides will help unpack what they find here**
-:::
-
-## What's up with that?
-
-::: notes
-Getitng into queries to help figure out the issue from last slide
-:::
-
-##
-
+No, it's time dependent.  So, let's try this query:
+```sql
 	#standardSQL
 	SELECT station_id, docks_available, bikes_available, time, 
 	(docks_available + bikes_available) as total_bikes
 	FROM `bigquery-public-data.san_francisco.bikeshare_status`
 	WHERE station_id = 90
     ORDER BY total_bikes
+```
 
-
-::: notes
-The point: 
-
-- query returns 8916 results 
-- but if ordered by `total_bikes`, can click "First" and "Last" to see what the values are
-:::
-
-## Get a table with `total_bikes` in it
-
-::: notes
-"Ok, so we don't want to go clicking through 8900 results to figure out what the unique values for `total_bikes` for a station are."
-
-- On this one, just show it
-:::
 
 ## 
 
