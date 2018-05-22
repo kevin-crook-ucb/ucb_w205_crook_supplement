@@ -91,35 +91,35 @@ the latest time for all times)
 
 ## Queries which answer the previous questions
 
-Select all columns, all rows from the bikeshare_status table:
+1. Select all columns, all rows from the bikeshare_status table:
 ```sql
 #standardSQL
 SELECT * 
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-How many events are there?
+2. How many events are there?
 ```sql
 #standardSQL
 SELECT count(*)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-How many stations are there?
+3. How many stations are there?
 ```sql
 #standardSQL
 SELECT count(distinct station_id)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-How long a time period do these data cover?
+4. How long a time period do these data cover?
 ```sql
 #standardSQL
 SELECT min(time), max(time)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-How many bikes does station 90 have (hint: total bikes should be docks_available + bikes_available)?
+5. How many bikes does station 90 have (hint: total bikes should be docks_available + bikes_available)?
 
 Does this query give us the answer?
 ```sql
