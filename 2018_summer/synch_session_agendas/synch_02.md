@@ -1,18 +1,37 @@
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #2
 
+## As always, remember to update the course-content repo in your docker container in your droplet
+
+In your droplet, startup a container with volume mapping:
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+Using the bash shell running inside the container, change to the course content directory:
+```
+cd ~/course-content
+```
+Update your course-content repo:
+```
+git pull --all
+```
+Exit the docker container:
+```
+exit or control-D
+```
+
 ## Discuss the Query Project
 
 Involves assignments 2, 3, 4, and 5
 
 Warning: each assignment has the same header.  The header applies to all of 2, 3, 4, and 5.  Do only the detailed in the assignment part below the header.
 
-(krc - as far as I've gotten with formatting)
-
 ## SQL Tutorial
 
 <https://www.w3schools.com/sql/default.asp>
 
 ## Signup for Google Cloud account
+
+
 
 ## Link to the google bigquery bike share dataset
 
