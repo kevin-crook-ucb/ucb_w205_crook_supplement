@@ -73,7 +73,7 @@ SELECT distinct(bikes_available)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-### Let's run some Example Queries
+## Let's write and run some example queries against the bikeshare_status table
 
 We will go to breakout and let each breakout group attempt to answer each question below.  Scroll down to see the answers.
 
@@ -87,6 +87,9 @@ We will go to breakout and let each breakout group attempt to answer each questi
 the latest time for all times)
 
 5. How many bikes does station 90 have (hint: total bikes should be docks_available + bikes_available. In this model, each bike has a dock and if the dock is empty, it means the bike is in use.  Does the number of bikes at station 90 change over time?)
+
+
+## Queries which answer the previous questions
 
 Select all columns, all rows from the bikeshare_status table:
 ```sql
