@@ -98,6 +98,10 @@ git branch assignment
 ```
 
 ```
+git status
+```
+
+```
 git checkout assignment
 ```
 
@@ -136,7 +140,15 @@ git commit -m "change to README.md"
 ```
 
 ```
+git status
+```
+
+```
 git push origin assignment
+```
+
+```
+git status
 ```
 
 Using GitHub, verify the main branch is untouched, verify the assignment branch exists, verify no other branches exist, verify committs only to the assignment branch.
