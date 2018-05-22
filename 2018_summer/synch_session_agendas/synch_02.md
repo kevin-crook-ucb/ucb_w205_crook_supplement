@@ -29,13 +29,19 @@ Warning: each assignment has the same header.  The header applies to all of 2, 3
 
 <https://www.w3schools.com/sql/default.asp>
 
-## Signup for Google Cloud account
+## Signup for Google Cloud account 
 
+<https://cloud.google.com>{:target="_blank"}
 
+Everyone should be signed up for the Google Cloud account before class as mentioned in slack.
+
+Some tips:
+* Use the Chrome browser.  Google makes Google Cloud.  Google makes Chrome.  Google tests Google Cloud using Chrome.  Other browsers will hit things that won't work correctly.
+* You may have multiple Google accounts. After going 
 
 ## Link to the google bigquery bike share dataset
 
-<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>
+<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>{:target="_blank"}
 
 
 ## Legacy vs Standard SQL
