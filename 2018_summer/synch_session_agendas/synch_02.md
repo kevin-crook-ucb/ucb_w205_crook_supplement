@@ -55,82 +55,89 @@ Standard SQL supports more constructs and has more accurate results (is accuracy
 
 Example of Legacy SQL (do not use)
 ```sql
-    SELECT *
-    FROM [bigquery-public-data:san_francisco.bikeshare_trips]
+SELECT *
+FROM [bigquery-public-data:san_francisco.bikeshare_trips]
 ```
 
 Same example in Standard SQL (use)
 ```sql
-    #standardSQL
-    SELECT * 
-    FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+#standardSQL
+SELECT * 
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 ```
 
 Standard SQL supports more constructs such as distinct():
 ```sql
-    #standardSQL
-    SELECT distinct(bikes_available) 
-    FROM `bigquery-public-data.san_francisco.bikeshare_status`
+#standardSQL
+SELECT distinct(bikes_available) 
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
 ### Let's run some Example Queries
 
+We will go to breakout and let each breakout group attempt to answer each question below.  Scroll down to see the answers.
+
+1. Select all column, all rows from the bikeshare_status table.
+
+2. How many events are there? (hint: each row in the bikeshare_status table is considered an event)
+
+3. How many stations are there? (hint: there is a station_id column in the bikeshare_status table, but remember each station_id may have more than 1 event.  We only want to count each station once)
+
+4. How long a time period do these data cover? (hint: there is a time column in the bikeshare_status table.  Find the earliest time and 
+the latest time for all times)
+
+5. How many bikes does station 90 have (hint: total bikes should be docks_available + bikes_available. In this model, each bike has a dock and if the dock is empty, it means the bike is in use.  Does the number of bikes at station 90 change over time?)
+
 Select all columns, all rows from the bikeshare_status table:
 ```sql
-	#standardSQL
-	SELECT * 
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+#standardSQL
+SELECT * 
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
 How many events are there?
 ```sql
-	#standardSQL
-	SELECT count(*)
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+#standardSQL
+SELECT count(*)
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
 How many stations are there?
 ```sql
-	#standardSQL
-	SELECT count(distinct station_id)
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+#standardSQL
+SELECT count(distinct station_id)
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
 How long a time period do these data cover?
 ```sql
-	#standardSQL
-	SELECT min(time), max(time)
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
+#standardSQL
+SELECT min(time), max(time)
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
-How many bikes does station 90 have (hint: total bikes should be docke_available + bikes_available)?
+How many bikes does station 90 have (hint: total bikes should be docks_available + bikes_available)?
 
 Does this query give us the answer?
 ```sql
-	#standardSQL
-	SELECT station_id, 
-	(docks_available + bikes_available) as total_bikes
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
-	WHERE station_id = 90
+#standardSQL
+SELECT station_id, 
+(docks_available + bikes_available) as total_bikes
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
+WHERE station_id = 90
 ```
 
 No, it's time dependent.  So, let's try this query:
 ```sql
-	#standardSQL
-	SELECT station_id, docks_available, bikes_available, time, 
-	(docks_available + bikes_available) as total_bikes
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
-	WHERE station_id = 90
-    ORDER BY total_bikes
+#standardSQL
+SELECT station_id, docks_available, bikes_available, time, 
+(docks_available + bikes_available) as total_bikes
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
+WHERE station_id = 90
+ORDER BY total_bikes
 ```
 
 
-## 
-
-	#standardSQL
-	SELECT station_id, docks_available, bikes_available, time, 
-	(docks_available + bikes_available) as total_bikes
-	FROM `bigquery-public-data.san_francisco.bikeshare_status`
 
 ::: notes
 - This is the query to create the `total_bikes` table (which is totally a view, but BQ is weird about views, something about legacy sql vs standard sql)
