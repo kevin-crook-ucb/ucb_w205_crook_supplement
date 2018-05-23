@@ -46,12 +46,14 @@ Some tips:
 Google BigQuery Documentation:
 <https://cloud.google.com/bigquery/>
 
-Google BigQuery public datasets:
+Google BigQuery public datasets documentation:
 <https://cloud.google.com/bigquery/public-data/>
 
-Google BigQuery bay area bikeshare public dataset:
+Google BigQuery bay area bikeshare public dataset documentation:
 <https://cloud.google.com/bigquery/public-data/bay-bike-share>
 
+Google BigQuery GUI based query page for the bay area bikeshare public dataset:
+<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_trips>
 
 ## Legacy vs Standard SQL
 
@@ -61,7 +63,7 @@ Be careful if you are pulling code off the internet, as a lot of it may be speci
 
 Standard SQL supports more constructs and has more accurate results (is accuracy required for Big Data Analytics?)
 
-Example of Legacy SQL (do not use)
+Example of Legacy SQL (do **NOT** use)
 ```sql
 SELECT *
 FROM [bigquery-public-data:san_francisco.bikeshare_trips]
@@ -148,17 +150,14 @@ WHERE station_id = 90
 ORDER BY total_bikes
 ```
 
+## Create our own private dataset, create our own private table named total_bikes in our private dataset, run some queries against our private table
 
 
-::: notes
-- This is the query to create the `total_bikes` table (which is totally a view, but BQ is weird about views, something about legacy sql vs standard sql)
-- Do "Save Table"
-- Window will pop up, need to have added a dataset to your project earlier, then enter dataset name and add a name for the table.
-- I'm calling it `total_bikes`
-:::
 
 ## 
 
+
+```
 	#standardSQL
 	SELECT distinct (station_id), total_bikes
 	 FROM `ambient-cubist-185918.bike_trips_data.total_bikes`
@@ -178,16 +177,6 @@ This shows that you get multiple entries for each `station_id` b/c diff values o
 This lets you explore each station's total number of bikes
 :::
 
-
-
-## Independent Queries
-
-<https://www.w3schools.com/sql/default.asp>
-
-::: notes
-If there's any time, break in groups to do whatever questions they come up with. 
-Rotate between groups to see what folks are coming up with.
-:::
 
 
 # 
