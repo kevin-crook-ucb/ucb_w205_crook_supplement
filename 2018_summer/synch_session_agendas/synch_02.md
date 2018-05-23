@@ -171,7 +171,7 @@ SELECT distinct (station_id), total_bikes
 FROM `xxxx.bike_trips_data.total_bikes`
 ```
 
-```
+```sql
 #standardSQL
 SELECT distinct station_id, total_bikes
 FROM `xxxx.bike_trips_data.total_bikes`
