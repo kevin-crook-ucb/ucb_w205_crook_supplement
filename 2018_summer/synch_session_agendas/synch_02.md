@@ -41,9 +41,17 @@ Some tips:
 * You must currently be on a project with billing enabled, otherwise something will work and others that require billing will not.
 * If you attempt to use the bike share dataset in BigQuery and it won't come up, it's probably one of the above.
 
-## Link to the google bigquery bike share dataset
+## We will be using Google BigQuery with the bay area bikeshare dataset
 
-<https://bigquery.cloud.google.com/table/bigquery-public-data:san_francisco.bikeshare_status>
+Google BigQuery Documentation:
+<https://cloud.google.com/bigquery/>
+
+Google BigQuery public datasets:
+<https://cloud.google.com/bigquery/public-data/>
+
+Google BigQuery bay area bikeshare public dataset:
+<https://cloud.google.com/bigquery/public-data/bay-bike-share>
+
 
 ## Legacy vs Standard SQL
 
