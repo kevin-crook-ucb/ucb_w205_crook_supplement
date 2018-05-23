@@ -55,9 +55,9 @@ Follow up - can you combine this into one query?
 3. How many bikes are there?
 
 ```sql
-    #standardSQL
-    SELECT count(distinct bike_number)
-    FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+#standardSQL
+SELECT count(distinct bike_number)
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 ```
 
 `700`
@@ -122,94 +122,33 @@ Try a head on the json file.  What happend and why?
 
 (answer: json files can be 1 line for the whole file)
 
+## jq - a command line utility to format json 
 
-pretty print the json
+<https://stedolan.github.io/jq/tutorial/>
 
+## Use jq to format our json output
+
+See what each of the following command do and how the syntax works.  Consult the above documentation if necessary.  Also use explain shell.
 
 `cat annot_fpid.json | jq .`
 
-::: notes
-
-- There's a slide for a jq reference at the end here, we're just going to do a little in class
-:::
-
-## Just the terms
-
 `cat annot_fpid.json | jq '.[][]'`
-
-::: notes
-
-- 
-:::
-
-## Remove the ""s
 
 `cat annot_fpid.json | jq '.[][]' -r`
 
-::: notes
-
-- 
-:::
-
-## Can we sort that?
-
 `cat annot_fpid.json | jq '.[][]' -r | sort `
 
-::: notes
+`cat annot_fpid.json | jq '.[][]' -r | sort | uniq `
 
-- Hmmm, there's lots of repeated terms
-:::
+`cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c `
 
-## Unique values only
+`cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -g `
 
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq 
+`cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr `
 
-::: notes
-
-- 
-:::
-
-## How could I find out how many of each of those unique values there are?
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c 
-
-::: notes
-
-- 
-:::
-
-## Now, how could I sort by that?
+`cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10 `
 
 
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -g
-
-Ascending
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -gr
-
-Descending
-
-::: notes
-
-- 
-:::
-
-## So, what are the top ten terms?
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -gr | head -10
-
-
-::: notes
-
-- 
-:::
-
-#
 
 ## bq cli
 
