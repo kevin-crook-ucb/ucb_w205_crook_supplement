@@ -62,100 +62,66 @@ Follow up - can you combine this into one query?
 
 `700`
 
+## Using the explain shell website to help us understand what linux command line commands do
+
+Explain shell uses the official man pages of linux and presents them in a graphical way that makes learning complicated commands much easier.  Through this exercise, try each command in explain shell to help you understand.
+
+<https://explainshell.com/>
+
 ## Using a docker container in your droplet, we will download a dataset in csv (comma separated value) format, a dataset in json format, and manipulate them at the command line
 
+Log into your droplet and start a docker container
 
-Save data into your `w205` directory
 ```
-cd ~/w205
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+The official instructions do this in the home directory, but I think it's a bit cleaner to make a subdirectory for this exercise.
+
+```
+mkdir synch_03
+cd synch_03
+```
+
+Use the curl command line utility to download files from the internet to our current directory (synch_03)
+
+```
 curl -L -o annot_fpid.json https://goo.gl/rcickz
 curl -L -o lp_data.csv https://goo.gl/rks6h3
 ```
 
-::: notes
-make sure they go into `~/w205` on your droplet.
-
-i.e., `cd w205` first
-:::
-
-## What's in this file?
+Use the head command to see the first few lines of the file
 
 `head lp_data.csv`
 
+Use the tail command to see the last few lines of the file
+
 `tail lp_data.csv`
 
-::: notes
-
-- Lots of csvs and tsvs I get sent/access to have e.g., 17M rows
-- I don't want to have to open that or `cat` it or even `| less`
-:::
-
-## What are variables in here?
+Use the tail command to see only the first line of the csv file.  What does the first line of a csv file tell us?
 
 `head -n1 lp_data.csv`
 
-::: notes
-
-
-:::
-
-## How many entries?
+Use a linux command line pipeline to cat (concatenate) the contents of a file to standard output and pipe standard output into standard input of a new process running the wc (word count) utility.  Explain shell works well with this.
 
 `cat lp_data.csv | wc -l`
 
-::: notes
-
-- 100 rows
-:::
-
-## How about sorting?
+Use a similar pipeline to sort and review in explain shell to see why output is sorted strangely
 
 `cat lp_data.csv | sort`
 
-::: notes
-
-- it sorts by usage
-- but it's treating numbers weird
-:::
-
-## Take a look at what options there are for sort
-
-`man sort`
-
-::: notes
-
-- Ask them to generate options
-
-    -g, --general-numeric-sort
-    compare according to general numerical value
-
-     -n, --numeric-sort
-    compare according to string numerical value
-:::
-
-
-## fix so sorting correctly
+Fix sorting using the -g and -n options.  Look these up in explain shell.
 
 `cat lp_data.csv | sort -g`
 
 `cat lp_data.csv | sort -n`
 
-
-# 
-
-## Find out which topics are more popular
-
-## What have we got in this file?
+Try a head on the json file.  What happend and why?
 
 `head annot_fpid.json`
 
-::: notes
+(answer: json files can be 1 line for the whole file)
 
-- It will scroll all over the page, 
-- b/c it's json, it's just one line, so head is everything
-:::
-
-## Hmmm, what now? jq
 
 pretty print the json
 
