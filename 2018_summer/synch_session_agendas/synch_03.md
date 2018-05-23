@@ -1,76 +1,69 @@
 # Under construction - please wait
-#
 
-## Overview
-- Go over Assignment 2 results
-- Dive into command line tools for figuring out what you have in datasets
-- Setting up BigQuery from the command line
-- What's up next?
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #3
 
-# 
+## As always, remember to update the course-content repo in your docker container in your droplet
 
-## Assignment 2
+In your droplet, startup a container with volume mapping:
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+Using the bash shell running inside the container, change to the course content directory:
+```
+cd ~/course-content
+```
+Update your course-content repo:
+```
+git pull --all
+```
+Exit the docker container:
+```
+exit or control-D
+```
 
-## What was your coolest query?
+## Assignment 2 - answer the first 3 queries
 
-- take a minute, be ready to present
+Reminder - in class we have been querying bikeshare_status for our examples.  For the first 3 queries, we will be using the bikeshare_trip table
 
-::: notes
-breakout
-:::
+1. What's the size of this dataset? (i.e., how many trips)
 
-
-## What's the size of this dataset? (i.e., how many trips)
+ ```sql
+#standardSQL
+SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+```
 
 `983648`
- 
 
-    #standardSQL
-    SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+2. What is the earliest start time and latest end time for a trip? (of all time, date and time, not a particular day)
 
-
-## What is the earliest start time and latest end time for a trip?
+```sql
+#standardSQL
+SELECT min(start_date) 
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+```
+```sql
+#standardSQL
+SELECT max(end_date) 
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+```
 
 `2013-08-29 09:08:00` 
 `2016-08-31 23:48:00`
 
+Follow up - can you combine this into one query?
 
-    #standardSQL
-    SELECT min(start_date) 
-    FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+3. How many bikes are there?
 
-    #standardSQL
-    SELECT max(end_date) 
-    FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-
-## How many bikes are there?
-
-`700`
-
+```sql
     #standardSQL
     SELECT count(distinct bike_number)
     FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+```
 
-## Due tomorrow morning
+`700`
 
+## Using a docker container in your droplet, we will download a dataset in csv (comma separated value) format, a dataset in json format, and manipulate them at the command line
 
-#
-## Housekeeping
-
-- Channel etiquette
-
-## Activities: async content
-
-## 
-
-- You got started with lots of stuff this week
-- Working with files: json, csv etc
-
-
-#
-## Finding stuff out about your data
-
-## Download Datasets
 
 Save data into your `w205` directory
 ```
