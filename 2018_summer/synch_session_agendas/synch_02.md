@@ -150,97 +150,35 @@ WHERE station_id = 90
 ORDER BY total_bikes
 ```
 
-## Create our own private dataset, create our own private table named total_bikes in our private dataset, run some queries against our private table
+## Create our own private dataset named bike_trip_data, create our own private table named total_bikes in our private dataset, run some queries against our private table
 
+In the Google BigQuery user interface, on the left side panel, you will see the name of your project.  To the right of the project name, you will see a dropdown arrow.  Click on the dropdown arrow and choose "Create new dataset" and use this to create a new dataset named bike_trip_data.
 
+Execute the following query.  Once the results come back, towards the top right of the results panel, choose "Save as Table".  Create a table named total_bikes in and put it in the dataset you just created.
 
-## 
+```sql
+#standardSQL
+SELECT station_id, docks_available, bikes_available, time, 
+(docks_available + bikes_available) as total_bikes
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
 
+Using the GUI examine the new table you created going through all of the tabs.  Pay close attention to the naming and use it to create a similar queries to the ones below.
+
+```sql
+#standardSQL
+SELECT distinct (station_id), total_bikes
+FROM `xxxx.bike_trips_data.total_bikes`
+```
 
 ```
-	#standardSQL
-	SELECT distinct (station_id), total_bikes
-	 FROM `ambient-cubist-185918.bike_trips_data.total_bikes`
+#standardSQL
+SELECT distinct station_id, total_bikes
+FROM `xxxx.bike_trips_data.total_bikes`
+WHERE station_id = 22
+```
 
-::: notes
-This shows that you get multiple entries for each `station_id` b/c diff values of total bikes
-:::
+## Secure Shell ssh
 
-##
-
-	#standardSQL
-	SELECT distinct station_id, total_bikes
-	FROM `ambient-cubist-185918.bike_trips_data.total_bikes`
-	WHERE station_id = 22
-
-::: notes
-This lets you explore each station's total number of bikes
-:::
-
-
-
-# 
-## SecureShell (SSH)
-
-#
-## remote terminal connections
-
-##
-
-    ssh science@xxx.xxx.xxx.xxx
-
-::: notes
-for your cloud instance, look up:
-- the ip address
-- password for the `science` user
-:::
-
-
-#
-## copying files
-
-##
-
-On your laptop, run
-
-    scp some_file science@xxx.xxx.xxx.xxx:
-
-or 
-
-    scp some_file science@xxx.xxx.xxx.xxx:/tmp/
-
-
-::: notes
-copying files from your laptop to the instance
-
-note the colon!
-:::
-
-##
-
-On your laptop, run
-
-    scp science@xxx.xxx.xxx.xxx:~/w205/a_file.py .
-
-
-::: notes
-copying files from the instance to your laptop
-
-note the period!
-:::
-
-
-# 
-## Summary
-
-- Business questions
-- Answered using empirical data
-- By running queries against (raw?) events
-- Need a pipeline in place to capture these raw events
-- SSH
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
-
+Time permitting we will go over how to setup your droplet to use a private key and not require a login password.  Since we are running behind, we will delay this to the future.
 
