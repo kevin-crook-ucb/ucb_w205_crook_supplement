@@ -148,31 +148,35 @@ See what each of the following command do and how the syntax works.  Consult the
 
 `cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10 `
 
+## bq cli - Google BigQuery Command Line Utility 
 
+From a docker container running in our droplet, we will use the bq utility to connect externally to the Google Cloud and run BigQuery queries and pull the data down to our container.  
 
-## bq cli
+Start in our home directory in our container
 
-## setup
+```
+cd
+```
 
-(from your mids droplet)
+Before we run bq, we have to set it up to communicate with Google Cloud.  We will use the utility gcloud to do this.  Follow the instructions given very carefully or it won't work.  You will need to use your browser to call a URL and receive a token back as part of the security procedures. We should only have to do this once this semester as long as we mounted correctly.
 
-- auth the GCP client
-  ```
-  gcloud init
-  ```
-  and copy/paste the link
+```
+gcloud init
+```
 
-- associate `bq` with a project
-  ```
-  bq
-  ```
-  and select project if asked
+Check and see the new configuration hidden directory structure:
+```
+ls -la
+ls -la .config
+```
 
-::: notes
-`gcloud init` will print an oauth link that needs to be copied over to a browser
-:::
+The first time we run bq we will have to select a region and set a project.  Be sure and pick the right project that you have been quering from in the GUI.
 
-##
+```
+bq
+```
+
+Now that everything is setup, we can run some queries using bq to pull data from Google BigQuery.
 
 ```
 bq query --use_legacy_sql=false '
@@ -180,19 +184,15 @@ SELECT count(*)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
 
-::: notes
-107,501,619
-
-The point: you can use `select *` to actually answer questions.
+Same command on 1 line to make copy and paste easier
 
 ```
 bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
 
-## How many stations are there?
+`107,501,619`
 
-##
+How many stations?
 
 ```
 bq query --use_legacy_sql=false '
@@ -200,19 +200,13 @@ SELECT count(distinct station_id)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
 
-::: notes
-The point: how to count unique
-Answer: something like 75
+Same command on 1 line to make copy and paste easier
 
 ```
 bq query --use_legacy_sql=false 'SELECT count(distinct station_id) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
 
-
-## How long a time period do these data cover?
-
-##
+How long a time period do these data cover?
 
 ```
 bq query --use_legacy_sql=false '
@@ -220,99 +214,40 @@ SELECT min(time), max(time)
 FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
 
-
-::: notes
-- 2013-08-29 12:06:01.000 UTC   
-- 2016-08-31 23:58:59.000 UTC   
+Same command on 1 line to make copy and paste easier
 
 ```
 bq query --use_legacy_sql=false 'SELECT min(time), max(time) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
 
+`2013-08-29 12:06:01.000 UTC`
+`2016-08-31 23:58:59.000 UTC`   
 
-#
-## Generate Ideas
-
-- What do you know?
-- What will you need to find out?
-
-::: notes
-
-- breakout
-- Generate Ideas = get them going on generating questions for project 
-- If they don't come up with anything, ask:
-  1. What do you know?
-    * i.e., what variables do you have? what do they mean? 
-  2. What will you need to find out?
-    * i.e., how to use those variables in some combo to figure out:
-    * What's a trip?
-    * What's a commuter trip?
-    * etc
-:::
-
-#
-## Summary
-- Command line tools and jq to dive into your data
-- BigQuery from the command line
-
-
-#
-## Extras
-
-::: notes
-- All of this is stuff you can use or not.
-:::
-
-## Resources
 
 ## sed and awk
+
+sed (stream editor) and awk (pattern scanning and processing language are two utilities in linux command also used to format data
 
 <http://www.catonmat.net/blog/awk-one-liners-explained-part-one/>
 <http://www.catonmat.net/blog/sed-one-liners-explained-part-one/>
 
-## jq
+Change back into our synch_01 directory
 
-<https://stedolan.github.io/jq/tutorial/>
+```
+cd synch_01
+```
 
-## Advanced options 
-
-## Sort by 'product_name'
+Example of a linux pipeline using awk. Check it out in explain shell to see what it does.
 
 ```
 cat lp_data.csv | awk -F',' '{ print $2,$1 }' | sort
 ```
 
-::: notes
-```
-cat lp_data.csv | awk -F',' '{ print $2,$1 }' | sort
-```
-
-- Put in extras for add ons or activities if folks finish early
-
-- This switches the columns and sorts on LP title
-- but you find out that some LPs have ""s around the titles
-:::
-
-
-## Fix the ""s issue
+Example of a linux pipeline using sed.  Check it out in explain shell to see what it does. 
 
 ```
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
-::: notes
-```
-cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
-```
+Question: how is sed related to vi?  which mode?
 
-- the sed part here takes out the "" 
-- and then we sort based on title
-:::
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
