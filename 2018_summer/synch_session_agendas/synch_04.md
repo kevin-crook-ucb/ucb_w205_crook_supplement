@@ -24,7 +24,7 @@ We will go into breakout so everyone can discuss the Query Project.  Go over suc
 * What is a trip?
 * What is a commuter trip?
 * For each of the following pricing options, how would you design a query to detect the customer base?
-** item
+  * item
 * What are the most common trips?
 * How does this differ based on trip type (commuter versus all)?
 * What is a commun
