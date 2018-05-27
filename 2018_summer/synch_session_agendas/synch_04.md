@@ -116,114 +116,86 @@ Same command on 1 line to make copy and paste easier:
 docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
 
-#
-## Docker compose
+## Running a docker cluster using docker compose
 
-- What is docker compose?
+Docker compose is a utility that allows us to create and run docker clusters.  
 
-## Update your course content repo in w205
+We specify a docker cluster using a .yml file.
+
+Create a kafka directory:
 
 ```
-cd ~/w205/course-content
-git pull --all
+mkdir kafka
 ```
 
-## Docker compose .yml file
+Change to the kafka directory:
 
-- `cd w205`
-- `mkdir kafka`
-- save `docker-compose.yml` from recently pulled `~/w205/course-content` to
-  recently created `~/w205/kafka` directory
+```
+cd kafka
+```
 
+Use vi to create a file docker-compose.yml with the contents presented below:
 
-::: notes
+```
+vi docker-compose.yml
+```
 
-Save the following snippet as `~/w205/kafka/docker-compose.yml` on your host
-filesystem
+```yml
+---
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    network_mode: host
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    extra_hosts:
+      - "moby:127.0.0.1"
 
-    ---
-    version: '2'
-    services:
-      zookeeper:
-        image: confluentinc/cp-zookeeper:latest
-        network_mode: host
-        environment:
-          ZOOKEEPER_CLIENT_PORT: 32181
-          ZOOKEEPER_TICK_TIME: 2000
-        extra_hosts:
-          - "moby:127.0.0.1"
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    extra_hosts:
+      - "moby:127.0.0.1"
+```
 
-      kafka:
-        image: confluentinc/cp-kafka:latest
-        network_mode: host
-        depends_on:
-          - zookeeper
-        environment:
-          KAFKA_BROKER_ID: 1
-          KAFKA_ZOOKEEPER_CONNECT: localhost:32181
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
-          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        extra_hosts:
-          - "moby:127.0.0.1"
+Bring up the docker cluster.  The -d option tells us to detach the cluster from the current terminal - essentiall it will run "headless". Anytime we use the docker-compose command, current directory is important, as docker-compose will look for a docker-compose.yml file and use that information.  If we are in a directory without a docker-compose.yml file, docker-compose will throw an error.  If we are in a directory with the wrong docker-compose.yml, we may corrupt things and need to do a manual cleanup at the docker level.
 
-:::
+```
+docker-compose up -d
+```
 
+Check and see if our cluster is running:
 
+```
+docker-compose ps
+```
 
+Check in docker to see the individual containters and verity that they are properly part of a docker cluster:
 
-## Docker compose spin things up
+```
+docker ps -a
+```
 
-- `cd ~/w205/kafka`
-- `docker-compose up -d`
-- `docker-compose ps`
+Tear down the cluster:
+```
+docker-compose down
+```
 
-::: notes
-- This is the start of spinning up things that will lead to projects 2&3
-- Have them go through on command line, talk about what is happening.
-:::
+Verify that the cluster is properly down:
 
-## Clean up
+```
+docker-compose ps
+```
 
-`docker-compose down`
-
-- Can check with:
-- `docker-compose ps`
-
-
-#
-## Summary
-- git branching
-- where are we with Docker?
-- Idiomatic Docker
-- docker-compose
-
-##
-
-![](images/pipeline-overall.svg)
-
-::: notes
-docker-compose is for this
-:::
-
-
-#
-
-## 
-
-
-::: notes
-md works here
-:::
-
-# 
-
-## Extras
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
-
-
+```
+docker ps -a
+```
