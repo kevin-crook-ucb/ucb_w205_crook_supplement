@@ -16,180 +16,31 @@ docker pull confluentinc/cp-kafka:latest
 
 See instructions in previous synchronous sessions.
 
+# Review the Query Project
+
+We will spend a few minutes reviewing the Query Project now that everyone has been actively working on it and is more familiar with the dataset.
+
 ## Breakout - group discussions about the Query Project
 
-We will go into breakout so everyone can discuss the Query Project.  Go over such things as:
+We will go into breakout so everyone can discuss the Query Project. The following is a list of suggested topics to discuss, but this is open ended, you group can discuss anything they feel will help with the project.  Time permitting, we will repeat this in following weeks. 
 
 * Discuss the 3 tables in the dataset, the data in each, and what type of queries we could find out from each table
 * What is a trip?
 * What is a commuter trip?
 * For each of the following pricing options, how would you design a query to detect the customer base?
-  * item
-* What are the most common trips?
-* How does this differ based on trip type (commuter versus all)?
-* What is a commun
-
-
-
----
-title: Fundamentals of Data Engineering
-author: Week 04 - sync session
-...
-
----
-
-
-#
-## While we're getting started
-
-- Review your Project Questions 
-- Get ready to share
-
-::: notes
-Breakout at about 5 after the hour:
-- Check in with each group on their solution to the assignment
-- Answer questions as people have them on what they had trouble with
-- Usually takes 10-20 minutes
-:::
-
-#
-## Overview
-- Go over Assignment 3 results
-- PRs from the command line
-- Docker compose, beginning
-
-
-# 
-
-## Assignment 3: Our Project Questions
-- What is a trip?
-- What are the most common trips?
-- How does this differ based on trip type (commuter vs all)?
-- What is a commuter trip?
-
-::: notes
-- What is a commuter trip?
-  * A trip during rush hour
-  * Write a query to determine if a trip happens from 7-9 am or 4-7 pm. (or how many trips do...)
-:::
-
-
-## Due Friday (PR)
-
-
-
-
-## Housekeeping
-
-- Class flow
-
-:::notes
-- The following few slides review the flow of when things are due and what readings/videos go with which week.
-:::
-
-## Between Class 3 & Class 4
-
-> - async material in Week 3 syllabus
-> - Readings in Week 3 syllabus
-> - Assignment 03
-> - Final Assignment 02 was due last Friday
-
-
-## Class 4 (i.e., today)
-
-> - Groupwork & present Assignment 03
-> - Activities Week 3 async topic
-> - Review Query Project (spans Assignments 2-5)
-> - Activities for Assignment 04 (refining and answering your project questions)
-
-## Between Class 4 & Class 5
-
-> - async material in Week 4 syllabus (RDBs & NoSQL)
-> - Readings in Week 4 syllabus
-> - Assignment 04
-> - Final Assignment 03 due on Friday
-
-
-## Where are we in the Query Project?
-
-- Assignment 4: Answer your Project Questions
-- Assignment 5: Use Jupyter Notebook to do some visualizations and write up your reasoning for the recommendations you choose to make.
-
-::: notes
-use bigquery or bq cli for assignment 4
-:::
-
-
-# 
-
-## Creating a GitHub Pull-Request(PR)
-- From the command-line
-
-## Clone a repo from GitHub
-
-```
-git clone \
-  https://github.com/mids-w205-martin-mims/assignment-02-htmartin
-```
-
-    cd assignment-02-htmartin
-
-## Create a branch to work from
-
-    git branch my-cool-feature
-
-## Switch to that branch
-
-    git checkout my-cool-feature
-
-## Make changes to code
-
-    vi README.md
-
-::: notes
-- M: no vi in container? droplets?
-:::
-
-## Commit those changes
-
-    git commit -m'updated README' README.md
-
-## Push those up to GitHub
-
-    git push origin my-cool-feature
-
-
-## Note  
-- If this is the first time you've pushed to the remote `my-cool-feature` branch, then this command will automatically _create_ that branch in your github repo and then push your changes to it.
-
-## Pull Request from the GitHub Web-UI
-
-- Select "New Pull-Request"
-
-- Select branches so that you are "Requesting to merge changes from `my-cool-feature` branch _into_ `master`."
-
-- Select your instructor(s) to review.
-
-- Submit
-
-
-
-
-
-
-#
-## Docker: Where am I?
-
-- We've worked with Docker
-- We've explore cli ways to find out what's up with data
-- How do we find our way around with Docker?
-
-::: notes
-docker run -it --rm -v ~/w205:/w205 midsw205/base bash
-
-:::
-
-## Run the regular container
+  * a flat price for a single one-way trip
+  * a day pass that allows unlimited 30-minute rides for 24 hours
+  * an annual membership
+* What kinds of analytical questions could we ask to help us analyze the customer base, if they are worth targeting, and how to target them?
+* Does the fixed station model with docks help us with analytics?  Does it hurt us with the customer base?
+
+# Revisit docker concepts in single container mode
+
+We will revisit docker concepts in a single container mode.  This will prepare us to understand docker in a cluster mode.
+
+Run our regular docker container that we have been using to clone and update our course-content repo and been using to work on our assignments.  
+* -it
+** i and t are separate 
 
 ```
 docker run -it --rm -v ~/w205:/w205 midsw205/base bash
