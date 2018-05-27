@@ -8,9 +8,11 @@ We are going to start running clusters of docker containers in your droplet. Som
 
 Run these command in your droplet (but **NOT** in a docker container):
 
+```
 docker pull midsw205/base
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
+```
 
 ## Update the course-content repo in your docker container in your droplet
 
@@ -39,75 +41,80 @@ We will go into breakout so everyone can discuss the Query Project. The followin
 We will revisit docker concepts in a single container mode.  This will prepare us to understand docker in a cluster mode.
 
 Run our regular docker container that we have been using to clone and update our course-content repo and been using to work on our assignments.  
+
+* docker in our executable
+* run tell docker to run a container as an instance of an image
 * -it
-** i and t are separate 
+  * i and t are separate arguments 
+  * -i means interactive mode (standard input / output should be piped appropriately)
+  * -t means create a pseudo terminal (allows us to use curses to format the display)
+* --rm tells docker to remove the containter after it stops.  Without this option a container will remain after it stops and need to be restarted or cleaned up (advanced topic for later).
+* -v specified a volume mount.  We mount the directory /home/science/w205 in our droplet to the the directory /w205 in our docker container.  Data saved to /w205 in our docker container will outlive the container.
+* midsw205/base:latest
+  * midsw205 is the docker hub repo
+  * base is the image
+  * latest is the version
+* bash is the command we will be running in the container, which of course is the bash shell
 
 ```
-docker run -it --rm -v ~/w205:/w205 midsw205/base bash
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 ```
 
-## What containers are running right now?
+**Some docker commands**
 
-- New terminal window
+Open another terminal window and try the following commands.  From this point on, using multiple terminal windows will prove very helpful.
 
-- `docker ps`
+What containers are running right now?
 
-## What containers exist?
+```
+docker ps
+```
 
-- `docker ps -a`
+What containers exist, running or not?
+```
+docker ps -a
+```
 
-## Container name
+What images do I have?
+```
+docker images
+```
 
-- `fervent_austin` is my running `midsw205/base:latest` container
+Remove containter
+```
+docker rm -f <container>
+```
 
-## What images do I have?
+## Microservices using Docker
 
-- Images vs. containers
+Discuss services and web services.  Discuss how bugs in services can propogate between web API calls.  Discuss how microservices can limit propogation of bugs, but has the disadvantage of higher overhead.
 
-- `docker images`
+Run the following snipped of code which starts a container with a bash shell, manually runs the pwd command, and exits the container.
 
-## Image name 
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+pwd
+exit
+```
 
-- Need both repository & tag
-
-- e.g., `midsw205/base:latest`
-
-
-
-
-## Clean up containers
-
-`docker rm -f <name-of-container>`
-
-::: notes
-:::
-
-#
-## Idiomatic docker
-
-- start a `midsw205/base:latest` container
-- run `pwd`
-- exit container
-
--vs-
+Run the same code as a microservice:
 
 ```
 docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
 ```
  
+We could also run a bq query to Google BigQuery as a microservice:
 
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest \
+bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+```
 
+Same command on 1 line to make copy and paste easier:
 
-::: notes
-I hope some of this simplifies when we start using the containers to _just_ run a command... i.e.,
-`docker run [<opts>] <image> [<command>]`
-... e.g., 
-ME: check this query for backticks from bq cli sql
-`docker run -it --rm midsw205/base bq query --use_legacy_sql=false 'select count(*) from mytable'`
-in one go (edited)
-
-then they're only "in" one place
-:::
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+```
 
 #
 ## Docker compose
