@@ -1,0 +1,501 @@
+   20  subl solutions/05-solution.md 
+   21  subl 00-Assignments/05-assignment.md 
+   22  git status
+   23  git add ../README.md solutions/ 00-Assignments/05-assignment.md 00-Assignments/.ipynb_checkpoints/ ../done.md
+   24  git status
+   25  git commit -m 'course stuff'
+   26  git pull
+   27  git push
+   28  cd taylor-oreilly/
+   29  git status
+   30  git pull --all
+   31  cd ../scripts/
+   32  git status
+   33  git pull
+   34  subl monitoring.md 
+   35  subl managing-jobs.md 
+   36  sleep 900&
+   37  ps | grep sleep
+   38  kill 3080
+   39  ps
+   40  sleep 900&
+   41  sleep 900&
+   42  ps -l
+   43  ps -f
+   44  ps
+   45  top
+   46  docker ps
+   47  docker images
+   48  cd
+   49  clear
+   50  cd scripts/
+   51  git status
+   52  git add managing-jobs.md monitoring.md
+   53  git commit -m 'manage and monitor'
+   54  git push
+   55  cd
+   56  clear
+   57  cd taylor-oreilly/
+   58  subl README.md 
+   59  subl assessment-management/README.md 
+   60  docker run --network mmm-test-net-1 --name myspark -it --rm -v ~/w205:/w205 midsw205/spark-python
+   61  docker ps -a
+   62  cd w205/
+   63  ls
+   64  mkdir spark
+   65  cd spark/
+   66  ls
+   67  docker network list
+   68  docker network create mmm-test-net-1
+   69  docker run --network mmm-test-net-1 --name myhdfs -d midsw205/cdh-minimal 
+   70  docker logs -f myhdfs
+   71  cd ..
+   72  ls
+   73  docker exec -it myhdfs bash
+   74  cd
+   75  docker ps -a
+   76  docker rm -f myhdfs
+   77  docker ps -a
+   78  docker ps -a
+   79  docker images
+   80  docker pull midsw205/spark-minimal
+   81  docker pull midsw205/spark-python
+   82  docker pull midsw205/cdh-minimal
+   83  docker images
+   84  tmux ls
+   85  tmux new
+   86  uuidgen 
+   87  cd taylor-oreilly/
+   88  git status
+   89  git add README.md assessment-management/README.md assessment-management/invoices/arussell-invoice-1009.pdf
+   90  git commit -m 'assessment'
+   91  git push
+   92  cd recommender/usage-project/
+   93  ls
+   94  subl README.md 
+   95  ls ../../tmp/
+   96  cd solutions/
+   97  git status
+   98  git add 05-solution.ipynb 05-solution.md
+   99  git commit -m 'solution for assign 5'
+  100  git push
+  101  docker pull midsw205/base:latest
+  102  cd w205/course-content/
+  103  git status
+  104  git pull --all
+  105  ssh elias
+  106  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  107  docker ps
+  108  docker-compose ps
+  109  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  110  cd mids-w205-fund-of-data-eng/course-content/
+  111  git status
+  112  git pull --all
+  113  cd 05-Storing-Data-II/
+  114  ls
+  115  subl sync-slides.md 
+  116  subl ../04-Storing-Data/sync-slides.md 
+  117  subl ../06-Transforming-Data/sync-slides.md 
+  118  make
+  119  open sync-slides.html 
+  120  cd taylor-oreilly/data-engineering-course/
+  121  ls
+  122  git status
+  123  subl README.md 
+  124  ls next-time/
+  125  subl next-time/notes.md 
+  126  subl done.md 
+  127  cd solutions/
+  128  ls
+  129  cp 05-solution.ipynb 05-solution.md ~/solutions/
+  130  ls
+  131  cd ..
+  132  cd 00-Assignments/
+  133  ls
+  134  subl 06-assignment.md 
+  135  cd ..
+  136  ls sync-sessions/
+  137  cd sync-sessions/
+  138  subl docker-compose.md 
+  139  subl ../done.md 
+  140  cd mids-w205-martin-mims/course-content/
+  141  git pull --all
+  142  cd 05-Storing-Data-II/
+  143  open sync-slides.html 
+  144  cd mids-w205-martin-mims/course-content/05-Storing-Data-II/
+  145  open sync-slides.html 
+  146  ls
+  147  vi docker-compose.yml 
+  148  cp ../course-content/05-Storing-Data-II/example-1-docker-compose.yml docker-compose.yml 
+  149  vi docker-compose.yml 
+  150  docker ps -a
+  151  docker pull midsw205/base:latest
+  152  cd w205
+  153  ls
+  154  cd re
+  155  ls
+  156  cd redis/
+  157  ls
+  158  tmux new
+  159  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  160  docker ps
+  161  docker-compose down
+  162  cd w205/redis/
+  163  docker-compose down
+  164  docker ps
+  165  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  166  cd 
+  167  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  168  docker ps -a
+  169  cd w205/re
+  170  cd w205/redis/
+  171  ls
+  172  tmux new
+  173  docker ps
+  174  cd w205/course-content/
+  175  git status
+  176  cd 
+  177  cd mids-w205-martin-mims/
+  178  cd course-content/
+  179  git pull --all
+  180  cd ../../mids-w205-fund-of-data-eng/course-content/
+  181  git status
+  182  git add 06-Transforming-Data/sync-slides.md
+  183  make
+  184  cd 06-Transforming-Data/
+  185  make
+  186  open sync-slides.html 
+  187  git add -f sync-slides.html
+  188  git status
+  189  git commit -m 'week 6 slides'
+  190  git pull
+  191  git push
+  192  cd taylor-oreilly/
+  193  git status
+  194  git add README.md done.md
+  195  git commit -m 'org'
+  196  git status
+  197  git push
+  198  cd taylor-oreilly/
+  199  git status
+  200  git add README.md recommender/usage-project/README.md data-engineering-course/
+  201  git commit -m 'org'
+  202  git pull 
+  203  git push
+  204  cd ../scripts/
+  205  git status
+  206  git pull --all
+  207  ../python-stuff/
+  208  cd ../python-stuff/
+  209  git status
+  210  git pull --all
+  211  cd ../mids-w205-fund-of-data-eng/course-content/
+  212  git status
+  213  git pull --all
+  214  cd ../../mids-w205-martin-mims/course-content/
+  215  git status
+  216  git pull --all
+  217  cd
+  218  cd taylor-oreilly/
+  219  subl done.md 
+  220  git status
+  221  git pull --all
+  222  cd ../python-stuff/
+  223  git status
+  224  git pull --all
+  225  cd ../scripts/
+  226  git status
+  227  git pull --all
+  228  ssh elias
+  229  ls
+  230  scp -r tm/ taylor@elias:~/
+  231  ssh rada
+  232  cd taylor-oreilly/
+  233  subl README.md 
+  234  cd recommender/usage-project/
+  235  ls
+  236  subl README.md 
+  237  subl Questions-answers.md 
+  238  subl done.md 
+  239  docker run -it --rm -p 8888:8888 -v`pwd`:/tmartin midsw205/base:latest
+  240  docker ps
+  241  cd taylor-oreilly/tmp/
+  242  ls
+  243  history | grep curl
+  244  cd scripts/jq
+  245  history | grep curl
+  246  cd ~/taylor-oreilly/recommender/bq-keen/
+  247  history | grep curl
+  248  cd taylor-oreilly/recommender/bq-keen/
+  249  ls
+  250  subl pprint-json-sequences-example.json 
+  251  cd ~/scripts/jq
+  252  ls
+  253  subl messy-bq-seq.json 
+  254  subl jq_queries.txt 
+  255  ls
+  256  subl github-example.json 
+  257  cat github-example-large.json | wc -l
+  258  subl github-example-large.json 
+  259  ls
+  260  scp github-example-large.json taylor@elias:/opt/mids/projects_2_3/
+  261  ssh elias
+  262  cd mids-w205-fund-of-data-eng/course-content/
+  263  git status
+  264  git pull --all
+  265  cd 06-Transforming-Data/
+  266  subl sync-slides.md 
+  267  ssh elias
+  268  docker run -it --rm -p 8888:8888 -v`pwd`:/tmartin midsw205/base:latest
+  269  cd scripts/
+  270  subl monitoring.md 
+  271  subl managing-jobs.md 
+  272  git status
+  273  git add jq/ monitoring.md
+  274  git status
+  275  git commit -m 'jq, top'
+  276  git push
+  277  ls
+  278  rm Learning\ the\ shell\ -\ Lesson\ 5_\ Manipulating\ Files.pdf 
+  279  git rm Learning\ the\ shell\ -\ Lesson\ 5_\ Manipulating\ Files.pdf
+  280  git commit -m 'clean up'
+  281  git push
+  282  cd ../python-stuff/
+  283  ls
+  284  git status
+  285  git add basic_pandas_stuff/
+  286  git commit -m 'pivot dfs'
+  287  git push
+  288  git pull
+  289  ls
+  290  cd tensorflow/
+  291  ls
+  292  git status
+  293  ssh jurafsky
+  294  cd tm/
+  295  cd planning/
+  296  ls
+  297  subl README.md 
+  298  subl done.md 
+  299  cd
+  300  clear
+  301  cd w205/
+  302  ls
+  303  mkdir spark-with-hdfs
+  304  subl docker-compose.yml
+  305  curl -L -o trips.csv https://goo.gl/huLPbo
+  306  cd spark-with-hdfs/
+  307  curl -L -o trips.csv https://goo.gl/huLPbo
+  308  docker-compose up -d
+  309  docker-compose logs -f myhdfs
+  310  docker-compose exec myhdfs hadoop fs -ls /tmp/
+  311  docker-compose exec myspark pyspark
+  312  docker-compose down
+  313  ls
+  314  cd ..
+  315  ls
+  316  mkdir kafka-with-json
+  317  subl docker-compose.yml
+  318  cd kafka-with-json/
+  319  subl docker-compose.yml
+  320  curl -L -o github-example-large.json https://goo.gl/Hr6erG
+  321  docker-compose up -d
+  322  docker-compose logs -f kafka
+  323  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  324  docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  325  docker-compose exec mids bash -c "cat /w205/github-example-large.json"
+  326  curl -L -o github-example-large.json https://goo.gl/Hr6erG
+  327  docker-compose exec mids bash -c "cat /w205/kafka-with-json/github-example-large.json"
+  328  docker-compose exec mids bash -c "cat /w205/kafka-with-json/github-example-large.json | jq '.'"
+  329  docker-compose exec mids bash -c "cat /w205/kafka-with-json/github-example-large.json | jq '.[]' -c"
+  330  docker-compose exec mids bash -c "apt-get -qq update && apt-get -yqq install kafkacat"
+  331  docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  332  docker-compose exec mids bash -c "cat /w205/kafka-with-json/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  333  cd ..
+  334  curl -L -o github-example-large.json https://goo.gl/Hr6erG
+  335  cd kafka-with-json/
+  336  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
+  337  docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29092 --topic foo --from-beginning --max-messages 42
+  338  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
+  339  docker-compose down
+  340  cd ..
+  341  cd taylor-oreilly/
+  342  subl README.md 
+  343  subl done.md 
+  344  git status
+  345  git add README.md done.md data-engineering-course/ recommender/
+  346  git commit -m '2/7'
+  347  git status
+  348  git pull
+  349  git push
+  350  cd ~/Downloads/
+  351  ls *.mp4
+  352  rm cloud-intro-to-virt-video-hd1080-h264-30fps.mp4 
+  353  open cloud-intro-to-virt-video-hd1080-h264-30fps\ \(1\).mp4 
+  354  cd ../taylor-oreilly/
+  355  ls
+  356  subl nsf/README.md piddly/README.md 
+  357  subl recommender/usage-project/README.md 
+  358  subl learning-projects-readme.md 
+  359  subl done.md 
+  360  subl piddly/done.md 
+  361  subl assessment-management/README.md 
+  362  subl transcription/README.md 
+  363  subl transcription/done.md
+  364  subl transcription/README.md 
+  365  subl data-engineering-course/README.md 
+  366  git status
+  367  git add README.md assessment-management/README.md data-engineering-course/README.md learning-projects-readme.md piddly/README.md piddly/done.md recommender/usage-project/README.md transcription/README.md transcription/done.md
+  368  git status
+  369  git add nsf/README.md
+  370  git commit -m 'projects'
+  371  git status
+  372  git push
+  373  cd data-engineering-course/solutions/
+  374  ls
+  375  git status
+  376  git add ../../README.md ../README.md 06-solution.md
+  377  git commit -m 'class'
+  378  git status
+  379  git push
+  380  cd mids-w205-fund-of-data-eng/course-content/04-Storing-Data/
+  381  open sync-slides.html 
+  382  git branch hints
+  383  git checkout hints
+  384  git checkout master
+  385  git status
+  386  cd
+  387  rm -rf mids-w205-fund-of-data-eng/course-content/
+  388  ls
+  389  cd mids-w205-fund-of-data-eng/
+  390  ls
+  391  git clone git@github.com:mids-w205-fund-of-data-eng/course-content.git
+  392  ls
+  393  cd course-content/
+  394  ls
+  395  cd 06-Transforming-Data/
+  396  subl sync-slides.md 
+  397  git status
+  398  git add sync-slides.md
+  399  git commit -m 'slides week 6'
+  400  git status
+  401  git pull
+  402  git push
+  403  cd
+  404  cd mids-w205-martin-mims/course-content/
+  405  git status
+  406  git pull
+  407  ls
+  408  mkdir template-activity-06
+  409  subl README.md 
+  410  git clone git@github.com:mids-w205-fund-of-data-eng/examples.git
+  411  cd examples/kafka-with-json/
+  412  ls
+  413  subl README.md 
+  414  cp README.md ~/taylor-oreilly/data-engineering-course/solutions/06-solution.md
+  415  ssh elias
+  416  cd mids-w205-martin-mims/course-content/
+  417  cd 05-Storing-Data-II/
+  418  ls
+  419  make
+  420  open sync-slides.html 
+  421  cd w205/redis/
+  422  ls
+  423  cd w205/redis/
+  424  docker-compose ps
+  425  docker ps
+  426  ls
+  427  cd w205/
+  428  ls
+  429  cd redis/
+  430  ls
+  431  docker-compose up -d
+  432  docker-compose ps
+  433  docker-compose logs redis
+  434  docker-compose exec mids bash
+  435  docker-compose down
+  436  docker-compose ps
+  437  subl docker-compose.yml 
+  438  docker-compose up -d
+  439  docker-compose exec mids jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
+  440  docker-compose down
+  441  docker-compose up -d
+  442  docker-compose logs mids
+  443  docker-compose down
+  444  docker-compose ps
+  445  clear
+  446  docker pull midsw205/base
+  447  clear
+  448  cd ..
+  449  cd course-content/
+  450  ls
+  451  cd 05-Storing-Data-II/
+  452  ls
+  453  cd ../../
+  454  cd redis/
+  455  ls
+  456  docker-compose up -d
+  457  docker-compose ps
+  458  docker-compose logs redis
+  459  docker-compose exec mids bash
+  460  docker-compose ps
+  461  docker-compose down
+  462  docker-compose ps
+  463  docker ps
+  464  docker-compose up -d
+  465  docker-compose ps
+  466  docker-compose exec mids jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
+  467  docker-compose down
+  468  docker-compose ps
+  469  docker-compose up -d
+  470  docker-compose ps
+  471  docker-compose logs mids
+  472  docker-compose down
+  473  clear
+  474  cd ..
+  475  docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+  476  cd redis/
+  477  vi docker-compose.yml 
+  478  docker-compose ps
+  479  docker-compose up -d
+  480  docker-compose logs mids
+  481  docker-compose down
+  482  cd taylor-oreilly/
+  483  git status
+  484  git add data-engineering-course/
+  485  git commit -m 'course to dos'
+  486  git pull
+  487  git push
+  488  cd taylor-oreilly/
+  489  git status
+  490  git add data-engineering-course/
+  491  git commit -m 'course to dos'
+  492  git push
+  493  docker ps -a
+  494  cd w205/
+  495  ls
+  496  cd spark-with-hdfs/
+  497  ls
+  498  cd ..
+  499  cd
+  500  ls
+  501  cd w205/kafka-with-json/
+  502  ls
+  503  vi docker-compose.yml 
+  504  cd ..
+  505      curl -L -o github-example-large.json https://goo.gl/Hr6erG
+  506  cd kafka-with-json/
+  507  docker-compose up -d
+  508  docker-compose logs -f kafka
+  509  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  510      docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  511  docker-compose exec mids bash -c "cat /w205/github-example-large.json"
+  512      docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
+  513      docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
+  514      docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  515  docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29092 --topic foo --from-beginning --max-messages 42
+  516      docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
+  517      docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
+  518  docker-compose down
+  519  history > htmartin-history.txt
+  
