@@ -1,5 +1,3 @@
-# Under Construction
-
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #4
 
 ## Start updated docker images in your droplet (not in docker container)
