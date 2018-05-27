@@ -6,13 +6,28 @@
 
 We are going to start running clusters of docker containers in your droplet. Some of the images we will be running are very large and require several minutes to bring down.  To help save class time, please update these images prior to class start.  Also, we many find issues with the images and need to push new images with fixes.  So, updating images before class and before you do any meaningful work on assignments is always a good idea.
 
+Run these command in your droplet (but **NOT** in a docker container):
+
 docker pull midsw205/base
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
 
-
-## update the course-content repo in your docker container in your droplet
+## Update the course-content repo in your docker container in your droplet
 
 See instructions in previous synchronous sessions.
 
+## Breakout - group discussions about the Query Project
+
+We will go into breakout so everyone can discuss the Query Project.  Go over such things as:
+
+* Discuss the 3 tables in the dataset, the data in each, and what type of queries we could find out from each table
+* What is a trip?
+* What is a commuter trip?
+* For each of the following pricing options, how would you design a query to detect the customer base?
+** item
+* What are the most common trips?
+* How does this differ based on trip type (commuter versus all)?
+* What is a commun
 
 
 
