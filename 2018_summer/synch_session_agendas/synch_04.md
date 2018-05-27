@@ -16,7 +16,7 @@ docker pull confluentinc/cp-kafka:latest
 
 See instructions in previous synchronous sessions.
 
-# Review the Query Project
+## Review the Query Project
 
 We will spend a few minutes reviewing the Query Project now that everyone has been actively working on it and is more familiar with the dataset.
 
@@ -78,6 +78,17 @@ What images do I have?
 docker images
 ```
 
+Run a container without the --rm and it will stay after it's stopped
+
+```
+docker run -it -v /home/science/w205:/w205 midsw205/base:latest bash
+exit
+```
+
+```
+docker ps -a
+```
+
 Remove containter
 ```
 docker rm -f <container>
@@ -98,7 +109,7 @@ exit
 Run the same code as a microservice:
 
 ```
-docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base pwd
 ```
  
 We could also run a bq query to Google BigQuery as a microservice:
