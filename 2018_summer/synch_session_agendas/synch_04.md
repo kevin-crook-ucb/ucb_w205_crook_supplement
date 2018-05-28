@@ -60,7 +60,7 @@ docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 
 **Some docker commands**
 
-Open another terminal window and try the following commands.  From this point on, using multiple terminal windows will prove very helpful.
+Open another terminal window and try the following commands.  These should be run inside the droplet, but **NOT** inside a docker container.  From this point on, using multiple terminal windows will prove very helpful.
 
 What containers are running right now?
 
@@ -131,16 +131,18 @@ Docker compose is a utility that allows us to create and run docker clusters.
 
 We specify a docker cluster using a .yml file.
 
+The following commands should be run in your droplet, but not inside a docker container.  
+
 Create a kafka directory:
 
 ```
-mkdir kafka
+mkdir ~/w205/kafka
 ```
 
 Change to the kafka directory:
 
 ```
-cd kafka
+cd ~/w205/kafka
 ```
 
 Use vi to create a file docker-compose.yml with the contents presented below:
