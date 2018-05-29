@@ -178,9 +178,9 @@ FROM `xxxx.bike_trips_data.total_bikes`
 WHERE station_id = 22
 ```
 
-## Secure Shell ssh
+## ssh - Secure Shell
 
-**scp - secure copy**
+## scp - Secure Copy
 
 Secure copy is a way to copy files from your laptop to your droplet and vice versa.  
 
@@ -204,7 +204,7 @@ Copy a file in your droplet to your local directory
 scp science@ip_address:/home/science/my_filehost.txt ~/my_file_local.txt
 ```
 
-**Using ssh to login without a password**
+## Using ssh to login without a password
 
 In your droplet, change to the ~/.ssh directory:
 
