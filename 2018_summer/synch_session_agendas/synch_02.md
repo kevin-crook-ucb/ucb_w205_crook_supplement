@@ -214,7 +214,7 @@ cd ~/.ssh
 
 Generate a pair of keys:
 ```
-ssh-keygen -t rsa 
+ssh-keygen -t rsa -b 2048
 (hit return through the prompts)
 ```
 
@@ -228,14 +228,18 @@ Append the public key file to the end of the authorized_keys file:
 cat id_rsa.pub >>authorized_keys
 ```
 
+**Windows**
+
 Windows users will use WinSCP to copy the private key file down to their laptop. Use the puttygen utility to translate it into putty key file format.  When starting PuTTY, there is an option in the left panel: Connection => SSH => Auth click the Browse button to set the private key file.
 
-Mac users will use the scp commands to copy the private key file down to theirlocal machine.  It usually best to rename it (such as ucb_205.rsa and place it in the ~/.ssh directory.  
+**Mac**
+
+Mac users will use the scp commands to copy the private key file down to theirlocal machine.  It usually best to rename it (such as ucb_205.rsa) and place it in the ~/.ssh directory.  
 
 Change the mode of the file:
 
 ```
-chmod ~/.ssh/ucb_205.rsa 
+chmod 600 ~/.ssh/ucb_205.rsa 
 ```
 
 Specify the private key file on the command line when connecting:
