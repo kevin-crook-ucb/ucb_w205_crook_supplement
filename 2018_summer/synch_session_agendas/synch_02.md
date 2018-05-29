@@ -180,5 +180,67 @@ WHERE station_id = 22
 
 ## Secure Shell ssh
 
-Time permitting we will go over how to setup your droplet to use a private key and not require a login password.  Since we are running behind, we will delay this to the future.
+**scp - secure copy**
+
+Secure copy is a way to copy files from your laptop to your droplet and vice versa.  
+
+**Windows**
+
+Windows users will probably want to use a utility such as WinSCP 
+
+<https://winscp.net/eng/index.php>
+
+**Mac**
+
+Mac users will use the command line utility scp. Here are a couple of basic examples (there are numerous variations on how to use scp):
+
+Copy a file from your local directory to your droplet
+```
+scp my_file_local.txt science@ip_address:/home/science/my_file_host.txt
+```
+
+Copy a file in your droplet to your local directory
+```
+scp science@ip_address:/home/science/my_filehost.txt ~/my_file_local.txt
+```
+
+**Using ssh to login without a password**
+
+In your droplet, change to the ~/.ssh directory:
+
+```
+cd ~/.ssh
+```
+
+Generate a pair of keys:
+```
+ssh-keygen -t rsa 
+(hit return through the prompts)
+```
+
+This will create two files: 
+* id_rsa - the private key file
+* id_rsa.pub - the public key file
+
+Append the public key file to the end of the authorized_keys file:
+
+```
+cat id_rsa.pub >>authorized_keys
+```
+
+Windows users will use WinSCP to copy the private key file down to their laptop. Use the puttygen utility to translate it into putty key file format.  When starting PuTTY, there is an option in the left panel: Connection => SSH => Auth click the Browse button to set the private key file.
+
+Mac users will use the scp commands to copy the private key file down to theirlocal machine.  It usually best to rename it (such as ucb_205.rsa and place it in the ~/.ssh directory.  
+
+Change the mode of the file:
+
+```
+chmod ~/.ssh/ucb_205.rsa 
+```
+
+Specify the private key file on the command line when connecting:
+```
+ssh -i ~/.ssh/ucb_205.rsa science@ip_address
+```
+
 
