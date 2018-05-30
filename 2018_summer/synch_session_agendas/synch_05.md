@@ -1,60 +1,95 @@
 # under construction
 
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #5
 
-    mkdir ~/w205/redis
-    cd ~/w205/redis
+## Update docker images (before class)
 
+Run these command in your droplet (but **NOT** in a docker container):
 
-## Save the following to `docker-compose.yml` in that directory
+```
+docker pull midsw205/base:latest
+docker pull redis:latest
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+```
 
-    ---
-    version: '2'
-    services:
-      redis:
-        image: redis:latest
-        expose:
-          - "6379"
-        extra_hosts:
-          - "moby:127.0.0.1"
+## Update the course-content repo in your docker container in your droplet (before class)
 
-      mids:
-        image: midsw205/base:latest
-        stdin_open: true
-        tty: true
-        extra_hosts:
-          - "moby:127.0.0.1"
+See instructions in previous synchronous sessions.
 
+## Create a docker cluster with a container for redis (key-value data store) and a container for mids base ubuntu 
 
+Outside of docker, create a directory called redis that will hold our yml file for this docker cluster:
 
+```
+mkdir ~/w205/redis
+```
 
-## Spinup
+Change to redis directory:
 
-Start up the cluster
+```
+cd ~/w205/redis
+```
 
-    docker-compose up -d
+Use vi to create a docker-compose.yml file with the content below.
 
+```
+vi docker-compose.yml
+```
 
-## Check stuff
+```yml
+---
+version: '2'
+services:
+  redis:
+    image: redis:latest
+    expose:
+      - "6379"
+    extra_hosts:
+      - "moby:127.0.0.1"
 
-    docker-compose ps
+  mids:
+    image: midsw205/base:latest
+    stdin_open: true
+    tty: true
+    extra_hosts:
+      - "moby:127.0.0.1"
+```
 
-## Should see
+Startup the docker cluster:
 
+```
+docker-compose up -d
+```
+
+Verify the docker cluster is running properly:
+
+```
+docker-compose ps
+```
+
+Output should be similar to this:
+
+```
              Name                        Command               State    Ports     
     ---------------------------------------------------------------------------
     redisexample_midsbase_1   /bin/bash                        Up      8888/tcp 
     redisexample_redis_1      docker-entrypoint.sh redis ...   Up      6379/tcp 
+```
+
+Look at the logs of the redis container in the cluster:
+
+```
+docker-compose logs redis
+```
+
+The last of the output should be similar to this to let us know that redis it ready to accept connections:
+
+```
+Ready to accept connections
+```
 
 
-## Peek at the logs
-
-    docker-compose logs redis
-
-## Should see log output ending in
-
-    Ready to accept connections
-
-## Run stuff
 
 Connect to the mids container
 
