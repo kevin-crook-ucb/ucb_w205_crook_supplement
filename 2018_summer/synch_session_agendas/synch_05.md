@@ -1,68 +1,6 @@
 # under construction
 
 
-#
-## While we're getting started
-
-- Review your Assignment 04
-- Get ready to share
-
-::: notes
-Breakout at about 5 after the hour:
-- Check in with each group on their solution to the assignment
-- Answer questions as people have them on what they had trouble with
-- Have 3-4 people present
-:::
-
-## Due Friday (PR)
-
-#
-## Where are we?
-
-## Today
-- Assignment 04
-- Creating basic `docker-compose` clusters
-- NoSQL stores with `docker-compose`
-
-::: notes
-- Watching RDBs and NoSQL videos b/t week 4 & week 5
-
-- spin up 2 containers: redis & midsw205/base
-- run python in one that's talking to redis in the other
-- (docker compose + how to run a notebook in the container)
-:::
-
-## Between Class 5 & Class 6
-
-- async material in Week 5 syllabus (Virtualization, Hadoop)
-- Readings in Week 5 syllabus
-- Assignment 05 (notebook to present)
-- Final Assignment 04 due on Friday
-
-
-## Class 6
-- Final presentations of Query Project Notebooks/Recommendations 
-- Tracking User Activity Project (spans Assignments 6-8)
-
-
-# 
-## Where are we in the pipeline?
-
-##
-![](images/pipeline-overall.svg)
-
-
-# 
-## Docker-compose with Redis
-
-::: notes
-something about what we're going to do
-:::
-
-## Setup
-
-## Create a workspace for this example
-
     mkdir ~/w205/redis
     cd ~/w205/redis
 
@@ -372,28 +310,3 @@ print date sorted list of where all bikes are
 ## Drop cluster
 
     docker-compose down
-
-
-#
-## Summary
-
-::: notes
-Using docker compose
-Assembled a set of services
-running a query within that
-:::
-
-
-#
-## Extras
-
-## Athena & AWS cli tool (aws) 
-
-::: notes
-if we need to fill time, do some queries wtih ebl data
-:::
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
