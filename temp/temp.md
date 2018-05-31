@@ -17,8 +17,8 @@ Smith | John | 45
 Jones | Mary | 29
 
 
-| Year | avg(time) | Yearly Trips |
-|---|---|---|
+| Year | Average Time | Yearly Trips |
+|---|:---:|---|
 | 2016 | 13.82            | 210494       |
 | 2015 | 15.68            | 346252       |
 | 2014 | 18.87            | 326339       |
