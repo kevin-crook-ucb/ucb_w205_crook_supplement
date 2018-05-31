@@ -251,88 +251,76 @@ We will be using the kafkacat utility.
 
 For more information about kafkacat here is a link to the documentation <https://github.com/git-hulk/kafka-cat>
 
-krc - stopping point
+Using vi, edit your docker-compose.yml file to match the following contents:
 
+```yml
+---
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    expose:
+      - "2181"
+      - "2888"
+      - "32181"
+      - "3888"
+    #ports:
+      #- "32181:32181"
+    extra_hosts:
+      - "moby:127.0.0.1"
 
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - ~/w205:/w205
+    expose:
+      - "9092"
+      - "29092"
+    extra_hosts:
+      - "moby:127.0.0.1"
 
-## docker-compose.yml file
-
-
-    ---
-    version: '2'
-    services:
-      zookeeper:
-        image: confluentinc/cp-zookeeper:latest
-        environment:
-          ZOOKEEPER_CLIENT_PORT: 32181
-          ZOOKEEPER_TICK_TIME: 2000
-        expose:
-          - "2181"
-          - "2888"
-          - "32181"
-          - "3888"
-        #ports:
-          #- "32181:32181"
-        extra_hosts:
-          - "moby:127.0.0.1"
-
-      kafka:
-        image: confluentinc/cp-kafka:latest
-        depends_on:
-          - zookeeper
-        environment:
-          KAFKA_BROKER_ID: 1
-          KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
-          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        volumes:
-          - ~/w205:/w205
-        expose:
-          - "9092"
-          - "29092"
-        extra_hosts:
-          - "moby:127.0.0.1"
-
-      mids:
-        image: midsw205/base:latest
-        stdin_open: true
-        tty: true
-        volumes:
-          - ~/w205:/w205
-        extra_hosts:
-          - "moby:127.0.0.1"
-
-::: notes
-Create a `docker-compose.yml` with the following
-:::
-
-## Pull data
-
-
-    curl -L -o github-example-large.json https://goo.gl/WewtYn
-
-
-## Spin up the cluster
-
-    docker-compose up -d
-
-## Watch it come up
-
-    docker-compose logs -f kafka
-
-- Detach with `Ctrl-C`
-
-
-::: notes
-when this looks like it's done, detach
-:::
-
-## use it
-
-## create a topic
+  mids:
+    image: midsw205/base:latest
+    stdin_open: true
+    tty: true
+    volumes:
+      - ~/w205:/w205
+    extra_hosts:
+      - "moby:127.0.0.1"
 
 ```
 
+Download the following file of json data:
+
+```
+curl -L -o github-example-large.json https://goo.gl/WewtYn
+```
+
+Startup the cluster:
+
+``` 
+docker-compose up -d
+```
+
+The cluster is getting bigger with more dependencies and may take a while to come up.  We will look at the kafka logs to see kafka come up.  The -f option tells it to hold on to the command line and output new data as it arrives in the log file.  We can end this by using a control-C
+
+```
+docker-compose logs -f kafka
+```
+
+Create a topic called foo:
+
+```
     docker-compose exec kafka \
     kafka-topics \
       --create \
@@ -343,15 +331,19 @@ when this looks like it's done, detach
       --zookeeper zookeeper:32181
 ```
 
-::: notes
+Same command on 1 line to make copy and paste easier:
+
+```
 docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
-:::
+```
 
-## Should see something like
+Which should show something like:
 
-    Created topic "foo".
+```
+Created topic "foo".
+```
 
-## Check the topic
+Check the topic:
 
 ```
 docker-compose exec kafka \
@@ -361,19 +353,20 @@ docker-compose exec kafka \
     --zookeeper zookeeper:32181
 ```
 
-::: notes
-docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
-:::
-## Should see something like
+Same command on 1 line to make copy and paste easier:
 
+```
+docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+```
+
+Which should show something like:
+
+```
     Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
     Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+```
 
-
-#
-## Publish some stuff to kafka
-
-## Check out our messages
+krc - stopping point
 
 ```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json"
@@ -440,53 +433,4 @@ docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning
 
     docker-compose down
 
-#
-## Assignment 06
-- Step through this process using the Project 2 data
-- What you turn in:
-- In your `/assignment-05-<user-name>` repo:
-  * your `docker-compose.yml` 
-  * once you've run the example on your terminal
-    * Run `history > <user-name>-history.txt`
-    * Save the relevant portion of your history as `<user-name>-annotations.md`
-    * Annotate the file with explanations of what you were doing at each point (See `htmartin-annotations.md`)
 
-#
-## Summary
-- Test that we can spin up containers, publish & consume messages with simple numbers messages.
-- Work through some actual data from github
-- Prep for assignment
-
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
-
-
-
-#
-##
-![](images/pipeline-overall.svg){style="border:0;box-shadow:none"}
-
-
-
-#
-## cool pics
-
-## 
-![](images/pipeline-ingestion-sourcing.svg){style="border:0;box-shadow:none"}
-
-## 
-![](images/queue-selected.svg){style="border:0;box-shadow:none"}
-
-## 
-![](images/pipeline-ingestion-sourcing-focus.svg){style="border:0;box-shadow:none"}
-
-## 
-![](images/pipeline-ingestion-from-files.svg){style="border:0;box-shadow:none"}
-
-## 
-![](images/streaming-bare.svg){style="border:0;box-shadow:none"}
