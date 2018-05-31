@@ -333,9 +333,15 @@ http://xxx.xxx.xxx.xxx:8888/?token=xxx
 
 Inside jupyter notebook, create a new python 3 notebook, and create and execute code cells. 
 
+
 ```python
 import redis
 import pandas as pd
+```
+
+Using pandas, read in our trips file in csv format into a pandas data frame.  Sort by end date.  
+
+```python
 
 trips=pd.read_csv('trips.csv')
 
@@ -344,15 +350,21 @@ date_sorted_trips = trips.sort_values(by='end_date')
 date_sorted_trips.head()
 ```
 
+Loop through the data frame and pretty print the data.
+
 ```python
 for trip in date_sorted_trips.itertuples():
   print(trip.end_date, '', trip.bike_number, '', trip.end_station_name)
 ```
 
+Connect to our redis container and look at our keys().  What should their value be at this point?
+
 ```python
 current_bike_locations = redis.Redis(host='redis', port='6379')
 current_bike_locations.keys()
 ```
+
+Loop through the data fram and insert each record into the redis database.  Since keys most be unique, what happens when we have an existing key value pair and we have a second key value pair with the same key?  
 
 ```python
 for trip in date_sorted_trips.itertuples():
@@ -361,10 +373,10 @@ for trip in date_sorted_trips.itertuples():
 current_bike_locations.keys()
 ```
 
-where is bike 92?
+Look up the value for a specific bike.  In this case 92.  Play around with different bikes to see if you can verify the overwrite.
 
 ```python
-
+current_bike_locations.get('92')
 ```
 
 Tear down the cluster
