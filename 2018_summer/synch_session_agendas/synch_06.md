@@ -1,199 +1,116 @@
-# under construction
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #5
 
+## Update docker images (before class)
+
+Run these command in your droplet (but **NOT** in a docker container):
+
+```
+docker pull midsw205/base:latest
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+```
+
+## Update the course-content repo in your docker container in your droplet (before class)
+
+See instructions in previous synchronous sessions.
+
+## Discuss Project 2: Tracking User Activity
+
+Assignment 6 - Get and Clean Data
+Assignment 7 - Setup Pipeline
+Assignment 8 - Build and Write-up Pipeline
+
+
+## Create a docker cluster with kafka and zookeeper containers, create a kafka topic, publish messages to the topic, subscribe / consume the messages from the topic
+
+Create a kafka directory and change to it:
+
+```
+mkdir ~/w205/kafka
+cd ~/w205/kafka
+```
+
+Using vi, create a docker-compose.yml file with the following contents:
+
+```yml
 ---
-title: Fundamentals of Data Engineering
-author: Week 06 - sync session
-...
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    network_mode: host
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    extra_hosts:
+      - "moby:127.0.0.1"
 
----
-
-
-
-## While we're getting started
-
-- Review your Assignment 05
-- Get ready to share
-
-::: notes
-Breakout at about 5 after the hour:
-- Check in with each group 
-- Choose 4-5 people with different approaches to present
-- Usually takes 10-20 minutes
-:::
-
-
-## Groups present notebooks
-::: notes
-do nb and make recommendations
-:::
-
-## Due Friday (PR)
-
-
-# 
-## Pipes 
-
-
-```
-cat junk.csv | sort | uniq | wc -l
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    extra_hosts:
+      - "moby:127.0.0.1"
+      
 ```
 
-::: notes
-We're going to use kafka
-We used pipes in Week 3.
-We had on cli way to pipe single purpose applications together. 
-Pipe takes what previous thing gave to it and passes it on.
-Kafka is that little pipe.
-:::
-
-## Where are we in the pipeline
-
-##
-![](images/pipeline-overall.svg){style="border:0;box-shadow:none"}
-
-::: notes
-Kafka is the queues
-Maybe put the queue slide here
-:::
-
-#
-## Starting into Project 2: Tracking User Activity
-
-- In this project, you work at an ed tech firm. 
-- You've created a service that delivers assessments.
-- Now lots of different customers (e.g., Pearson) want to publish their assessments on it. 
-- You need to get ready for data scientists who work for these customers to run queries on the data. 
-
-## Project 2 actitivities
-
-- Through 3 different activites, you will spin up existing containers and prepare the infrastructure to land the data in the form and structure it needs to be to be queried. 
-  1) Publish and consume messages with kafka.
-  2) Use spark to transform the messages.
-  3) Use spark to transform the messages so that you can land them in hdfs.
-
-::: notes
-Classes 6-8
-- Class 6: Today will work with kafka to pull in messages
-- Class 7: Start with simple spark
-- Class 8: More complex spark, land data in hdfs
-:::
-
-## 
-
-![](images/streaming-bare.svg){style="border:0;box-shadow:none"}
-
-
-::: notes
-- Will take a built pipeline,
-- Manage data within it
-- Using kafka, spark and hdfs
-:::
-
-
-
-#
-## Stand alone kafka
-
-## Update your course content repo in w205
+Startup the container:
 
 ```
-cd ~/w205/course-content
-git pull --all
+docker-compose up -d
 ```
 
-## Docker compose .yml file
+Verify the cluster is running:
 
-- `cd w205`
-- `mkdir kafka`
-- save `docker-compose.yml` from recently pulled `~/w205/course-content` to
-  recently created `~/w205/kafka` directory
+```
+docker-compose ps
+```
 
+Which should show something like:
 
-::: notes
-
-Save the following snippet as `~/w205/kafka/docker-compose.yml` on your host
-filesystem
-
-    ---
-    version: '2'
-    services:
-      zookeeper:
-        image: confluentinc/cp-zookeeper:latest
-        network_mode: host
-        environment:
-          ZOOKEEPER_CLIENT_PORT: 32181
-          ZOOKEEPER_TICK_TIME: 2000
-        extra_hosts:
-          - "moby:127.0.0.1"
-
-      kafka:
-        image: confluentinc/cp-kafka:latest
-        network_mode: host
-        depends_on:
-          - zookeeper
-        environment:
-          KAFKA_BROKER_ID: 1
-          KAFKA_ZOOKEEPER_CONNECT: localhost:32181
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
-          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        extra_hosts:
-          - "moby:127.0.0.1"
-
-:::
-
-
-
-
-## Docker compose spin things up
-
-- `cd ~/w205/kafka`
-- `docker-compose up -d`
-- `docker-compose ps`
-
-::: notes
-- This is the start of spinning up things that will lead to projects 2&3
-- Have them go through on command line, talk about what is happening.
-:::
-
-## Can check with
-
-- `docker-compose ps`
-
-## Should see something like
-
-which should show something like
-
+```
     Name                        Command            State   Ports
     -----------------------------------------------------------------------
     kafkasinglenode_kafka_1       /etc/confluent/docker/run   Up
     kafkasinglenode_zookeeper_1   /etc/confluent/docker/run   Up
+```
 
-## Check zookeeper
+Check the zookeeper logs for entries regarding the binding:
 
 ```
 docker-compose logs zookeeper | grep -i binding
 ```
 
-## Should see something like
+Which should show something like:
 
-    zookeeper_1  | [2016-07-25 03:26:04,018] INFO binding to port 0.0.0.0/0.0.0.0:32181 (org.apache.zookeeper.server.NIOServerCnxnFactory)
+```
+zookeeper_1  | [2016-07-25 03:26:04,018] INFO binding to port 0.0.0.0/0.0.0.0:32181 
+(org.apache.zookeeper.server.NIOServerCnxnFactory)
+```
 
-## Check the kafka broker
+Check the kafka logs to see that the kafka broker has started:
 
 ```
 docker-compose logs kafka | grep -i started
 ```
 
-## Should see something like
+Which should show something like:
+
+```
 
     kafka_1      | [2017-08-31 00:31:40,244] INFO [Socket Server on Broker 1], Started 1 acceptor threads (kafka.network.SocketServer)
     kafka_1      | [2017-08-31 00:31:40,426] INFO [Replica state machine on controller 1]: Started replica state machine with initial state -> Map() (kafka.controller.ReplicaStateMachine)
     kafka_1      | [2017-08-31 00:31:40,436] INFO [Partition state machine on Controller 1]: Started partition state machine with initial state -> Map() (kafka.controller.PartitionStateMachine)
     kafka_1      | [2017-08-31 00:31:40,540] INFO [Kafka Server 1], started (kafka.server.KafkaServer)
+```
 
-
-#
-## Create a Topic `foo`
+Create a kafka topic called foo.  
 
 ```
 docker-compose exec kafka \
@@ -206,12 +123,19 @@ docker-compose exec kafka \
     --zookeeper localhost:32181
 ```
 
+Same command on 1 line to make copy and paste easier:
 
-## Should see something like
+```
+docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper localhost:32181
+```
 
-    Created topic "foo".
+Which should show something like:
 
-## Check the topic
+```
+Created topic "foo".
+```
+
+Check the topic:
 
 ```
 docker-compose exec kafka \
@@ -221,17 +145,20 @@ docker-compose exec kafka \
     --zookeeper localhost:32181
 ```
 
-::: notes
+Same command on 1 line to make copy and paste easier:
+
+```
 docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper localhost:32181
-:::
+```
 
-## Should see something like
+Which should show something like:
 
+```
     Topic:foo   PartitionCount:1    ReplicationFactor:1 Configs:
     Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
+```
 
-#
-## Publish Messages
+Publish messages to the kafka topic foo in the form of the numbers from 1 to 42:
 
 ```
 docker-compose exec kafka \
@@ -241,20 +168,19 @@ docker-compose exec kafka \
     --topic foo && echo 'Produced 42 messages.'"
 ```
 
-::: notes
-Use the kafka console producer to publish some test messages to that topic
+Same command on 1 line to make copy and paste easier:
 
+```
 docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo && echo 'Produced 42 messages.'"
+```
 
-:::
+Which should show something like:
 
-## Should see something like
+```
+Produced 42 messages.
+```
 
-    Produced 42 messages.
-
-
-#
-## Consume Messages
+Subscribe / consume the messages from the kafka topic foo:
 
 ```
 docker-compose exec kafka \
@@ -265,28 +191,29 @@ docker-compose exec kafka \
     --max-messages 42
 ```
 
-::: notes
-Start a consumer to read from that topic
+Same command on 1 line to make copy and paste easier:
 
+```
 docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+```
 
-:::
+Which should show something like:
 
-## Should see something like
-
+```
     1
     ....
     42
     Processed a total of 42 messages
+```
 
-::: notes
-The consumer can be created before, during, or after the producer's run.
-::: 
+Tear down the cluster:
 
-#
-## Tearing things down
+```
+docker-compose down
+```
 
-    docker-compose down
+krc - stopping point
+
 
 #
 ## Kafka with "real" messages
