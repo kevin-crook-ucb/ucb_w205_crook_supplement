@@ -218,7 +218,19 @@ docker-compose down
 
 ## Breakout - discuss applications of MQ (Message Queue) oriented systems such as kafka
 
-Consider the airline example: passengers make reservations, pay for reservations, check in for flights, check bags, go through security, board planes, take flights, retrive bags, etc.
+Consider this airline example: 
+
+* passengers make reservations 
+* pay for reservations
+* reserve seats
+* check in for flights
+* check bags
+* go through security
+* board planes
+* take flights
+* retrive bags
+* participate in frequent flyer programs
+* etc.
 
 Discuss the following:
 
@@ -230,7 +242,8 @@ Discuss the following:
 
 * give examples of analytical systems that could subscribe to the topics you mentioned and what types of analytics could be done?
 
-* consider the Lambda Architecture mentioned in the readings.  What layer of the Lamdba Architecture do MQ most resemble?
+* consider the Lambda Architecture mentioned in the readings.  What layer of the Lamdba Architecture do MQ's most resemble?
+
 
 ## Add a mids container to our docker cluster, publish "real" messages in json format, subscribe / consume the messages 
 
