@@ -19,7 +19,9 @@ See instructions in previous synchronous sessions.
 ## Discuss Project 2: Tracking User Activity
 
 Assignment 6 - Get and Clean Data
+
 Assignment 7 - Setup Pipeline
+
 Assignment 8 - Build and Write-up Pipeline
 
 
