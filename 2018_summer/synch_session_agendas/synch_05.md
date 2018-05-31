@@ -89,41 +89,58 @@ The last of the output should be similar to this to let us know that redis it re
 Ready to accept connections
 ```
 
+We are running our cluster containers "headless", that is without an interactive connection.  What if we want to interact with a container, such as running a bash shell with standard input and standard output piped to and from our command prompt?  We can exec processes in the containter, including bash shells:
 
+```
+docker-compose exec mids bash
+```
 
-Connect to the mids container
+We now have a bash shell running in our mids container inside our docker cluster.
 
-    docker-compose exec mids bash
+We now want to run ipython (interactive python) which is a command line utility similar to jupyter notebook.  It actually predates jupyter notebook and was the basis on which jupter notebooks was designed and built.
 
-## At the prompt, run 
+```
+ipython
+```
 
-    ipython
+In our ipython command line, we will try out the redis database.  Redis is a key-value pair, NoSQL database.  Check TCP port 6379 against the specification in the yml file.
 
-## Try out redis
+```
+import redis
+r = redis.Redis(host='redis', port='6379')
+r.keys()
+exit
+```
 
-    import redis
-    r = redis.Redis(host='redis', port='6379')
-    r.keys()
-    exit
+Exit our bash shell which was exec'd in the container.
 
-## Exit that container
+```
+exit
+```
 
-    exit
+Tear down our docker cluster
 
-## Tear down your stack
+```
+docker-compose down
+```
 
-    docker-compose down
+Verify the docker cluster is down
 
-## Verify 
+```
+docker-compose ps
+```
 
-    docker-compose ps
+```
+docker ps -a
+```
 
-#
-## Jupyter Notebooks
+## Adding Jupyter Notebooks to the mids container in our docker cluster
 
+We will change our docker-compose.yml file to allow jupyter notebooks to be run in the mids container.  We will expose the correct ports to the outside world so we can connect from a Chrome browser on our laptops to jupyter notebook running in our mids container in our droplet.
 
-## Change the `docker-compose.yml` file 
+Using vi, edit our docker-compose.yml file to match the following:
 
+```yml
     ---
     version: '2'
     services:
@@ -144,39 +161,51 @@ Connect to the mids container
           - "8888:8888"
         extra_hosts:
           - "moby:127.0.0.1"
+          
+```
 
-::: notes
-- Add a port for the `mids` service
-- Expose adds ports
-- Ports exposes it out to the host
-- Port is... channel for services to talk to each other.
-:::
+Bring up our docker cluster, "detached" or "headless".
 
-## Save that and bring it up
+```
+docker-compose up -d
+```
 
-    docker-compose up -d
+Exec a jupyter notebook in our mids container in our docker cluster.  Compare port 888 to our specfication in the yml file.
 
-## Start up a notebook
+```
+docker-compose exec mids jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
+```
 
-    docker-compose exec mids jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
+On your laptop, open a Chrome browser and connect to jupyter notebook running in the mids container of your docker cluster in your droplet.  Please note that outgoing TCP port 8888 must not be blocked between your laptop and your droplet. 
 
-::: notes
-remember, you can copy/paste this from the `course-content` repo
-:::
+```
+http://xxx.xxx.xxx.xxx:8888/?token=xxx
+```
 
-## Copy token... should look something like
+Exit and logout of jupyter notebook in your browser. 
 
-    open http://0.0.0.0:8888/?token=<your token>
+Tear down your docker cluster.
 
-## Open a browser
+```
+docker-compose down
+```
 
-    http://0.0.0.0:8888
+Verify the docker cluster is down.  (This is the last time I'll put verify instruction from now on, always verify that a docker cluster tears down properly)
 
-## Paste token
+```
+docker-compose ps
+```
 
-## Drop the cluster when you're done
+```
+docker ps -a
+```
 
-    docker-compose down
+## Automatically start Jupyter Notebook in the mids container of your docker cluster
+
+Let's change our mids container to automatically start the jupyter notebook so we don't have to manually start it each time.
+
+krc - stopping point
+
 
 #
 ## Automate notebook startup
