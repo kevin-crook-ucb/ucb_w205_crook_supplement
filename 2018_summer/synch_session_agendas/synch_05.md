@@ -206,17 +206,7 @@ We will go into breakout for students to discuss the Query Project.  If students
 
 ## Automatically start Jupyter Notebook in the mids container of your docker cluster
 
-Let's change our mids container to automatically start the jupyter notebook so we don't have to manually start it each time.
-
-krc - stopping point
-
-
-#
-## Automate notebook startup
-
-##
-
-Just for fun,
+Let's change our mids container to automatically start the jupyter notebook so we don't have to manually start it each time by updating the docker-compose.yml file as follows:
 
 ```yml
 ---
@@ -242,39 +232,53 @@ services:
     command: jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
 ```
 
+Start up our docker cluster:
 
-## Test it out
+```
+docker-compose up -d
+```
 
-    docker-compose up -d
+Last time, we manually started jupyter notebook from the command line, so we were able to see the url with token string.  Since we had docker automatically start this for us, we will need to pull it from the logs.  This is very common when running headless, important information is written to log files instead of the command line. 
 
-## Run to get the token 
+```
+docker-compose logs mids
+```
 
-    docker-compose logs mids
+As we did previously, open a Chrome browser on your laptop and connect:
 
-## Open a browser
+```
+http://xxx.xxx.xxx.xxx:8888/?token=xxx
+```
 
-    open http://0.0.0.0:8888/?token=<your token>
+Inside jupyter notebook, create a new python 3 notebook, and create and execute code cells.
 
-## Open New Python3 Notebook
+First we will import the redis module and connect from our mids container to our redis container using TCP port 6379 over the virtual network.  Note that we can use the container name in the yml file as our hostname.
 
-## Try redis
+```python
+import redis
+r = redis.Redis(host='redis', port='6379')
+r.keys()
+```
 
-    import redis
-    r = redis.Redis(host='redis', port='6379')
-    r.keys()
-    
-## Add some values
+Add some key-value pairs to our redis NoSQL database.
 
-    r.set('foo', 'bar')
-    value = r.get('foo')
-    print(value)
+```python
+r.set('foo', 'bar')
+value = r.get('foo')
+print(value)
+```
 
-## Drop cluster
+Tear down our cluster:
+```
+docker-compose down
+```
 
-    docker-compose down
+## Load and query real data into our redis key-value NoSQL database
 
+We will load and query a subset of our bike share data into redis.
 
-#
+krc - stopping point
+
 ## Redis to track state
 
 ::: notes
