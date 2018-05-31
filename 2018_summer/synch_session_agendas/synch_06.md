@@ -216,27 +216,31 @@ Tear down the cluster:
 docker-compose down
 ```
 
+## Breakout - discuss applications of MQ (Message Queue) oriented systems such as kafka
+
+Consider the airline example: passengers make reservations, pay for reservations, check in for flights, check bags, go through security, board planes, take flights, retrive bags, etc.
+
+Discuss the following:
+
+* what topics should we create?
+
+* for each topic, what messages could we publish to that topic?
+
+* for each topic, what is the advantage of having multiple systems subscribe / consumer the same topic?
+
+* give examples of analytical systems that could subscribe to the topics you mentioned and what types of analytics could be done?
+
+* consider the Lambda Architecture mentioned in the readings.  What layer of the Lamdba Architecture do MQ most resemble?
+
+## Add a mids container to our docker cluster, publish "real" messages in json format, subscribe / consume the messages 
+
+We will be using the kafkacat utility.  
+
+For more information about kafkacat here is a link to the documentation <https://github.com/git-hulk/kafka-cat>
+
 krc - stopping point
 
 
-#
-## Kafka with "real" messages
-
-- We'll deal with json for the project
-
-## Kafka with json example
-- To address json, we'll need kafkacat
-
-
-## kafkacat
-
-## 
-![](images/kafkacat-syntax.svg){style="border:0;box-shadow:none"}
-
-::: notes
-omg, check out <https://explainshell.com/explain?cmd=tar%20xzvf%20archive.tar.gz>!
-
-:::
 
 ## docker-compose.yml file
 
