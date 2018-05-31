@@ -105,7 +105,7 @@ ipython
 
 In our ipython command line, we will try out the redis database.  Redis is a key-value pair, NoSQL database.  Check TCP port 6379 against the specification in the yml file.
 
-```
+```python
 import redis
 r = redis.Redis(host='redis', port='6379')
 r.keys()
@@ -244,7 +244,7 @@ Last time, we manually started jupyter notebook from the command line, so we wer
 docker-compose logs mids
 ```
 
-As we did previously, open a Chrome browser on your laptop and connect:
+As we did previously, open a Chrome browser on your laptop and surf the jupyter notebook:
 
 ```
 http://xxx.xxx.xxx.xxx:8888/?token=xxx
@@ -277,27 +277,15 @@ docker-compose down
 
 We will load and query a subset of our bike share data into redis.
 
-krc - stopping point
 
-## Redis to track state
+Download our bike share trips subset data into a csv file.
 
-::: notes
-See nosql-kv-stores-video-hd1080-h264-30fps.mp4 
-:::
+```
+cd ~/w205/
+curl -L -o trips.csv https://goo.gl/MVNVhW
+```
 
-## Setup
-
-Download data:
-
-    cd ~/w205/
-    curl -L -o trips.csv https://goo.gl/MVNVhW
-
-## Setup
-
-Add volumes to your `docker-compose.yml`:
-
-    volumes:
-      - /home/science/w205:/w205
+We will now add our volume mount to our docker-compose.yml file as follows to mount /home/science/w205 in our droplet to /w205 in the mids container of our docker cluster:
 
 ```yml
 ---
@@ -325,62 +313,62 @@ services:
     command: jupyter notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root
 ```
 
+Startup our docker cluster:
 
-## Spin up cluster
+```
+docker-compose up -d
+```
 
-    docker-compose up -d
+Get the token to run jupyter notebook from our mids container logs:
 
-## Run to get the token 
+```
+docker-compose logs mids
+```
 
-    docker-compose logs mids
+As we did previously, open a Chrome browser on your laptop and surf the jupyter notebook:
 
-## Open a browser
+```
+http://xxx.xxx.xxx.xxx:8888/?token=xxx
+```
 
-    open http://0.0.0.0:8888/?token=<your token>
+Inside jupyter notebook, create a new python 3 notebook, and create and execute code cells. 
 
-## Open New Python3 Notebook
+```python
+import redis
+import pandas as pd
 
-## 
+trips=pd.read_csv('trips.csv')
 
-    import redis
-    import pandas as pd
+date_sorted_trips = trips.sort_values(by='end_date')
 
-##
+date_sorted_trips.head()
+```
 
-    trips=pd.read_csv('trips.csv')
+```python
+for trip in date_sorted_trips.itertuples():
+  print(trip.end_date, '', trip.bike_number, '', trip.end_station_name)
+```
 
-    date_sorted_trips = trips.sort_values(by='end_date')
+```python
+current_bike_locations = redis.Redis(host='redis', port='6379')
+current_bike_locations.keys()
+```
 
-    date_sorted_trips.head()
+```python
+for trip in date_sorted_trips.itertuples():
+  current_bike_locations.set(trip.bike_number, trip.end_station_name)
 
-##
+current_bike_locations.keys()
+```
 
-    for trip in date_sorted_trips.itertuples():
-      print(trip.end_date, '', trip.bike_number, '', trip.end_station_name)
+where is bike 92?
 
-::: notes
-print date sorted list of where all bikes are
-:::
+```python
 
+```
 
-##
+Tear down the cluster
 
-    current_bike_locations = redis.Redis(host='redis', port='6379')
-    current_bike_locations.keys()
-    
-## Add values
-
-    for trip in date_sorted_trips.itertuples():
-      current_bike_locations.set(trip.bike_number, trip.end_station_name)
-
-##
-
-    current_bike_locations.keys()
-
-## Where is bike 92? 
-
-    current_bike_locations.get('92')
-
-## Drop cluster
-
-    docker-compose down
+```
+docker-compose down
+```
