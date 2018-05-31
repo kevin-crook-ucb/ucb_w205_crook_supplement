@@ -1,5 +1,3 @@
-# under construction
-
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #5
 
 ## Update docker images (before class)
@@ -260,11 +258,11 @@ r = redis.Redis(host='redis', port='6379')
 r.keys()
 ```
 
-Add some key-value pairs to our redis NoSQL database.
+Add some key-value pairs to our redis NoSQL database.  Try some more key value pairs.  What happens if we have an existing key value pair and try to add a new key value pair with the same key?  Try it.
 
 ```python
-r.set('foo', 'bar')
-value = r.get('foo')
+r.set('key1', 'value1')
+value = r.get('key1')
 print(value)
 ```
 
@@ -384,3 +382,15 @@ Tear down the cluster
 ```
 docker-compose down
 ```
+
+## Breakout - discuss key value NoSQL database
+
+What kinds of applications would be good for key value NoSQL database?
+
+* If I had a social media website, and to bring up a user's home page, and it requires querying 30 or more tables in a tradional SQL based relational database.  How could I use a key value NoSQL database to speed this up?  Speed up would the advantage, but what would be the big disadvantage?
+
+* If I had a credit card company with 200 million customers, with customer data stored in a tradition SQL based relational database. Suppose I created a key value store where the key is the customer id and the value has all information about the customer and their transactions.  
+  * How would that make analytics on a specific customer easier?
+  * Would we see similar problems to the social media in regard to staleness of data?  How would staleness of data differ in an analytics environment versus a production transcation processing environment?
+  * Suppose I wanted to do analytics on transactions across all customers, what would be the performance?  How could I fix it?
+  
