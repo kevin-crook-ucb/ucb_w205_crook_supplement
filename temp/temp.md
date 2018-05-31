@@ -1,11 +1,11 @@
 
 ```sql
+#standardSQL
 SELECT
   COUNT(*)
 FROM
   `bigquery-public-data.san_francisco.bikeshare_status`
 ```
-
 
 SELECT  COUNT(*)FROM  `bigquery-public-data.san_francisco.bikeshare_status`
 
