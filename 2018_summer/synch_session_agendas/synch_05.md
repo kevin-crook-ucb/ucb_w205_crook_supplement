@@ -134,6 +134,11 @@ docker-compose ps
 docker ps -a
 ```
 
+## Breakout - students discuss Query Project
+
+We will go into breakout for students to discuss the Query Project.  If students are having trouble with getting their cluster from the previous to work, the instructor can work with them one-on-one to get caught up.
+
+
 ## Adding Jupyter Notebooks to the mids container in our docker cluster
 
 We will change our docker-compose.yml file to allow jupyter notebooks to be run in the mids container.  We will expose the correct ports to the outside world so we can connect from a Chrome browser on our laptops to jupyter notebook running in our mids container in our droplet.
