@@ -7,10 +7,10 @@ FROM
   `bigquery-public-data.san_francisco.bikeshare_status`
 ```
 
+
 SELECT  COUNT(*)FROM  `bigquery-public-data.san_francisco.bikeshare_status`
 
 line before and after the table must be blank
-
 Last Name | First Name | Age
 ---|---|---
 Smith | John | 45
