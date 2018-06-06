@@ -15,6 +15,10 @@ docker pull confluentinc/cp-kafka:latest
 
 See instructions in previous synchronous sessions.
 
+## Assignment 5
+
+Go over how to start a Jupyter Notebook for Python 3 in a docker container in your droplet and run the assignment 5 jupyter notebook.
+
 ## Create a docker cluster with a container for redis (key-value data store) and a container for mids base ubuntu 
 
 Outside of docker, create a directory called redis that will hold our yml file for this docker cluster:
