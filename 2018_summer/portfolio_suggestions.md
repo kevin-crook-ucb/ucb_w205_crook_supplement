@@ -9,10 +9,13 @@ A sample skeleton outline of a data science portfolio is available at this link:
 Below are my suggestions to take what we have done in synchronous sessions or in assignments and expand into additions to your data science portfolio:
 
 * Data Engineering Portfolio
-  * 
   
 * Big Data Analytics Portfolio
+
+  * Key Value NoSQL Database - take what we did in synch session 5 with Redis and the trips csv file and write up an article about key value NoSQL databases, using Redis and the csv file as an example.  During class we had a breakout, those would be good questions to address in your article.
+
   * Using Google BigQuery, similar to assignment 5, create a Jupyter Notebook of Python with numpy, pandas, matplotlib, etc. for other public datasets besides the Bay Area Bike Share dataset. 
   
 * Blockchain Analytics Portfolio
-  * In the previous suggestion to produce a Jupyter Notebook of analytics for other datasets, one dataset is the Bitcoin 
+  * In the previous suggestion to produce a Jupyter Notebook of analytics for other datasets, one dataset is the Bitcoin blockchain.  Creating a similar Jupyter Notebook of Python with numpy, pandas, mathplotlib, etc. analyzing some aspect of the Bitcoin blockchain or the transactions, transaction sizes, etc.
+  
