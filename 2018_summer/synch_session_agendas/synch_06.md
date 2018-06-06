@@ -366,7 +366,7 @@ Which should show something like:
     Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
 ```
 
-krc - stopping point
+Let's use jq on the linux command line to examine the json files.  Also try looking at them using vi.
 
 ```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json"
@@ -374,28 +374,19 @@ docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
 ```
 
-::: notes
-Go over | jq stuff
-:::
-
-## Publish some test messages to that topic with the kafka console producer
+Publish some messages to the foo topic in kafka using the kafkacat utility:
 
 ```
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
 ```
 
-::: notes
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
-:::
+Which should show something like:
 
-## Should see something like
+```
+Produced 100 messages.
+```
 
-    Produced 100 messages.
-
-#
-## Consume the messages
-
-## We can either do what we did before
+Subscribe / consume the messages from the foo topic in kafka using the kafka console consumer utility in the kafka container:
 
 ```
 docker-compose exec kafka \
@@ -406,31 +397,29 @@ docker-compose exec kafka \
     --max-messages 42
 ```
 
-::: notes
+Same command on 1 line to make copy and paste easier:
+
+```
 docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29092 --topic foo --from-beginning --max-messages 42
-::::
+```
 
-## or 
+Alternatively, we can use the kafkacat utility in the mids container to subscribe / consume the messages:
 
 ```
 docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
 ```
 
-::: notes
-docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
-:::
+We can also pipe this into a word count for the lines to see how many messages:
 
-## and maybe
 ```
 docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
 ```
 
-::: notes
-docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
-:::
+Tear down the cluster:
 
-## Down
+```
+docker-compose down
+```
 
-    docker-compose down
 
 
