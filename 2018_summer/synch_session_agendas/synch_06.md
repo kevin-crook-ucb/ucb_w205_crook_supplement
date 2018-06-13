@@ -301,7 +301,7 @@ services:
 Download the following file of json data:
 
 ```
-curl -L -o github-example-large.json https://goo.gl/WewtYn
+curl -L -o github-example-large.json https://goo.gl/2Z2fPw
 ```
 
 Startup the cluster:
