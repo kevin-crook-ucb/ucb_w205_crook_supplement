@@ -284,7 +284,7 @@ Download our bike share trips subset data into a csv file.
 
 ```
 cd ~/w205/
-curl -L -o trips.csv https://goo.gl/XygbZp
+curl -L -o trips.csv https://goo.gl/GgZ3T2
 ```
 
 We will now add our volume mount to our docker-compose.yml file as follows to mount /home/science/w205 in our droplet to /w205 in the mids container of our docker cluster:
