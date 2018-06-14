@@ -367,15 +367,15 @@ Which should show something like:
 Let's use jq on the linux command line to examine the json files.  Also try looking at them using vi.
 
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json"
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
+docker-compose exec mids bash -c "cat /w205/kafka/github-example-large.json"
+docker-compose exec mids bash -c "cat /w205/kafka/github-example-large.json | jq '.'"
+docker-compose exec mids bash -c "cat /w205/kafka/github-example-large.json | jq '.[]' -c"
 ```
 
 Publish some messages to the foo topic in kafka using the kafkacat utility:
 
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+docker-compose exec mids bash -c "cat /w205/kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
 ```
 
 Which should show something like:
