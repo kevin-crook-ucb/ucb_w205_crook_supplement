@@ -244,6 +244,8 @@ Issues with Parallel Processing
     * https://databricks.com/blog/2015/06/22/understanding-your-spark-application-through-visualization.html
  
  
+Discuss as a group the above concepts, paying special attention to the Spark DAGs in the link above.
+ 
 ## Create a kafka topic, publish json messages from a downloaded file to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read those json messages
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
