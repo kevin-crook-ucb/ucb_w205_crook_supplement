@@ -202,18 +202,46 @@ Issues with Parallel Processing
   * a process doesn't get to run or doesn't get enough CPU time to complete
   * priorities and aging - processes have priorities and as they get starved we raise their priority as they age
   
- Massively Parallel Process MPP
+ Massively Parallel Processing MPP
  * Parallel processing on a massive scale, tens or hundreds or thousands etc. of nodes
  * Common use for data science: algorithms that will run a long time with that can run in parallel usually involving gigantic data sets
  * For algorithms to run MPP the most common model of the last 30 years:
    * lists
-     * a list of 
+     * data is typically stored in a gigantic list that is distributed among the nodes
+     * if the list is 1 billion and we have 100 nodes, we distribute 10 million per node
    * lambdas
+     * lambda processes are processes that can be run on individual elements in the list at the same time
+     * lambda processes have no dependencies
    * DAGs
+     * Directed Acyclic Graph
+       * graph - set of verticies and edges
+       * directed graph - edges have arrows for direction
+       * acyclic - no cycles, can only visit each vertex once
+     * Solves issues
+       * Dependencies - clearly shows which processes a process must wait for to start
+       * Mutual Exclusion - clearly shows which processes can run at the same time and which processes cannot
+       * Deadlock - if each process is a lambda process, we will not have deadlock
+       * Starvation - clearly shows that every process will get a chance to run if other processes complete
+  
+  Generation of MPPs associated with running algorithms for Data Science
+  * 1st generation
+    * 80's and 90's
+    * artificial intelligence on the LISP machines using the LISP language
+    * invented the model of lists, lambdas, and DAGs and coined the terms
+    * problem - DAGs written by hand on drafting tables, DAGs were error prone
+  * 2nd generation
+    * early 2000's 
+    * MapReduce on Hadoop
+    * fixed DAG called MapReduce solved the problem of DAGs being error prone
+    * problem - fixed DAG can't solve every algorithm - we can chain DAGs but extremely inefficient
+  * 3rd generation
+    * early 2010's
+    * Spark
+    * easy to use list called the RDD (and inherited children such as Spark Data Frames) that mimics the Python list
+    * easy to use "lambda transforms" that can be run in parallel
+    * generates an optimal DAG for you
  
-
-
-
+ 
 ## Create a kafka topic, publish json messages from a downloaded file to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read those json messages
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
