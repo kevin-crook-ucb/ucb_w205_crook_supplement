@@ -181,6 +181,39 @@ Verify the docker cluster is down:
 docker-compose ps -a
 ```
 
+## Breakout - discussing Massively Parallel Processing (MPP) concepts
+
+Parallel Processing - running more than 1 process at the same time.  We do this all the time with Windows, Mac, and Linux. We do this all the time in IT for reverse proxies, web servers, application servers, database servers, etc.
+
+Issues with Parallel Processing
+* Dependencies 
+  * process A must wait for process B to finish before it can run 
+  * more complex similar situations involving more than 2 processes
+  * solve using job scheduling that allow us to list dependencies
+* Mutual Exclusion
+  * process A and process B cannot run at the same time 
+  * more complex similar situations involving more than 2 processes
+  * solve using semaphores
+* Deadlock 
+  * process A is waiting on process B and process B is waiting on process A 
+  * also circular waits involving more than 2 processes
+  * hard to solve - usually have to back out and restart processes
+* Starvation
+  * a process doesn't get to run or doesn't get enough CPU time to complete
+  * priorities and aging - processes have priorities and as they get starved we raise their priority as they age
+  
+ Massively Parallel Process MPP
+ * Parallel processing on a massive scale, tens or hundreds or thousands etc. of nodes
+ * Common use for data science: algorithms that will run a long time with that can run in parallel usually involving gigantic data sets
+ * For algorithms to run MPP the most common model of the last 30 years:
+   * lists
+     * a list of 
+   * lambdas
+   * DAGs
+ 
+
+
+
 ## Create a kafka topic, publish json messages from a downloaded file to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read those json messages
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
