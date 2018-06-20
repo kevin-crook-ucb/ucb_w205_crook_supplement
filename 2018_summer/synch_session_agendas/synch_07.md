@@ -248,7 +248,7 @@ Discuss as a group the above concepts, paying special attention to the Spark DAG
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
 ```
-cd ~/w205
+cd ~/w205/spark-with-kafka
 curl -L -o github-example-large.json https://goo.gl/Hr6erG
 ```
 
@@ -311,26 +311,26 @@ Topic: foo  Partition: 0    Leader: 1    Replicas: 1  Isr: 1
 
 We will execute a bash shell commands in the mids container as microservices.  Remember with microservices, we start a container, run one command, and then exit the container when the command completes.  In the first one, we just print out the json file as is.  In the second one, we print out the json file and pipe it to the utility jq for formatting.  Try running these in different windows and compare the results:
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json"
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.'"
 ```
 
 One thing I find strange about json files is that we are not allowed to just have a file of json objects.  We have to place a wrapper around the json objects that consists of an open square bracket at the beginning of the file, comma separated json objects, and a close square bracket at the end of the file.  The following command uses jq to remove this outer wrapper.  It also uses a compact format which is good for computers, but hard for humans to read.  Try running this command if a different window and compare it side by side with the previous two commands:
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c"
 ```
 
 Execute a bash shell in the mids container to run a microservice.  The cat piped into jq, we are already familiar with from the previous command.  We add a step to pipe it into the kafkacat utility with the -P option.  The -P option tells it to publish messages.  The -t options gives it the topic name of foo.  The kafka:29092 tells it the container name and the port number where kafka is running.
 ```
 docker-compose exec mids \
-  bash -c "cat /w205/github-example-large.json \
+  bash -c "cat /w205/spark-with-kafka/github-example-large.json \
     | jq '.[]' -c \
     | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
 ```
 
 The same command on 1 line to make it easier to copy and paste:
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
 ```
 
 You should see the following or similar output from the previous command:
