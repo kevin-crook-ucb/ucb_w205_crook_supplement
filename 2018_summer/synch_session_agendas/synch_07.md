@@ -234,12 +234,14 @@ Issues with Parallel Processing
     * MapReduce on Hadoop
     * fixed DAG called MapReduce solved the problem of DAGs being error prone
     * problem - fixed DAG can't solve every algorithm - we can chain DAGs but extremely inefficient
+    * https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf
   * 3rd generation
     * early 2010's
     * Spark
     * easy to use list called the RDD (and inherited children such as Spark Data Frames) that mimics the Python list
     * easy to use "lambda transforms" that can be run in parallel
     * generates an optimal DAG for you
+    * https://databricks.com/blog/2015/06/22/understanding-your-spark-application-through-visualization.html
  
  
 ## Create a kafka topic, publish json messages from a downloaded file to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read those json messages
