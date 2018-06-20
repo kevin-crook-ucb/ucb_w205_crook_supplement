@@ -10,6 +10,7 @@ Run these command in your droplet (but **NOT** in a docker container):
 docker pull midsw205/base:latest
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/spark-python:0.0.5
 ```
 
 ## Update the course-content repo in your docker container in your droplet (before class)
@@ -18,33 +19,13 @@ See instructions in previous synchronous sessions.
 
 ## Discuss Project 2: Tracking User Activity
 
-Assignment 6 - Get and Clean Data
+Assignment 6 - Get and Clean Data 
 
 Assignment 7 - Setup Pipeline
 
 Assignment 8 - Build and Write-up Pipeline
-
-# Kevin Crook's week 7 synchronous session supplemental notes
-
-Overview of today's synch session:
-* Everyone attempt to login and use their Digital Ocean droplet.  Separate instructions are provided so they can be referred to in the future.  Some students may not be able to use them due to blocked ports or admin rights to run PuTTY.
-* Review assignments 6, 7, and 8
-* Activity 1:
-  * Purpose: last week, we created a kafka topic, published numbers to the topic, and then consumed the numbers from the topic using core python.  In this activity, we are doing the same thing, except instead of reading using core python, we will be using spark via the python interface called pyspark.
-  * Create a docker cluster with 4 containers: zookeeper, kafka, mids, and spark.
-  * Create a kafka topic and publish the numbers 1 to 42 to that topic
-  * Start pyspark (python spark interface in the spark container) and write spark code in python to consume the messages from the topic
-  * tear down the cluster
-* Activity 2:
-  * Purpose: last week, we created a kafka topic, published json data to the topic, and then consumed the json data using core python with pandas.  In this activity, we are doing the same thing, except instead of using core python with pandas, we will be using spark via the python interface called pyspark.
-  * Same docker cluster as above.
-  * Pull down a json format file of GitHub data
-  * Create a kafka topic and publish the GitHub data to the topic
-  * Start pyspark and write spark code in python to consume the messages from the topic and place them into a spark data frame which is built using a spark RDD (Resilient Distributed Dataset).  An RDD is essentially a parallel list.
-  * Do some manipulations to filter and format the data in the spark data frame.
-  * tear down the cluster
   
-## Activity 1
+## Create a kafka topic, publish the number 1 to 42 as messages to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read the messages
 
 Create a directory for spark with kafka and change to that directory:
 ```
@@ -200,7 +181,7 @@ Verify the docker cluster is down:
 docker-compose ps -a
 ```
 
-## Activity 2
+## Create a kafka topic, publish json messages from a downloaded file to that topic, use pyspark (python spark interface in the spark container) to subscribe to the topic and read those json messages
 
 Download our GitHub example data from the Internet using the curl utility.  Note that since it's using HTTPS, you can paste the URL into a web browser to test if the download works or not.  This is always highly recommended.  It should produce a json file.  However, if there are any errors, it will produce an XML file:
 ```
