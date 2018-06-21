@@ -359,7 +359,7 @@ messages = spark \
 
 The same command on 1 line to make it easy to copy and paste:
 ```
-numbers = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
+messages = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 Print the schema for the data frame (same as we did before).
