@@ -178,7 +178,7 @@ See the results of the new data frame:
 extracted_players.show()
 ```
 
-Save the results to a parquet forma file in hdfs:
+Save the results to a parquet format file in hdfs:
 ```
 extracted_players.write.parquet("/tmp/extracted_players")
 ```
@@ -190,6 +190,22 @@ extracted_players.show()
 ```
 
 Keep the cluster and pyspark running, no need to take them down and up again!
+
+## Breakout - streaming sensor data
+
+Previously, we talked about using Kafka for:
+
+* Message Queues in a corporate environment, such as IBM MQ Series or Tibco, where most production systems publish messages in real time to topic based message queues
+
+* Internet Streaming Media, such as Twitter, 
+
+Some other interesting uses for Kafka include:
+
+* Sensor data - sensors gather and transmit data in real time over networks (or cell phone networks).  Examples might include a railroad having sensors on tracks and transmitting data in real time.
+
+* Industrial robots and industrial machinery - factories - transmit data about the work they are doing in real time over networks.
+
+Discuss these or other areas for Kafka.  How would you implement a Lambda Architecture?  What would be the speed layer?  The Batch layer?  What analytics could you do a the speed layer? at the batch layer?
 
 ## Activity 2
 
