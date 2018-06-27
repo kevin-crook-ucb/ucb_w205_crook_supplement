@@ -1,50 +1,21 @@
-# under construction
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #7
 
+## Update docker images (before class)
 
-# Kevin Crook's week 8 synchronous session supplemental notes
+Run these command in your droplet (but **NOT** in a docker container):
 
-Overview of today's synch session:
+```
+docker pull midsw205/base:latest
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/spark-python:0.0.5
+```
 
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-      * note that if there are not any containers to clean up you will get an error message saying docker rm needs at least 1 argument.  That's find just ignore it.
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/cdh-minimal:latest
-    * docker pull midsw205/spark-python:0.0.5
-    * docker pull midsw205/base:latest
-* Activity 1:
-  * Purpose: add hadoop to our docker cluster to store json data of world cup players, seeing problems with unicode characters, encoding unicode with utf-8 to fix those problems, writing to parquet format in the hadoop hdfs (hadoop distributed file system)
-  * create a docker cluster with 5 containers: zookeeper, kafka, cloudera (hadoop distribution), spark, and mids
-  * access the hadoop hdfs
-  * create a kafka topic called players
-  * download a json file of world cup players
-  * publish the json data of world cup player to the kafka topic players
-  * using spark consume the json data from the kafka topic
-  * write the json data to parquet format in hdfs
-  * see that the json data has unicode characters
-  * encode the unicode characters with utf-8 to fix the issue
-  * write the json data in utf-8 to hdfs
-* Activity 2:
-  * Purpose: similar the activity 1, use but use the github dataset, see that the github dataset is nested and not flat like the world cup dataset was, use spark methods to handle the nested structure, including spark sql queries and deriving data frames from spark sql queries, save to parquet format in hdfs
-  * we will use the running cluster above without terminating it
-  * create a kafka topic called commits
-  * download the json file of github commits data
-  * publish the json file of github commits data to the kafka topic commits
-  * using spark consume the json data from the kafka topic
-  * write the json data to parquet format in hdfs
-  * see that the json data is nested
-  * use spark sql to handle the nested data
-  * extract part of the data using spark sql and write that to parquet format in hdfs
-  
-## Activity 1
+## Update the course-content repo in your docker container in your droplet (before class)
+
+See instructions in previous synchronous sessions.
+
+## Part 1
 
 Create a directory for spark with kafka and hadoop hadfs
 ```
@@ -104,22 +75,21 @@ Created topic "players".
 
 Download the dataset for world cup players in json format.  Remember our downloads go into the ~/w205 directory:
 ```
-cd ~/w205/
-curl -L -o players.json https://goo.gl/jSVrAe
 cd ~/w205/spark-with-kafka-and-hdfs
+curl -L -o players.json https://goo.gl/jSVrAe
 ```
 
 Use kafkacat to publish the world cup players json data to the kafka topic players:
 ```
 docker-compose exec mids \
-  bash -c "cat /w205/players.json \
+  bash -c "cat /w205/spark-with-kafka-and-hdfs/players.json \
     | jq '.[]' -c \
     | kafkacat -P -b kafka:29092 -t players"
 ```
 
 The same command on 1 line for convenience:
 ```
-docker-compose exec mids bash -c "cat /w205/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
 ```
 
 Start a spark pyspark shell in the spark container.  Remember that pyspark is the python interface to spark.
@@ -252,22 +222,21 @@ Created topic "commits".
 
 Download the github commits dataset in json format into the ~/w205 directory
 ```
-cd ~/w205
-curl -L -o github-example-large.json https://goo.gl/Hr6erG
 cd ~/w205/spark-with-kafka-and-hdfs
+curl -L -o github-example-large.json https://goo.gl/Hr6erG
 ```
 
 Using kafkacat publish the github json dataset to the topic commits
 ```
 docker-compose exec mids \
-  bash -c "cat /w205/github-example-large.json \
+  bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json \
     | jq '.[]' -c \
     | kafkacat -P -b kafka:29092 -t commits"
 ```
 
 Same command on 1 line for convenience:
 ```
-docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
+docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
 ```
 
 Using our pyspark command prompt, consume from the kafka topic commits into a kafka data frame:
