@@ -15,7 +15,7 @@ docker pull midsw205/spark-python:0.0.5
 
 See instructions in previous synchronous sessions.
 
-## Part 1
+## Part 1 - Add an hadoop container to our cluster.  We will download a json file of world cup player information, create a kafka topic, publish the world cup player information to the topic, use python code in pyspark to use spark to subscribe to the topic, load the data as json objects into spark, write the data out into parquet files in hadoop hdfs.
 
 Create a directory for spark with kafka and hadoop hadfs
 ```
@@ -207,7 +207,7 @@ Some other interesting uses for Kafka include:
 
 Discuss these or other areas for Kafka.  How would you implement a Lambda Architecture?  What would be the speed layer?  The Batch layer?  What analytics could you do a the speed layer? at the batch layer?
 
-## Activity 2
+## Part 2 - adding to part 1 imposing a schema on the json objects in the spark dataframe and using spark SQL to query the data
 
 Let's check out hdfs before we write anything to it (using a linux command line windows separate form our pyspark window):
 ```
