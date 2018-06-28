@@ -9,7 +9,7 @@ docker pull midsw205/base:latest
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
 docker pull midsw205/spark-python:0.0.5
-midsw205/cdh-minimal:latest
+docker pull midsw205/cdh-minimal:latest
 ```
 
 ## Update the course-content repo in your docker container in your droplet (before class)
