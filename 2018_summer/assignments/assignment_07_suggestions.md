@@ -62,7 +62,7 @@ The following are the minimum components that I would be looking for in terms of
 
 ## Suggestions for enhancements
 
-** Be sure to include an Enchancement section at the end of your submission, preferably with a bullet list of enhancements where each enchance is a bullet point with a brief description.**
+**Be sure to include an Enchancement section at the end of your submission, preferably with a bullet list of enhancements where each enchance is a bullet point with a brief description.**
 
 Assignments 6, 7, and 8 are part of Project 2.  You can reuse enhancements in the next assignemnt.
 
