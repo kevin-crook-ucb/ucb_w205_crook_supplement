@@ -244,7 +244,7 @@ docker-compose exec spark pyspark
 Last time, we used the method cache() to cache our data frames to prevent warning messages, which are very distracting if you are new to spark.  Now that we are getting more familiar with spark, let's leave it off, so we will be getting warnings.
 
 Using pyspark, consume the kafka topic:
-```
+```python
 raw_events = spark \
   .read \
   .format("kafka") \
@@ -256,33 +256,33 @@ raw_events = spark \
 ```
 
 Same command on 1 line for convenience:
-```
+```python
 raw_events = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","events").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 Cache our raw events:
-```
+```python
 raw_events.cache()
 ```
 
 As we have done several times before, the value will be binary which is not easily human readable.  We won't be using the other attributes.  We will create a new data frame with just the value in string format.
-```
+```python
 events = raw_events.select(raw_events.value.cast('string'))
 ```
 
 As we have done several times before, we will extract the values into individual json objects:
-```
+```python
 import json
 extracted_events = events.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
 
 Take a look at the extracted json values:
-```
+```python
 extracted_events.show()
 ```    
 
 Exit pyspark with:
-```
+```python
 exit()
 ```
 
