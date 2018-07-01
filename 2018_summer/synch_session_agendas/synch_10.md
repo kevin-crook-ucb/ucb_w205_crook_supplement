@@ -131,9 +131,11 @@ You should see similar to the following:
 ...
 ```
 
-Leave the cluster running for activity 2.  We will also use the same kafka topic.
+Leave the cluster running for the next activity.  We will also use the same kafka topic.
 
 ## Activity - enhance the previous activity by adding more key value attributes to the json objects that we publish to kafka, use the pyspark python to spark interface to read the json objects into a data frame and process them
+
+Use control-C to exit the flask web server.
 
 Create new python file game_api_with_extended_json_events.py with the following python code.  This enhances the events even more:
 ```python
