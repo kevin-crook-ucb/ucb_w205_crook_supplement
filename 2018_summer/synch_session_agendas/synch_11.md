@@ -1,37 +1,21 @@
 # under construction
 
-# Kevin Crook's week 11 synchronous session supplemental notes
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #11
 
-Overview of today's synch session:
+## Update docker images (before class)
 
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/cdh-minimal:latest
-    * docker pull midsw205/spark-python:0.0.5
-    * docker pull midsw205/base:latest
-* Some misc loose ends
-  * Discuss having a Data Science Portfolio of your work
-    * GitHub public repo
-    * README.md should be informative with links to your resume in pdf, outline of areas and example
-    * Consider directories such as Resume, Machine Learning, Deep Learning, Natural Language Processing, Data Visualization, Blockchain Analytics
-    * Suggestion: take assignment 5, the Jupyter Notebook which queries Google Big Query and do some analytics on the Bitcoin dataset and make it look professional using markdown cells, pandas tables, data visualizations, etc.
-  * Using Jupyter Notebook with Spark from Chrome on your laptop to connect to your droplet => docker cluster => spark container
-  * Using a web browser from your laptop to connect to our flask web server and issue API commands
-  * Using telnet from the droplet to connect to our flask web server and issue API commands
-  * Using telnet from your laptop to connect to our flask web server and issue API commands
-  * Using PuTTY from your laptop to connect to our flask web server and issue API commands
-* Activity
-  * Purpose: So far in past weeks, we have created a docker cluster with containers for zookeeper, kafka, spark, and mids.  We have created a small web API server using flask, which has written web logs to a kafka topic in json format, we have read the kafka topic with spark and done some processing.  Continuing this week, we are going to add cloudera hadoop to our docker cluster and we will write from spark to hdfs as we did in the previous project.  We have been using pyspark to run spark.  We will now run spark-submit to submit jobs to the spark cluster.  We will look at code for submitting spark to other types of clusters, such as standalone, yarn, mesos, and kubernetes.  We will look at doing some munging on spark events.  We will also look at separating events.
-* Time permitting - remainder of class time for group meetings
+Run these command in your droplet (but **NOT** in a docker container):
+
+```
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/spark-python:0.0.5
+docker pull midsw205/base:0.1.8
+```
+
+## Update the course-content repo in your docker container in your droplet (before class)
+
+See instructions in previous synchronous sessions.
 
 ## Activity
 
@@ -47,7 +31,7 @@ cp ~/w205/course-content/11-Storing-Data-III/docker-compose.yml .
 ```
 
 Walk through the docker-compose.yml file. We are adding the cloudera hadoop container to what we have done so far.  We are also exposing port 5000 so we can connect to our flask web API from both the droplet and from our desktop:
-```yaml
+```yml
 ---
 version: '2'
 services:
@@ -120,6 +104,7 @@ services:
       - "~/w205:/w205"
     extra_hosts:
       - "moby:127.0.0.1"
+      
 ```
 
 
@@ -161,7 +146,7 @@ You should see:
 Created topic "events".
 ```
 
-Review the file game_api.py:
+Review the Python file game_api.py:
 ```python
 #!/usr/bin/env python
 import json
@@ -181,14 +166,15 @@ def log_to_kafka(topic, event):
 def default_response():
     default_event = {'event_type': 'default'}
     log_to_kafka('events', default_event)
-    return "This is the default response!\n"
+    return "\nThis is the default response!\n"
 
 
 @app.route("/purchase_a_sword")
 def purchase_a_sword():
     purchase_sword_event = {'event_type': 'purchase_sword'}
     log_to_kafka('events', purchase_sword_event)
-    return "Sword Purchased!\n"
+    return "\nSword Purchased!\n"
+    
 ```
 
 Run flask with our game_api.py python code:
@@ -409,15 +395,7 @@ if __name__ == "__main__":
     main()
 ```
 
-::: notes
-Here's an example that allows arbitrary tranformation of the json `value`
-_before_ extraction.
-:::
-
-
 ## Let's look at separating events
-
-##
 
 ```python
 #!/usr/bin/env python
