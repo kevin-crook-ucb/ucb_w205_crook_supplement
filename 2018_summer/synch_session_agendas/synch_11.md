@@ -1,5 +1,3 @@
-# under construction
-
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #11
 
 ## Update docker images (before class)
@@ -18,7 +16,7 @@ docker pull midsw205/base:latest
 
 See instructions in previous synchronous sessions.
 
-## Activity
+## Activity - Continuing with what we did last week, we will add an hadoop container to our cluster, and our python spark code will subscribe to the kafka topic and write the results into parquet format in hdfs.  We will also introduce the batch python spark interface called spark-submit to submit our python files instead of using pyspark.  We will run a couple of variations.  One will transform the events.  Another will separate the events.
 
 Create our directory and change to it:
 ```
