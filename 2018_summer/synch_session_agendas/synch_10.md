@@ -1,5 +1,3 @@
-# under construction
-
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #10
 
 ## Update docker images (before class)
