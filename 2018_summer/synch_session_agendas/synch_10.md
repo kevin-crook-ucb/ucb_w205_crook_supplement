@@ -1,23 +1,22 @@
 # under construction
 
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #10
 
-# Kevin Crook's week 10 synchronous session supplemental notes
+## Update docker images (before class)
 
-Overview of today's synch session:
+Run these command in your droplet (but **NOT** in a docker container):
 
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/spark-python:0.0.5
-    * docker pull midsw205/base:latest
+```
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/spark-python:0.0.5
+docker pull midsw205/base:latest
+```
+
+## Update the course-content repo in your docker container in your droplet (before class)
+
+See instructions in previous synchronous sessions.
+
 * Activity 1
   * Purpose: Last week, we setup a simple web API service which wrote to a kafka topic, used curl to make web API calls to our web API service, our web API server published to a kafka topic, and we manually consumed the kafka topic. In this activity, we will do the same, but with more informative events.
   * Create a docker cluster with 4 containers: zookeeper, kafka, spark, and mids (we won't directly use spark in this first activity, but we will in activity 2)
