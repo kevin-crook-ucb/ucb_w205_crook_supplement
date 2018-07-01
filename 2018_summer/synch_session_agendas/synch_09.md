@@ -33,7 +33,7 @@ cd ~/w205/flask-with-kafka
 ```
 
 Create a `docker-compose.yml` with the following.  Remember to fix the drive mappings if needed:
-```
+```yml
 ---
 version: '2'
 services:
@@ -87,7 +87,7 @@ docker-compose up -d
 
 Create the kafka topic events (as we have done before):
 ```
- docker-compose exec kafka \
+docker-compose exec kafka \
    kafka-topics \
      --create \
      --topic events \
@@ -99,7 +99,7 @@ Create the kafka topic events (as we have done before):
 
 The same command on 1 line for convenience:
 ```
- docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
 Should see the following output:
