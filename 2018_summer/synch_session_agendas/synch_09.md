@@ -1,4 +1,4 @@
-#under construction
+# under construction
 
 # UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #9
 
@@ -19,22 +19,6 @@ docker pull midsw205/cdh-minimal:latest
 See instructions in previous synchronous sessions.
 
 
-# Kevin Crook's week 9 synchronous session supplemental notes
-
-Overview of today's synch session:
-
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/base:latest
 * Activity
   * Purpose: setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working.  subject matter is a mobile game developer who sells game events such as purcase a sword, purchase a knife, join a guild, etc.  In our mids container we will use flask, which is a simple lightweight python based web server.
   * Create a docker cluster with 3 containers: zookeeper, kafka, and mids
