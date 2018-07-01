@@ -26,7 +26,7 @@ Assignment-11 - Setup Pipeline, Part 2
 
 Assignment-12 - Synthesis Assignment
 
-## Activity - setups a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consumer the kafka topic to verify our web service is working.
+## Activity - setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working
 
 Create a directory:
 ```
@@ -79,6 +79,7 @@ services:
       - "5000:5000"
     extra_hosts:
       - "moby:127.0.0.1"
+      
 ```
 
 Start the docker cluster:
@@ -134,6 +135,7 @@ def default_response():
 def purchase_sword():
     # business logic to purchase sword
     return "\nSword Purchased!\n"
+    
 ```
 
 Run the python script using the following command.  This will tie up this linux command line window.  We will see output from our python program here as we make our web API calls:
@@ -169,6 +171,7 @@ def purchase_sword():
     # log event to kafka
     event_logger.send(events_topic, 'purchased_sword'.encode())
     return "\nSword Purchased!\n"
+    
 ```
 
 Run the python flask script as before:
