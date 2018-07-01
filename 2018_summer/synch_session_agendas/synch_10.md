@@ -10,7 +10,7 @@ Run these command in your droplet (but **NOT** in a docker container):
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
 docker pull midsw205/spark-python:0.0.5
-docker pull midsw205/base:latest
+docker pull midsw205/base:0.1.8
 ```
 
 ## Update the course-content repo in your docker container in your droplet (before class)
@@ -100,14 +100,15 @@ def log_to_kafka(topic, event):
 def default_response():
     default_event = {'event_type': 'default'}
     log_to_kafka('events', default_event)
-    return "This is the default response!\n"
+    return "\nThis is the default response!\n"
 
 
 @app.route("/purchase_a_sword")
 def purchase_a_sword():
     purchase_sword_event = {'event_type': 'purchase_sword'}
     log_to_kafka('events', purchase_sword_event)
-    return "Sword Purchased!\n"
+    return "\nSword Purchased!\n"
+    
 ```
 
 Run the python flash script in the mids container of our docker cluster. This will run and print output to the command line each time we make a web API call.  It will hold the command line until we exit it with a control-C.  So you will need another command line prompt:
@@ -155,7 +156,7 @@ Leave the cluster running for activity 2.  We will also use the same kafka topic
 
 ## Activity 2
 
-Replace the contents of the file game_api_with_json_events.py with the following python code.  This enhances the events even more:
+Create new python file game_api_with_extended_json_events.py with the following python code.  This enhances the events even more:
 ```python
 #!/usr/bin/env python
 import json
@@ -175,14 +176,15 @@ def log_to_kafka(topic, event):
 def default_response():
     default_event = {'event_type': 'default'}
     log_to_kafka('events', default_event)
-    return "This is the default response!\n"
+    return "\nThis is the default response!\n"
 
 
 @app.route("/purchase_a_sword")
 def purchase_a_sword():
     purchase_sword_event = {'event_type': 'purchase_sword'}
     log_to_kafka('events', purchase_sword_event)
-    return "Sword Purchased!\n"
+    return "\nSword Purchased!\n"
+    
 ```
 
 Run the python flash script in the mids container of our docker cluster. This will run and print output to the command line each time we make a web API call.  It will hold the command line until we exit it with a control-C.  So you will need another command line prompt:
@@ -255,7 +257,12 @@ raw_events = spark \
 
 Same command on 1 line for convenience:
 ```
- raw_events = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","events").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
+raw_events = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","events").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
+```
+
+Cache our raw events:
+```
+raw_events.cache()
 ```
 
 As we have done several times before, the value will be binary which is not easily human readable.  We won't be using the other attributes.  We will create a new data frame with just the value in string format.
@@ -265,6 +272,7 @@ events = raw_events.select(raw_events.value.cast('string'))
 
 As we have done several times before, we will extract the values into individual json objects:
 ```
+import json
 extracted_events = events.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
 
