@@ -9,8 +9,9 @@ Run these command in your droplet (but **NOT** in a docker container):
 ```
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/cdh-minimal:latest
 docker pull midsw205/spark-python:0.0.5
-docker pull midsw205/base:0.1.8
+docker pull midsw205/base:latest
 ```
 
 ## Update the course-content repo in your docker container in your droplet (before class)
@@ -335,9 +336,8 @@ docker-compose exec spark \
     --deploy-mode cluster \
     filename.py
 ```
-(this won't work here)
 
-More spark variations that we can try in our cluster (time permitting we will try them in pyspark and Jupyter Notebook):
+Review the python file transform_events.py below.  Note we change the event "Host" to "moe" and the event "Cache-Control" to "no-cache".  We also do a show on our events.  We also overwrite our parquet files.
 
 ```python
 #!/usr/bin/env python
@@ -395,7 +395,13 @@ if __name__ == "__main__":
     main()
 ```
 
-## Let's look at separating events
+Run transform_events.py and review the results.
+
+```
+docker-compose exec spark spark-submit /w205/spark-from-files/transform_events.py
+```
+
+Review the python file separate_events.py below.  Note we now separate sword purchase events from default events.
 
 ```python
 #!/usr/bin/env python
@@ -460,6 +466,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
+
+Run separate_events.py and review the results.
+
+```
+docker-compose exec spark spark-submit /w205/spark-from-files/separate_events.py
 ```
 
 Tear down the cluster:
