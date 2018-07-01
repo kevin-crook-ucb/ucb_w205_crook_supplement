@@ -17,28 +17,7 @@ docker pull midsw205/base:0.1.8
 
 See instructions in previous synchronous sessions.
 
-* Activity 1
-  * Purpose: Last week, we setup a simple web API service which wrote to a kafka topic, used curl to make web API calls to our web API service, our web API server published to a kafka topic, and we manually consumed the kafka topic. In this activity, we will do the same, but with more informative events.
-  * Create a docker cluster with 4 containers: zookeeper, kafka, spark, and mids (we won't directly use spark in this first activity, but we will in activity 2)
-  * Create a kafka topic called events
-  * Write a python script using flask that publishes to the kafka topic.  We will use the KafkaProducer class in python.
-  * Run our python script in the mids container
-  * Using a curl, we will make some web API calls manually
-  * Consume the kafka topic events
-  * Keep the cluster running for activity 2
-* Activity 2
-  * Purpose: Similar to activity 1, but we will be consuming kafka using pyspark, the python interface to spark.
-  * Continue with the same cluster and kafka topic we had in activity 1.
-  * Beef up our python script using flask that publishes to the kafka topic to log even more information about the events.  We will use the KafkaProducer class in python.
-  * Run our python script in the mids container
-  * Using a curl, we will make some web API calls manually
-  * Consume the kafka topic events using pyspark
-  * Do some manipulations of the events using pyspark
-  * Time permitting - use telnet to see raw information to and from our web API server
-  * Tear down the cluster
-* Assignment 10 overview
-
-## Activity 1
+## Activity - setup a web server running a simple web API service which will service web API calls by publishing them to a kafka topic, this time we will format them into simple json objects instead of just publishing text, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working
 
 Create a new directory for flask with kafka and spark:
 ```
@@ -154,7 +133,7 @@ You should see similar to the following:
 
 Leave the cluster running for activity 2.  We will also use the same kafka topic.
 
-## Activity 2
+## Activity - enhance the previous activity by adding more key value attributes to the json objects that we publish to kafka, use the pyspark python to spark interface to read the json objects into a data frame and process them
 
 Create new python file game_api_with_extended_json_events.py with the following python code.  This enhances the events even more:
 ```python
