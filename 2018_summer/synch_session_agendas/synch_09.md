@@ -7,36 +7,26 @@
 Run these command in your droplet (but **NOT** in a docker container):
 
 ```
-docker pull midsw205/base:latest
+docker pull midsw205/base:0.1.8
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
-docker pull midsw205/spark-python:0.0.5
-docker pull midsw205/cdh-minimal:latest
 ```
 
 ## Update the course-content repo in your docker container in your droplet (before class)
 
 See instructions in previous synchronous sessions.
 
+## Project 3 - Understanding User Behavior Project
 
-* Activity
-  * Purpose: setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working.  subject matter is a mobile game developer who sells game events such as purcase a sword, purchase a knife, join a guild, etc.  In our mids container we will use flask, which is a simple lightweight python based web server.
-  * Create a docker cluster with 3 containers: zookeeper, kafka, and mids
-  * Create a kafka topic called events
-  * Install flask into out mids container
-  * Write a python scipt using the flash module to implement a simple web service and print the results to standard output
-  * Run our python script in the mids container
-  * Using a curl, we will make some web API calls manually
-  * Stop flask
-  * Beef up our python script using flash to write to the kafka topic instead of standard output.  We will use the KafkaProducer class in python.
-  * Run our beefed up python script in the mids container
-  * Using curl, we will make some web API calls manually
-  * Consume the kafka topic events
-  * stop flask and tear down the cluster
-* Project 3 overview
-* Assignment 9 overview
-    
-# Activity
+Assignment-09 - Define your Pipeline
+
+Assignment-10 - Setup Pipeline, Part 1
+
+Assignment-11 - Setup Pipeline, Part 2
+
+Assignment-12 - Synthesis Assignment
+
+## Activity - setups a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consumer the kafka topic to verify our web service is working.
 
 Create a directory:
 ```
@@ -130,6 +120,7 @@ API-server.
 We will use the python flask module to write a simple API server.  
 
 - Use the python `flask` library to write our simple API server. Create a file `~/w205/flask-with-kafka/game_api.py` with the following python code:
+
 ```python
 #!/usr/bin/env python
 from flask import Flask
@@ -137,12 +128,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def default_response():
-    return "This is the default response!"
+    return "\nThis is the default response!\n"
 
 @app.route("/purchase_a_sword")
 def purchase_sword():
     # business logic to purchase sword
-    return "Sword Purchased!"
+    return "\nSword Purchased!\n"
 ```
 
 Run the python script using the following command.  This will tie up this linux command line window.  We will see output from our python program here as we make our web API calls:
@@ -170,14 +161,14 @@ events_topic = 'events'
 @app.route("/")
 def default_response():
     event_logger.send(events_topic, 'default'.encode())
-    return "This is the default response!"
+    return "\nThis is the default response!\n"
 
 @app.route("/purchase_a_sword")
 def purchase_sword():
     # business logic to purchase sword
     # log event to kafka
     event_logger.send(events_topic, 'purchased_sword'.encode())
-    return "Sword Purchased!"
+    return "\nSword Purchased!\n"
 ```
 
 Run the python flask script as before:
