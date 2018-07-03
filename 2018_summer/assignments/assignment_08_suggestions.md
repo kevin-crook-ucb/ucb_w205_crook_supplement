@@ -24,8 +24,90 @@ cp ~/w205/course-content/08-Querying-Data/docker-compose.yml .
 ```
 docker-compose up -d
 ```
-
-
+```
+docker-compose logs -f kafka
+```
+```
+docker-compose exec cloudera hadoop fs -ls /tmp/
+```
+```
+docker-compose exec kafka \
+  kafka-topics \
+    --create \
+    --topic commits \
+    --partitions 1 \
+    --replication-factor 1 \
+    --if-not-exists \
+    --zookeeper zookeeper:32181
+```
+```
+cd ~/w205/spark-with-kafka-and-hdfs
+curl -L -o github-example-large.json https://goo.gl/Hr6erG
+```
+```
+docker-compose exec mids \
+  bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json \
+    | jq '.[]' -c \
+    | kafkacat -P -b kafka:29092 -t commits"
+```
+```
+docker-compose exec spark pyspark
+```
+```
+raw_commits = spark \
+  .read \
+  .format("kafka") \
+  .option("kafka.bootstrap.servers", "kafka:29092") \
+  .option("subscribe","commits") \
+  .option("startingOffsets", "earliest") \
+  .option("endingOffsets", "latest") \
+  .load() 
+```
+```
+raw_commits.cache()
+```
+```
+raw_commits.printSchema()
+```
+```
+commits = raw_commits.select(raw_commits.value.cast('string'))
+```
+```
+commits.write.parquet("/tmp/commits")
+```
+```
+extracted_commits = commits.rdd.map(lambda x: json.loads(x.value)).toDF()
+```
+```
+extracted_commits.show()
+```
+```
+extracted_commits.printSchema()
+```
+```
+extracted_commits.registerTempTable('commits')
+```
+```
+spark.sql("select commit.committer.name from commits limit 10").show()
+spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10").show()
+```
+```
+some_commit_info = spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10")
+```
+```
+some_commit_info.write.parquet("/tmp/some_commit_info")
+```
+```
+docker-compose exec cloudera hadoop fs -ls /tmp/
+docker-compose exec cloudera hadoop fs -ls /tmp/commits/
+```
+```
+exit()
+```
+```
+docker-compose down
+docker-compose ps
+```
 
 ## Suggestions for annotating the minimum components:
 
