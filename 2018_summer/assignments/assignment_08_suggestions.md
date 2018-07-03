@@ -12,9 +12,20 @@ Also, remember that assignments 6, 7, and 8 are part of the Project 2.  You will
 
 ## Minimum components
 
-The following are the minimum components that I would be looking for in terms of a 9 (A):
+The following are the minimum components that I would be looking for in terms of a 9 (A).  These are the raw commands from class.  They may need adaptation to work for the differing json file and to be adapted for any enhancements you make:
 
-TBD
+```
+mkdir ~/w205/spark-with-kafka-and-hdfs
+cd ~/w205/spark-with-kafka-and-hdfs
+```
+```
+cp ~/w205/course-content/08-Querying-Data/docker-compose.yml .
+```
+```
+docker-compose up -d
+```
+
+
 
 ## Suggestions for annotating the minimum components:
 
