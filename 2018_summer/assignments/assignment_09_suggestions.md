@@ -1,5 +1,3 @@
-# under construction
-
 # Suggestions for Assignment 9 for MIDS W205 2018 Summer - Kevin Crook
 
 Part of the Berkeley culture is to not place any limits on student success.  In keeping with this culture, there are open ended components of this assignment to allow students to synthesize what they learned in the assignment to take it to higher levels.  
