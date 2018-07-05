@@ -14,8 +14,125 @@ Also, remember that assignments 9, 10, 11, and 12 are part of the Project 3.  Yo
 
 The following are the minimum components that I would be looking for in terms of a 9 (A).  These are the raw commands from class.  They may need adaptation to work for the differing json file and to be adapted for any enhancements you make:
 
+```
+mkdir ~/w205/flask-with-kafka
+cd ~/w205/flask-with-kafka
+```
+```yml
+---
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    expose:
+      - "2181"
+      - "2888"
+      - "32181"
+      - "3888"
+    extra_hosts:
+      - "moby:127.0.0.1"
 
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    expose:
+      - "9092"
+      - "29092"
+    extra_hosts:
+      - "moby:127.0.0.1"
 
+  mids:
+    image: midsw205/base:0.1.8
+    stdin_open: true
+    tty: true
+    volumes:
+      - ~/w205:/w205
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    extra_hosts:
+      - "moby:127.0.0.1"
+      
+```
+```
+docker-compose up -d
+```
+```
+docker-compose exec kafka \
+   kafka-topics \
+     --create \
+     --topic events \
+     --partitions 1 \
+     --replication-factor 1 \
+     --if-not-exists \
+     --zookeeper zookeeper:32181
+```
+```python
+#!/usr/bin/env python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def default_response():
+    return "\nThis is the default response!\n"
+
+@app.route("/purchase_a_sword")
+def purchase_sword():
+    # business logic to purchase sword
+    return "\nSword Purchased!\n"
+    
+```
+```
+docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
+```
+```
+docker-compose exec mids curl http://localhost:5000/
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+```python
+#!/usr/bin/env python
+from kafka import KafkaProducer
+from flask import Flask
+app = Flask(__name__)
+event_logger = KafkaProducer(bootstrap_servers='kafka:29092')
+events_topic = 'events'
+
+@app.route("/")
+def default_response():
+    event_logger.send(events_topic, 'default'.encode())
+    return "\nThis is the default response!\n"
+
+@app.route("/purchase_a_sword")
+def purchase_sword():
+    # business logic to purchase sword
+    # log event to kafka
+    event_logger.send(events_topic, 'purchased_sword'.encode())
+    return "\nSword Purchased!\n"
+    
+```
+```
+docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
+```
+```
+docker-compose exec mids curl http://localhost:5000/
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+```
+docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t events -o beginning -e"
+```
+```
+docker-compose down
+```
 
 ## Suggestions for annotating the minimum components:
 
