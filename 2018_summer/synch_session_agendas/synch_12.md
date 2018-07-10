@@ -1,31 +1,23 @@
-# under construction
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #12
 
-# Kevin Crook's week 12 synchronous session supplemental notes
+## Update docker images (before class)
 
-Overview of today's synch session:
+Run these command in your droplet (but **NOT** in a docker container):
 
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/cdh-minimal:latest
-    * docker pull midsw205/spark-python:0.0.5
-    * docker pull midsw205/base:0.1.9
-* Activity
-  * Previously: So far, in project 3, we have built a docker cluster with zookeeper, kafka, cloudera hadoop, spark w python, and mids containers.  We have designed and run a web API server, generated API calls using curl on the command line, a real web browser, telnet, and PuTTY raw mode.  We have created a kafka topic and written API events and supporting web logs to the kafka topic.  We have used spark to read the kafka topic and filter, flatten, transform, etc. events using massively parallel processing methods.  We have used spark in the pyspark python oriented command line, using the spark-submit job submission style interface, and using jupyter notebook.  We have also written our spark data frames using the massively parallel processing methods out to parquet format in hadoop hdfs.  We also used spark SQL to query our data frame using convenience SQL instead of the transforms.
-  * This week: we will add the following: Use kafkacat in an interactive mode where it will show events as they come through. Use Apache Bench (now added to midsw205/base) to automate stress testing of our web API.  Last time our spark code assumed we had events with all the same type schema, and if we didn't our spark code broke.  We will add some code to spark to process events with different schemas.  We are going to add a new event type to our flask app.  In the past, when we wrote out from spark we received an error if the directory already existed, and we had to manually delete it or pick a new name.  This week will will use the overwrite option to automatically overwrite it if it already exists.  Previously we wrote spark data frames out, but didn't read them back in.  Today we will read them back in.  We will also query using SQL.  We will also see how to get the results of a query into Pandas (if it will fit!) and use the more convenient Pandas functions to process our results.
-* ssh - we will also look at ssh in more depth, along with public key / private key asymetric encryption and how to make better use of it for our droplets.
-* presto - students have been asking about presto - we will be adding presto to the mix in coming weeks.
+```
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/cdh-minimal:latest
+docker pull midsw205/spark-python:0.0.5
+docker pull midsw205/base:0.1.9
+```
 
+## Update the course-content repo in your docker container in your droplet (before class)
 
-## Activity
+See instructions in previous synchronous sessions.
+
+## Activity - Continuing with what we did last week, we will add an hadoop container to our cluster, and our python spark code will subscribe to the kafka topic and write the results into parquet format in hdfs.  We will also introduce the batch python spark interface called spark-submit to submit our python files instead of using pyspark.  We will run a couple of variations.  One will transform the events.  Another will separate the events.
+
 
 Create the full stack directory in your droplet.  Copy the yml file.  Copy the python files we will be using.
 ```
@@ -484,77 +476,3 @@ Tear down our cluster (as before):
 docker-compose down
 ```
 
-# SecureShell (SSH)
-
-Let's review some basics of encryption:
-
-Symmetric - traditional encryption since early times.  One key encrypts and the same key decrypts.  Big problem is key exchange.
-
-Asymmetric - 1990's - Public / Private Key Pairs.  Public key encrypts, but cannot decrypt.  Public key can be placed in the public without any worries.  Private key decrypts.  Solves the problem of key exchange.
-
-One Way Hashed - can encrypt, but cannot decrypt.  MD5, SHA, etc.  Good for storing a hash of a password without storing the actual password. Used in Block Chain.  Used in signed code.  
-
-
-ssh - can be used in 2 main ways:
-* can be used to encrypt traffic between your terminal and a host.  Always want to encrypt the username and password.
-* can be used to present a private key to the server so a password is not needed.
-
-ssh science@xxx.xxx.xxx.xxx
-
-scp - secure copy:
-
-for your cloud instance, look up:
-- the ip address
-- password for the `science` user
-
-Mac users can run these commands (Windows users can use WinSCP):
-```
-scp some_file science@xxx.xxx.xxx.xxx:
-```
-or 
-```
-scp some_file science@xxx.xxx.xxx.xxx:/tmp/
-```
-
-On your laptop, run
-```
-scp science@xxx.xxx.xxx.xxx:~/w205/a_file.py .
-```
-ssh - generate a key pair - hit return on all prompts:
-
-    ssh-keygen -t rsa -b 2048
-
-This creates:
-
-a public key
-
-    ~/.ssh/id_rsa.pub
-
-and a private key
-
-    ~/.ssh/id_rsa
-
-Public keys are safe to post on the internet as mentioned before.  GitHub is often used to store public keys.  
-
-How to see your public keys on github:
-```
-curl https://github.com/<your-gh-id>.keys
-```
-
-If you want you can add your public key from github to your droplet using the following utility:
-```
-ssh-import-id-gh <your-gh-id>
-```
-
-You should see something like this:
-```
-science@smmm-mmm-1:~$ ssh-import-id-gh mmm
-2018-04-02 18:09:29,091 INFO Starting new HTTPS connection (1): api.github.com
-2018-04-02 18:09:29,285 INFO Authorized key ['4096', 'SHA256:51JGHgluZZRHkyxT9rA5FGi0fIX2/Nm4wCaeu7GsiN0', 'mmm@github/26661056', '(RSA)']
-2018-04-02 18:09:29,287 INFO [1] SSH keys [Authorized]  
-```
-
-Now you don't have to use a password to connect:
-```
-ssh science@xxx.xxx.xxx.xxx
-```
