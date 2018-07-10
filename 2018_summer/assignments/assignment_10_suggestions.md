@@ -6,13 +6,151 @@ I would like to keep it as open ended as possible, however, I understand student
 
 Also, remember that assignments 9, 10, 11, and 12 are part of the Project 3.  You will want to reuse as much content from the previous assignment.  
 
-## Assignment 9 relates to Synchronous 9
+## Assignment 10 relates to Synchronous 10
 
 ## Minimum components
 
 The following are the minimum components that I would be looking for in terms of a 9 (A).  These are the raw commands from class.  They may need adaptation to work for the differing json file and to be adapted for any enhancements you make:
 
-TBD
+```
+mkdir ~/w205/flask-with-kafka-and-spark/
+```
+```
+cd ~/w205/flask-with-kafka-and-spark/
+```
+```
+cp ~/w205/course-content/10-Transforming-Streaming-Data/docker-compose.yml .
+```
+```
+docker-compose up -d
+```
+```
+docker-compose exec kafka \
+  kafka-topics \
+    --create \
+    --topic events \
+    --partitions 1 \
+    --replication-factor 1 \
+    --if-not-exists --zookeeper zookeeper:32181
+```
+```python
+#!/usr/bin/env python
+import json
+from kafka import KafkaProducer
+from flask import Flask
+
+app = Flask(__name__)
+producer = KafkaProducer(bootstrap_servers='kafka:29092')
+
+
+def log_to_kafka(topic, event):
+    producer.send(topic, json.dumps(event).encode())
+
+
+@app.route("/")
+def default_response():
+    default_event = {'event_type': 'default'}
+    log_to_kafka('events', default_event)
+    return "\nThis is the default response!\n"
+
+
+@app.route("/purchase_a_sword")
+def purchase_a_sword():
+    purchase_sword_event = {'event_type': 'purchase_sword'}
+    log_to_kafka('events', purchase_sword_event)
+    return "\nSword Purchased!\n"
+    
+```
+```
+docker-compose exec mids \
+  env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_json_events.py \
+  flask run --host 0.0.0.0
+```
+```
+docker-compose exec mids curl http://localhost:5000/
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+```
+docker-compose exec mids \
+  kafkacat -C -b kafka:29092 -t events -o beginning -e
+```
+```python
+#!/usr/bin/env python
+import json
+from kafka import KafkaProducer
+from flask import Flask, request
+
+app = Flask(__name__)
+producer = KafkaProducer(bootstrap_servers='kafka:29092')
+
+
+def log_to_kafka(topic, event):
+    event.update(request.headers)
+    producer.send(topic, json.dumps(event).encode())
+
+
+@app.route("/")
+def default_response():
+    default_event = {'event_type': 'default'}
+    log_to_kafka('events', default_event)
+    return "\nThis is the default response!\n"
+
+
+@app.route("/purchase_a_sword")
+def purchase_a_sword():
+    purchase_sword_event = {'event_type': 'purchase_sword'}
+    log_to_kafka('events', purchase_sword_event)
+    return "\nSword Purchased!\n"
+    
+```
+```
+docker-compose exec mids \
+  env FLASK_APP=/w205/flask-with-kafka-and-spark/game_api_with_extended_json_events.py \
+  flask run --host 0.0.0.0
+```
+```
+docker-compose exec mids curl http://localhost:5000/
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+```
+docker-compose exec mids \
+  kafkacat -C -b kafka:29092 -t events -o beginning -e
+```
+```
+docker-compose exec spark pyspark
+```
+```python
+raw_events = spark \
+  .read \
+  .format("kafka") \
+  .option("kafka.bootstrap.servers", "kafka:29092") \
+  .option("subscribe","events") \
+  .option("startingOffsets", "earliest") \
+  .option("endingOffsets", "latest") \
+  .load() 
+```
+```python
+raw_events.cache()
+```
+```python
+events = raw_events.select(raw_events.value.cast('string'))
+```
+```python
+import json
+extracted_events = events.rdd.map(lambda x: json.loads(x.value)).toDF()
+```
+```python
+extracted_events.show()
+```    
+```python
+exit()
+```
+```
+control-C
+```
+```
+docker-compose down
+```
 
 
 ## Suggestions for annotating the minimum components:
