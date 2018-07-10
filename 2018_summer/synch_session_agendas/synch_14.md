@@ -1,66 +1,23 @@
-# under construction
+# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #14
 
-# Kevin Crook's week 14 synchronous session supplemental notes
+## Update docker images (before class)
 
-Overview of today's synch session:
+Run these command in your droplet (but **NOT** in a docker container):
 
-* Before class in your droplet:
-  * get rid of any old docker containers, unless you know you are running something:
-    * docker rm -f $(docker ps -aq)
-  * update course-content:
-    * docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-    * cd ~/course-content
-    * git pull --all
-    * exit
-  * update the following docker images: 
-    * docker pull confluentinc/cp-zookeeper:latest
-    * docker pull confluentinc/cp-kafka:latest
-    * docker pull midsw205/hadoop:0.0.2
-    * docker pull midsw205/spark-python:0.0.6
-    * docker pull midsw205/presto:0.0.1
-    * docker pull midsw205/base:0.1.9
-    
-* Our last class meeting!
-  * Thanks for being our first students on new curriculum - always difficult for both students and instructors!
-  * Available grades will be posted into cal central Friday morning.  They will probably show up to students Saturday morning. Maybe Monday morning.
-  
-* Evaluation
-  * Please fill out our evaluation.  It really does help us do better!
-  
-* W205 going forward - lessons learned from this new curriculum
-  * Droplets days 1 - introduce desktop a few weeks in and make it optional
-  * Prerequisites 
-    * Supposed to be more stringent enforcement going forward from advising and registration
-    * Avoid spending class time and office hour time on prerequisite material
-    * Python - algorithms, computational complexity, data structures, numpy, pandas, matplotlib, jupyter notebook, markdown.
-    * Linux command line
-    * vi editor
-    * Github command line
-    * SQL
-  * Curriculum is built out, no waiting, students can work ahead if they want
-  * Assignments are built out, can edit them and make them more explicite based on questions this time
-  * With curriculum and assignments build out, instructors won't have to spend as much time with new material, so we can get assignments graded quicker.
-  * Suggest groups more strongly at the beginning of the semester
-    
-* Droplets
-  * End 4/27/2018 - please have anything you need copied out of them before then
-  * I'll look into info about AWS image with Docker, but cannot promise a time frame
-  
-* GitHub Repos
-  * End 4/27/2018 - please fork or clone you repos by that time.  You can also copy them down to your laptop as an alternative.
-  
-* course-content repo
-  * Will maintain access to mids-w205-crook/course-content and this semester will be tagged spring2018.
-  * Will be tagged by semester in the future going forward.  Probably easiest to just fork or clone or copy it down.
-  
-* Continuing with project 3, new for this week (the what we have done list is getting pretty long and we have gone through it several times, so I thought I would skip it this week):
-    * introduce hue a web based gui tool for hadoop - will sit on port 8888 - jupyter notebook will move to 8889
-    * using hive, presto, hue, and hdfs, we will watch the table grow as we add files to hdfs in parquet format
-    * we will remove files from hdfs and watch the table shrink
-    
-* Building Docker Images - build a small docker image and test it out - look at some more complex docker images
-    
-## Activity
+```
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
+docker pull midsw205/hadoop:0.0.2
+docker pull midsw205/spark-python:0.0.6
+docker pull midsw205/presto:0.0.1
+docker pull midsw205/base:0.1.9
+```
+
+## Update the course-content repo in your docker container in your droplet (before class)
+
+See instructions in previous synchronous sessions.    
+
+## Activity - Building on what we did last week: Introduce Hue a web based gui tool for hadoop.  Hue will listen on port 8888 which is what Jupyter Notebook usually listens on.  Jupyter Notebook will be moved to 8889.  Using hive, presto, hue, and hdfs, we will watch the table grow as we add files to hdfs in parquet format.  We will remove files form hdfs and watch the table shrink.
 
 Create directory, change to the directory, copy yml file, copy python files:
 ```
@@ -455,7 +412,7 @@ Tear down our docker cluster.
 docker-compose down
 ```
 
-## Building Docker Images
+## Activity - Building Docker Images
 
 Create a directory to build our image in and move to that directory:
 ```
