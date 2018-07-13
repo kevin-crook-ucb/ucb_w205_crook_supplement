@@ -49,13 +49,13 @@ Now you should see the w205 directory listed in the Jupyter Notebook directory s
 
 As a side note, anytime I have a Jupyter Notebook directory and I'm not sure which directory I'm in, one easy way to just create an Python notebook and run some code cells to pull the current working directory.
 
-If it's on a Linux based system, you can use the followin code cell:
+If it's on a Linux based system, you can use the following code cell:
 
 ```
 !pwd
 ```
 
-The follow will always work, regardless of operating system, provided the os module is avaiable (it usually is):
+The following will always work, regardless of operating system, provided the os module is avaiable (it usually is):
 
 ```
 import os
