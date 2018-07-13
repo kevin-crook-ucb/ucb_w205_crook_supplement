@@ -22,4 +22,9 @@ For convenience, the command above on 1 line:
 docker-compose exec spark env PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root' pyspark
 ```
 
-You will get the usual URL for Jupyter Notebook with 0.0.0.0 for the host / ip address. Since we will be connecting from Chrome o
+You will get the usual URL for Jupyter Notebook with 0.0.0.0 for the host / ip address. Since we will be connecting from Chrome on your laptop / desktop, you will need to change 0.0.0.0 with the ip address for your droplet.
+
+Open a Chrome browser window and past in the URL with modified ip address and the Jupyter Notebook should come up.
+
+You will notice that they directory structure ... tbd
+
