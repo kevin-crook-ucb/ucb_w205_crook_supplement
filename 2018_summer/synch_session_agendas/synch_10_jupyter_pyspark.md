@@ -28,3 +28,20 @@ Open a Chrome browser window and past in the URL with modified ip address and th
 
 You will notice that they directory structure ... tbd
 
+
+```
+docker-compose exec spark bash
+```
+
+Create a symbolic link from the spark directory to /w205
+
+```
+ln -s /w205 w205
+```
+
+Exit the container:
+```
+exit
+```
+
+
