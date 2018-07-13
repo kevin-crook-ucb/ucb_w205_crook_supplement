@@ -26,14 +26,15 @@ You will get the usual URL for Jupyter Notebook with 0.0.0.0 for the host / ip a
 
 Open a Chrome browser window and past in the URL with modified ip address and the Jupyter Notebook should come up.
 
-You will notice that they directory structure ... tbd
+Once inside the Jupyter Notebook, you will notice that the directory structure is not that of the w205 directory and that the w205 directory is not listed.  It is mounted to /w205.  One quick way to rememdy this is to simply create a symbolic link from the Jupyter Notebooks directory to the /w205 directory.
 
+First exec a bash shell into the spark container:
 
 ```
 docker-compose exec spark bash
 ```
 
-Create a symbolic link from the spark directory to /w205
+Create a symbolic link from the spark directory to /w205 :
 
 ```
 ln -s /w205 w205
@@ -44,4 +45,20 @@ Exit the container:
 exit
 ```
 
+Now you should see the w205 directory listed in the Jupyter Notebook directory structure.
+
+As a side note, anytime I have a Jupyter Notebook directory and I'm not sure which directory I'm in, one easy way to just create an Python notebook and run some code cells to pull the current working directory.
+
+If it's on a Linux based system, you can use the followin code cell:
+
+```
+!pwd
+```
+
+The follow will always work, regardless of operating system, provided the os module is avaiable (it usually is):
+
+```
+import os
+os.getcwd()
+```
 
