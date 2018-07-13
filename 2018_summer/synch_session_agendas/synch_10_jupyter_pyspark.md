@@ -24,7 +24,7 @@ docker-compose exec spark env PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHO
 
 You will get the usual URL for Jupyter Notebook with 0.0.0.0 for the host / ip address. Since we will be connecting from Chrome on your laptop / desktop, you will need to change 0.0.0.0 with the ip address for your droplet.
 
-Open a Chrome browser window and past in the URL with modified ip address and the Jupyter Notebook should come up.
+Open a Chrome browser window and paste in the URL with modified ip address and the Jupyter Notebook should come up.
 
 Once inside the Jupyter Notebook, you will notice that the directory structure is not that of the w205 directory and that the w205 directory is not listed.  It is mounted to /w205.  One quick way to rememdy this is to simply create a symbolic link from the Jupyter Notebooks directory to the /w205 directory.
 
