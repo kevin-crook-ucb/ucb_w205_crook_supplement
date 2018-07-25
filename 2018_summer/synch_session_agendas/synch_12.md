@@ -16,7 +16,7 @@ docker pull midsw205/base:0.1.9
 
 See instructions in previous synchronous sessions.
 
-## Activity - Continuing with what we did last week, we will add an hadoop container to our cluster, and our python spark code will subscribe to the kafka topic and write the results into parquet format in hdfs.  We will also introduce the batch python spark interface called spark-submit to submit our python files instead of using pyspark.  We will run a couple of variations.  One will transform the events.  Another will separate the events.
+## Activity - Continuing with what we did last week: We will add the Apache Bench utility to use to test our web API instead of using curl.  We will change our spark code to handle multiple schema types.  We will add parameters to our web API calls and change the corresponding spark code to process them.  We will return to officially using Jupyter Notebook.  We will write pyspark code in Jupyter Notebook to actually read parquet files, register them as temporary tables, and execute spark SQL against them.
 
 
 Create the full stack directory in your droplet.  Copy the yml file.  Copy the python files we will be using.
