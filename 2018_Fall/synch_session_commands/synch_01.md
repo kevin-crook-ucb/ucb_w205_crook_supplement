@@ -1,3 +1,7 @@
+### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #1
+
+We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
+
 #### Mac users - connect to droplet
 
 ```
@@ -67,6 +71,3 @@ git push origin master
 go to the github web interface for your repo, refresh if needed, verify your changes made it.
 
 ```
-
-
-
