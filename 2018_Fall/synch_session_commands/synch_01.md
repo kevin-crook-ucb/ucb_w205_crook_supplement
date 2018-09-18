@@ -67,6 +67,9 @@ git config --global user.email "xxxxx"
 
 git config --global user.name "xxxx"
 ```
+
+after setting these continue again with the commit:
+
 ```
 git commit -m "my new readme"
 
