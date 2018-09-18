@@ -38,9 +38,9 @@ cd w205
 
 git clone linktorepo
 
-The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
-
 ```
+
+The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
 
 #### assignment-00 (formerly known as the sign up assignment)
 
@@ -58,12 +58,16 @@ git add README.md
 
 git commit -m "my new readme"
 
+```
+
 the first time you commit, it doesn't know who you are.  use the following command to fix.  replace the xxx's with your email address and your github username:
 
+```
 git config --global user.email "xxxxx"
 
 git config --global user.name "xxxx"
-
+```
+```
 git commit -m "my new readme"
 
 git push origin master
