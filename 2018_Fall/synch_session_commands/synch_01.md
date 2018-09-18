@@ -37,7 +37,6 @@ clone the course-content repo and the assignment-00 repos:
 cd w205
 
 git clone linktorepo
-
 ```
 
 The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
@@ -51,13 +50,11 @@ change directories into the repo directory
 edit the README.md file using either vi (preferred) or nano (easier alternative to vi, although not always available)
 
 ```
-
 git status
 
 git add README.md
 
 git commit -m "my new readme"
-
 ```
 
 the first time you commit, it doesn't know who you are.  use the following command to fix.  replace the xxx's with your email address and your github username:
@@ -76,5 +73,4 @@ git commit -m "my new readme"
 git push origin master
 
 go to the github web interface for your repo, refresh if needed, verify your changes made it.
-
 ```
