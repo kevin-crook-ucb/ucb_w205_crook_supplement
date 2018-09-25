@@ -10,6 +10,13 @@ Note the same header on all 3 assignments.  The header is for the project as a w
 
 #### Google BigQuery Queries
 
+Example first query:
+```sql
+#standardSQL
+SELECT *
+FROM `bigquery-public-data.san_francisco.bikeshare_status`
+```
+
 How many events are there?
 ```sql
 #standardSQL
