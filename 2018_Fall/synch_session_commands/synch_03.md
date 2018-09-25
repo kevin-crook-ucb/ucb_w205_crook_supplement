@@ -9,7 +9,7 @@ Files created in your droplet will be owned by science with group science. Files
 sudo chown -R science:science w205
 ```
 
-### First three queries of assignment 02
+#### First three queries of assignment 02
 
 What's the size of this dataset? (i.e., how many trips)
 ```sql
@@ -45,7 +45,7 @@ FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 700
 ```
 
-### Using some Linux command line utilities to process a csv (comma separated value) file
+#### Using some Linux command line utilities to process a csv (comma separated value) file
 
 The website explainshell.com is really good at finding out about linux command line:
 https://explainshell.com/
@@ -151,7 +151,7 @@ cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10
 
 
 
-### Google BigQuery command line interface: bq cli
+#### Google BigQuery command line interface: bq cli
 
 The gcloud command is not part of standard linux.  It's a Google utility.  bq is installed in our docker container midsw205/base, so if you are **NOT** already in a docker container from the previous jq exercise, you will want to do the following to get into a docker container:
 ```
@@ -209,7 +209,7 @@ bq query --use_legacy_sql=false 'SELECT min(time), max(time) FROM `bigquery-publ
 ```
 Answer:  2013-08-29 12:06:01.000 UTC  2016-08-31 23:58:59.000 UTC   
 
-### Advanced options 
+#### Advanced options 
 
 Sort by 'product_name'
 ```
