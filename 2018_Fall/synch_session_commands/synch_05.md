@@ -16,3 +16,21 @@ cd ~/w205/course-content
 git pull --all
 cd
 ```
+
+#### Redis
+
+```
+docker run redis
+(control c to exit)
+
+docker run -d redis
+(control c to exit)
+
+docker run -d --name redis redis
+(control c to exit)
+
+docker run -d --name redis -p 6379:6379 redis
+(control c to exit)
+```
+
+
