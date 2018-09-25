@@ -97,270 +97,109 @@ What have we got in this file?
 head annot_fpid.json
 ```
 
-(Up until now, we have been using the droplet. The jq command is not part of standard linux.  jq is installed in our docker container midsw205/base, so we can startup a container and use it to run the following commands:
-
+Up until now, we have been using the droplet. The jq command is not part of standard linux.  jq is installed in our docker container midsw205/base, so we can startup a container, and run the remaining command in our container:
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
 ```
 
-
-::: notes
-
-- It will scroll all over the page, 
-- b/c it's json, it's just one line, so head is everything
-:::
-
-## Hmmm, what now? jq
-
+Hmmm, what now? jq
 pretty print the json
+```
+cat annot_fpid.json | jq .
+```
 
+Just the terms
+```
+cat annot_fpid.json | jq '.[][]'
+```
 
-`cat annot_fpid.json | jq .`
+Remove the ""s
+```
+cat annot_fpid.json | jq '.[][]' -r
+```
 
-::: notes
+Can we sort that?
+```
+cat annot_fpid.json | jq '.[][]' -r | sort 
+```
 
-- There's a slide for a jq reference at the end here, we're just going to do a little in class
-:::
+Hmmm, there's lots of repeated terms
+Unique values only
+```
+cat annot_fpid.json | jq '.[][]' -r | sort | uniq 
+```
 
-## Just the terms
+How could I find out how many of each of those unique values there are?
+```
+cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c 
+```
 
-`cat annot_fpid.json | jq '.[][]'`
-
-::: notes
-
-- 
-:::
-
-## Remove the ""s
-
-`cat annot_fpid.json | jq '.[][]' -r`
-
-::: notes
-
-- 
-:::
-
-## Can we sort that?
-
-`cat annot_fpid.json | jq '.[][]' -r | sort `
-
-::: notes
-
-- Hmmm, there's lots of repeated terms
-:::
-
-## Unique values only
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq 
-
-::: notes
-
-- 
-:::
-
-## How could I find out how many of each of those unique values there are?
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c 
-
-::: notes
-
-- 
-:::
-
-## Now, how could I sort by that?
-
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -g
-
+Now, how could I sort by that?
 Ascending
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -gr
-
+```
+cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -g
+```
 Descending
-
-::: notes
-
-- 
-:::
-
-## So, what are the top ten terms?
-
-    cat annot_fpid.json | jq '.[][]' -r | 
-    sort | uniq -c | sort -gr | head -10
-
-
-::: notes
-
-- 
-:::
-
-#
-
-## bq cli
-
-## setup
-
-(from your mids droplet)
-
-- auth the GCP client
-  ```
-  gcloud init
-  ```
-  and copy/paste the link
-
-- associate `bq` with a project
-  ```
-  bq
-  ```
-  and select project if asked
-
-::: notes
-`gcloud init` will print an oauth link that needs to be copied over to a browser
-:::
-
-##
-
 ```
-bq query --use_legacy_sql=false '
-SELECT count(*)
-FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr
 ```
 
-::: notes
-107,501,619
+So, what are the top ten terms?
+```
+cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10
+```
 
-The point: you can use `select *` to actually answer questions.
 
+
+### Google BigQuery command line interface: bq cli
+
+The gcloud command is not part of standard linux.  It's a Google utility.  bq is installed in our docker container midsw205/base, so if you are **NOT** already in a docker container from the previous jq exercise, you will want to do the following to get into a docker container:
+```
+docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+```
+
+setup bq cli
+auth the GCP client
+```
+gcloud init
+```
+
+Follow the instructions.  This will include pasting a link into a Google Chrome browser that is logged into your Google Cloud account.  You may need to use igcognito for this for it to work right.  You will get a string to paste back into your docker container.
+
+associate `bq` with a project
+```
+bq
+```
+and select project if asked
+
+Run some Google BigQuery queries using the bq cli
 ```
 bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
+Answer: something like 107,501,619
 
-## How many stations are there?
 
-##
-
-```
-bq query --use_legacy_sql=false '
-SELECT count(distinct station_id)
-FROM `bigquery-public-data.san_francisco.bikeshare_status`'
-```
-
-::: notes
-The point: how to count unique
-Answer: something like 75
-
+How many stations are there?
 ```
 bq query --use_legacy_sql=false 'SELECT count(distinct station_id) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
+Answer: something like 75
 
-
-## How long a time period do these data cover?
-
-##
-
-```
-bq query --use_legacy_sql=false '
-SELECT min(time), max(time)
-FROM `bigquery-public-data.san_francisco.bikeshare_status`'
-```
-
-
-::: notes
-- 2013-08-29 12:06:01.000 UTC   
-- 2016-08-31 23:58:59.000 UTC   
-
+How long a time period do these data cover?
 ```
 bq query --use_legacy_sql=false 'SELECT min(time), max(time) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
-:::
+Answer:  2013-08-29 12:06:01.000 UTC  2016-08-31 23:58:59.000 UTC   
 
+### Advanced options 
 
-#
-## Generate Ideas
-
-- What do you know?
-- What will you need to find out?
-
-::: notes
-
-- breakout
-- Generate Ideas = get them going on generating questions for project 
-- If they don't come up with anything, ask:
-  1. What do you know?
-    * i.e., what variables do you have? what do they mean? 
-  2. What will you need to find out?
-    * i.e., how to use those variables in some combo to figure out:
-    * What's a trip?
-    * What's a commuter trip?
-    * etc
-:::
-
-#
-## Summary
-- Command line tools and jq to dive into your data
-- BigQuery from the command line
-
-
-#
-## Extras
-
-::: notes
-- All of this is stuff you can use or not.
-:::
-
-## Resources
-
-## sed and awk
-
-<http://www.catonmat.net/blog/awk-one-liners-explained-part-one/>
-<http://www.catonmat.net/blog/sed-one-liners-explained-part-one/>
-
-## jq
-
-<https://stedolan.github.io/jq/tutorial/>
-
-## Advanced options 
-
-## Sort by 'product_name'
-
+Sort by 'product_name'
 ```
 cat lp_data.csv | awk -F',' '{ print $2,$1 }' | sort
 ```
 
-::: notes
-```
-cat lp_data.csv | awk -F',' '{ print $2,$1 }' | sort
-```
-
-- Put in extras for add ons or activities if folks finish early
-
-- This switches the columns and sorts on LP title
-- but you find out that some LPs have ""s around the titles
-:::
-
-
-## Fix the ""s issue
-
+Fix the ""s issue
 ```
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
-::: notes
-```
-cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
-```
-
-- the sed part here takes out the "" 
-- and then we sort based on title
-:::
-
-
-
-
-#
-
-<img class="logo" src="images/berkeley-school-of-information-logo.png"/>
