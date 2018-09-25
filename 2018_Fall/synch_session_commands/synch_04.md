@@ -64,3 +64,33 @@ Push the changes to GitHub:
 git push origin my_branch_name
 ```
 
+#### Create a pull request.  This is done in the GitHub web gui.  Pull Requests are part of GitHub, but not part of git command line.  Follow the instructions on the slide.
+
+#### Docker 
+
+What containers are running right now?
+```
+docker ps
+```
+
+What containers exist?
+```
+docker ps -a
+```
+
+What images do I have?
+```
+docker images
+```
+
+Clean up containers
+```
+docker rm -f name_of_container
+```
+
+Idiomatic docker
+```
+docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
+```
+
+
