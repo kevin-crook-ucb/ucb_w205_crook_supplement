@@ -169,6 +169,21 @@ Follow the instructions.  This will include pasting a link into a Google Chrome 
 Here is a link to the Google Zones.  If you are running docker in the Digital Ocean droplet, select a region near northern California:
 https://cloud.google.com/compute/docs/regions-zones/
 
+Google Cloud configuration data is stored here:
+container:
+```
+ls -l /w205/.config/gcloud
+or
+ls -l ~/.config/gcloud
+```
+droplet:
+```
+ls -l /home/science/w205/.config/gcloud
+or
+ls -l ~/w205/.config/gcloud
+```
+
+
 associate `bq` with a project
 ```
 bq
