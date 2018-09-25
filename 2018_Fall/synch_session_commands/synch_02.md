@@ -77,13 +77,13 @@ Using the GUI examine the new table you created going through all of the tabs.  
 ```sql
 #standardSQL
 SELECT distinct (station_id), total_bikes
-FROM `xxxx.bike_trips_data.total_bikes`
+FROM `xxxx.bike_trip_data.total_bikes`
 ```
 
 ```sql
 #standardSQL
 SELECT distinct station_id, total_bikes
-FROM `xxxx.bike_trips_data.total_bikes`
+FROM `xxxx.bike_trip_data.total_bikes`
 WHERE station_id = 22
 ```
 
