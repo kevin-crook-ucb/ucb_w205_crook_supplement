@@ -43,7 +43,7 @@ clone the course-content repo and the assignment-00 repos:
 ```
 cd w205
 
-git clone linktorepo
+git clone link_to_repo
 ```
 
 The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
