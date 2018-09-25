@@ -166,6 +166,9 @@ gcloud init
 
 Follow the instructions.  This will include pasting a link into a Google Chrome browser that is logged into your Google Cloud account.  You may need to use igcognito for this for it to work right.  You will get a string to paste back into your docker container.
 
+Here is a link to the Google Zones.  If you are running docker in the Digital Ocean droplet, select a region near northern California:
+https://cloud.google.com/compute/docs/regions-zones/
+
 associate `bq` with a project
 ```
 bq
