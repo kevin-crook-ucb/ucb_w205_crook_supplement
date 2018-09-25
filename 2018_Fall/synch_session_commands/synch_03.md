@@ -229,3 +229,17 @@ Fix the ""s issue
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
+#### Running Jupyter Notebook in the mids docker container
+
+Run a container and map port 8888 from the internal docker network to the external droplet network:
+```
+docker run -it --rm -p 8888:8888 -v ~/w205:/w205 midsw205/base bash
+```
+
+Inside the container, use the following command to start Jupyter Notebook:
+```
+jupyter notebook --no-browser --port 8888 --ip=0.0.0.0 --allow-root 
+```
+This will give you a https string.  You will need to change the IP address to the IP address of your droplet.  After changing the IP address, paste the string into your browser on your laptop or desktop.  Note that you may have firewall rules if you are using a work network.  TCP port 8888 need to be open on outgoing firewall rules.  
+
+Assignment 4 has an example Jupyter Notebook we can run to work through examples.
