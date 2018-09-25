@@ -2,8 +2,14 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### First three queries of assignment 02
+#### Ownership issues between science and root
 
+Files created in your droplet will be owned by science with group science. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **droplet** when logged in as science to change the owner to science and the group to science, recursively, for a directory:
+```
+sudo chown -R science:science w205
+```
+
+### First three queries of assignment 02
 
 What's the size of this dataset? (i.e., how many trips)
 ```sql
@@ -39,92 +45,62 @@ FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 700
 ```
 
-krc
+### Using some Linux command line utilities to process a csv (comma separated value) file
 
+The website explainshell.com is really good at finding out about linux command line:
+https://explainshell.com/
 
-Save data into your `w205` directory
+Save data into your `w205` directory:
 ```
 cd ~/w205
 curl -L -o annot_fpid.json https://goo.gl/rcickz
 curl -L -o lp_data.csv https://goo.gl/rks6h3
 ```
 
-::: notes
-make sure they go into `~/w205` on your droplet.
+What's in this file?
+```
+head lp_data.csv
+tail lp_data.csv
+```
 
-i.e., `cd w205` first
-:::
+What are variable in here?
+```
+head -n1 lp_data.csv
+```
 
-## What's in this file?
+How many entries?
+```
+cat lp_data.csv | wc -l
+```
 
-`head lp_data.csv`
+How about sorting?
+```
+cat lp_data.csv | sort
+```
 
-`tail lp_data.csv`
+Take a look at what options there are for sort
+```
+man sort
+```
 
-::: notes
+fix so sorting correctly
 
-- Lots of csvs and tsvs I get sent/access to have e.g., 17M rows
-- I don't want to have to open that or `cat` it or even `| less`
-:::
+```
+cat lp_data.csv | sort -g
+cat lp_data.csv | sort -n
+```
 
-## What are variables in here?
+Find out which topics are more popular
 
-`head -n1 lp_data.csv`
+What have we got in this file?
+```
+head annot_fpid.json
+```
 
-::: notes
+(Up until now, we have been using the droplet. The jq command is not part of standard linux.  jq is installed in our docker container midsw205/base, so we can startup a container and use it to run the following commands:
 
+```
 
-:::
-
-## How many entries?
-
-`cat lp_data.csv | wc -l`
-
-::: notes
-
-- 100 rows
-:::
-
-## How about sorting?
-
-`cat lp_data.csv | sort`
-
-::: notes
-
-- it sorts by usage
-- but it's treating numbers weird
-:::
-
-## Take a look at what options there are for sort
-
-`man sort`
-
-::: notes
-
-- Ask them to generate options
-
-    -g, --general-numeric-sort
-    compare according to general numerical value
-
-     -n, --numeric-sort
-    compare according to string numerical value
-:::
-
-
-## fix so sorting correctly
-
-`cat lp_data.csv | sort -g`
-
-`cat lp_data.csv | sort -n`
-
-
-# 
-
-## Find out which topics are more popular
-
-## What have we got in this file?
-
-`head annot_fpid.json`
 
 ::: notes
 
