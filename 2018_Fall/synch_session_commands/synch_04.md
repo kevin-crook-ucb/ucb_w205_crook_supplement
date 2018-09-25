@@ -9,6 +9,10 @@ Files created in your droplet will be owned by science with group science. Files
 sudo chown -R science:science w205
 ```
 
-#### temp
-
-temp
+#### It's a good idea to always update the course-content repo prior to class
+Note that if you made changes to your course-content repo, you won't be able to update it due to conflicts.  In that case, you will need to delete it and bring it down fresh.
+```
+cd ~/w205/course-content
+git pull --all
+cd
+```
