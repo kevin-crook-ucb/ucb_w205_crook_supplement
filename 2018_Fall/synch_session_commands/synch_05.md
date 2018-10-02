@@ -233,18 +233,18 @@ import redis
 import pandas as pd
 
 trips=pd.read_csv('trips.csv')
+
 date_sorted_trips = trips.sort_values(by='end_date')
+
 date_sorted_trips.head()
 
 for trip in date_sorted_trips.itertuples():
       print(trip.end_date, '', trip.bike_number, '', trip.end_station_name)
-      
-current_bike_locations = redis.Redis(host='redis', port='6379')
-current_bike_locations.keys()
-```
 
-Add values
-```python
+current_bike_locations = redis.Redis(host='redis', port='6379')
+
+current_bike_locations.keys()
+
 for trip in date_sorted_trips.itertuples():
       current_bike_locations.set(trip.bike_number, trip.end_station_name)
       
