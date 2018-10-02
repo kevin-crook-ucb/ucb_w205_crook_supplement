@@ -134,7 +134,7 @@ Try out redis
 import redis
 r = redis.Redis(host='redis', port='6379')
 r.keys()
-exit()
+exit
 ```
 
 Exit that container
