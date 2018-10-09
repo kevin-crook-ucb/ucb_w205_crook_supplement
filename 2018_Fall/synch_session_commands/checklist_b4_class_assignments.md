@@ -39,5 +39,8 @@ docker rm -f $(docker ps -aq)
 We won't be using all of these day one.  (I'll be adding these as the semester goes by)
 
 ```
+docker pull midsw205/base:latest
 docker pull redis
+docker pull confluentinc/cp-zookeeper:latest
+docker pull confluentinc/cp-kafka:latest
 ```
