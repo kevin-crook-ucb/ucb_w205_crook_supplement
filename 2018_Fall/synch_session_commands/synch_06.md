@@ -27,7 +27,36 @@ Create a kafka directory and change to it:
 ```
 mkdir ~/w205/kafka
 cd ~/w205/kafka
+
+the following does NOT work - will let you know when it's fixed:
 cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
+```
+
+```yml
+---
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    network_mode: host
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    extra_hosts:
+      - "moby:127.0.0.1"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    network_mode: host
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    extra_hosts:
+      - "moby:127.0.0.1"
 ```
 
 Docker compose spin things up
