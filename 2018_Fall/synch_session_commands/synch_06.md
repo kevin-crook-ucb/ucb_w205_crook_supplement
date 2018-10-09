@@ -124,7 +124,7 @@ docker-compose down
 Pull data
 ```
 cd ~/w205/kafka/
-curl -L -o github-example-large.json https://goo.gl/2Z2fPw (expired - will update when I get the new link from upstream)
+curl -L -o github-example-large.json https://goo.gl/Y4MD58
 ```
 
 Spin up the cluster
