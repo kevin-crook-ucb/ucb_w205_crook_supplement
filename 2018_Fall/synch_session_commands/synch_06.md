@@ -27,11 +27,9 @@ Create a kafka directory and change to it:
 ```
 mkdir ~/w205/kafka
 cd ~/w205/kafka
-
-the following does NOT work - will let you know when it's fixed:
-cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
 ```
 
+vi the docker-compose.yml and insert the following
 ```yml
 ---
 version: '2'
@@ -149,6 +147,11 @@ docker-compose down
 ```
 
 #### Kafka with "real" messages / Kafka with json example
+
+Copy the docker-compose.yml from the course-content repo
+```
+cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
+```
 
 Pull data
 ```
