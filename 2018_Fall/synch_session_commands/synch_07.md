@@ -1,6 +1,3 @@
-# Under construction
-
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #7
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -10,10 +7,6 @@ We will try to follow the official slides as close as we can in class.  I will p
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_Fall/synch_session_commands/checklist_b4_class_assignments.md
-
-# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #7
-
-## Update docker images (before class)
 
 ## Discuss Project 2: Tracking User Activity
 
