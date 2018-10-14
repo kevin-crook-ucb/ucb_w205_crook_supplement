@@ -146,7 +146,7 @@ docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.'"
 
 Individual messages
 ```
-docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c"
+docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
 ```
 
 Publish some test messages to that topic with kafkacat
