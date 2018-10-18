@@ -70,22 +70,22 @@ docker-compose exec spark pyspark
 ```
 
 read stuff from kafka, at the pyspark prompt
-```
+```python
 numbers = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 See the schema
-```
+```python
 numbers.printSchema()
 ```
 
 Cast it as a strings
-```
+```python
 numbers_as_strings=numbers.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
 Take a look
-```
+```python
 numbers_as_strings.show()
 
 numbers_as_strings.printSchema()
@@ -165,27 +165,27 @@ docker-compose exec spark pyspark
 ```
 
 read stuff from kafka, at the pyspark prompt
-```
+```python
 messages = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","foo").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 See the schema
-```
+```python
 messages.printSchema()
 ```
 
 See the messages
-```
+```python
 messages.show()
 ```
 
 Cast as strings
-```
+```python
 messages_as_strings=messages.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 ```
 
 Take a look
-```
+```python
 messages_as_strings.show()
 
 messages_as_strings.printSchema()
@@ -194,7 +194,7 @@ messages_as_strings.count()
 ```
 
 Unrolling json
-```
+```python
 messages_as_strings.select('value').take(1)
 
 messages_as_strings.select('value').take(1)[0].value
