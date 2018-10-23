@@ -44,4 +44,5 @@ docker pull redis
 docker pull confluentinc/cp-zookeeper:latest
 docker pull confluentinc/cp-kafka:latest
 docker pull midsw205/spark-python:0.0.5
+docker pull midsw205/cdh-minimal:latest
 ```
