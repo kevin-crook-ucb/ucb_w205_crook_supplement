@@ -69,7 +69,7 @@ cd ~/w205/spark-with-kafka-and-hdfs
 
 Use kafkacat to produce test messages to the players topic
 ```
-docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
+docker-compose exec mids bash -c "cat /w205/players.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t players"
 ```
 
 Spin up a pyspark process using the spark container
@@ -172,114 +172,104 @@ cd ~/w205
 
 curl -L -o github-example-large.json https://goo.gl/Y4MD58
 
-TBD
+cd ~/w205/spark-with-kafka-and-hdfs
 ```
 
-Using kafkacat publish the github json dataset to the topic commits
+Publish some stuff to kafka
 ```
-docker-compose exec mids \
-  bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json \
-    | jq '.[]' -c \
-    | kafkacat -P -b kafka:29092 -t commits"
+docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
 ```
 
-Same command on 1 line for convenience:
+Spin up a pyspark process using the spark container
 ```
-docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
-```
-
-Using our pyspark command prompt, consume from the kafka topic commits into a kafka data frame:
-```
-raw_commits = spark \
-  .read \
-  .format("kafka") \
-  .option("kafka.bootstrap.servers", "kafka:29092") \
-  .option("subscribe","commits") \
-  .option("startingOffsets", "earliest") \
-  .option("endingOffsets", "latest") \
-  .load() 
+docker-compose exec spark pyspark
 ```
 
-Same command on 1 line for convenience:
+Read stuff from kafka
+At the pyspark prompt, read from kafka
 ```
 raw_commits = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","commits").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
-As before we will cache to supress warning messages which are distracting:
+Cache this to cut back on warnings
 ```
 raw_commits.cache()
 ```
 
-What should the schema for raw_commits look like?  Remember it came from a kafka topic.  Use the following command to find out:
+See what we got
 ```
 raw_commits.printSchema()
 ```
 
-Remember that the value from a kafka topic will be a raw byte string, which as before, we will convert into a string:
+Take the values as strings
 ```
 commits = raw_commits.select(raw_commits.value.cast('string'))
 ```
 
-The following command will wthe commits data fram to a parquet file in hdfs:
+Of course, we culd just write this to hdfs
+but let's extract the data a bit first
 ```
 commits.write.parquet("/tmp/commits")
 ```
 
-As before, let's extract our json fields:
+Extract more fields
+Let's extract our json fields again
 ```
 extracted_commits = commits.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
 
-Show the data frame after the json extraction:
+and see
 ```
 extracted_commits.show()
 ```
 
-Notice that this time we have nested json data.  Before our json data was flat.
-
-Let's print the schema:
+hmmm... did all of our stuff get extracted ?
+Problem: more nested json than before
 ```
 extracted_commits.printSchema()
 ```
 
-We will now use spark sql to deal with the nested json.
-
-First, cretae a spark temporary table called commits based on the data frame.  registerTempTable() is a method of the spark class data frame.
+Use SparkSQL
+First, create a Spark "TempTable" (aka "view")
 ```
 extracted_commits.registerTempTable('commits')
 ```
 
-Issue spark sql against the temporary table commits that we just registered:
+Then we can create DataFrames from queries
 ```
 spark.sql("select commit.committer.name from commits limit 10").show()
+
 spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10").show()
 ```
 
-Save the results of the query into another data frame:
+Grab what we want
 ```
 some_commit_info = spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10")
 ```
 
-Write the data frame holding the results of our query to a parquet file in hdfs:
+Write to hdfs
+We can write that out
 ```
 some_commit_info.write.parquet("/tmp/some_commit_info")
 ```
 
-Go to our other linux command line window and use the following command to see the directory and files in hdfs:
+Check out results
+You can see results in hadoop
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
+
 docker-compose exec cloudera hadoop fs -ls /tmp/commits/
 ```
 
-Go to the pyspark window and exit pyspark:
+Exit
+Remember you can exit pyspark using either ctrl-D or exit()
 ```
 exit()
 ```
 
 
-Tear down the docker cluster and make sure it's down:
+Down
 ```
 docker-compose down
-docker-compose ps
 ```
 
