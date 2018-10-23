@@ -1,5 +1,3 @@
-# work in progress, please wait until this message is removed to use this, until I've had a chance to work through it myself
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #8
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -78,22 +76,22 @@ docker-compose exec spark pyspark
 ```
 
 At the pyspark prompt, read from kafka
-```
+```python
 raw_players = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","players").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 Cache this to cut back on warnings later
-```
+```python
 raw_players.cache()
 ```
 
 See what we got
-```
+```python
 raw_players.printSchema()
 ```
 
 Cast it as strings (you can totally use INTs if you'd like
-```
+```python
 players = raw_players.select(raw_players.value.cast('string'))
 
 OR
@@ -102,7 +100,7 @@ players = raw_players.selectExpr("CAST(value AS STRING)")
 ```
 
 Write this to hdfs
-```
+```python
 players.write.parquet("/tmp/players")
 ```
 
@@ -115,21 +113,21 @@ docker-compose exec cloudera hadoop fs -ls /tmp/players/
 
 However (back in spark terminal window)
 What did we actually write?
-```
+```python
 players.show()
 ```
 
 Extract Data
 
 Deal with unicode
-```
+```python
 import sys
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 ```
 
 What do we have?
 Take a look at
-```
+```python
 import json
 players.rdd.map(lambda x: json.loads(x.value)).toDF().show()
 
@@ -142,12 +140,12 @@ extracted_players.show()
 ```
 
 Save that 
-```
+```python
 extracted_players.write.parquet("/tmp/extracted_players")
 ```
 
 Do
-```
+```python
 players.show()
 
 extracted_players.show()
@@ -187,69 +185,69 @@ docker-compose exec spark pyspark
 
 Read stuff from kafka
 At the pyspark prompt, read from kafka
-```
+```python
 raw_commits = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","commits").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 ```
 
 Cache this to cut back on warnings
-```
+```python
 raw_commits.cache()
 ```
 
 See what we got
-```
+```python
 raw_commits.printSchema()
 ```
 
 Take the values as strings
-```
+```python
 commits = raw_commits.select(raw_commits.value.cast('string'))
 ```
 
 Of course, we culd just write this to hdfs
 but let's extract the data a bit first
-```
+```python
 commits.write.parquet("/tmp/commits")
 ```
 
 Extract more fields
 Let's extract our json fields again
-```
+```python
 extracted_commits = commits.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
 
 and see
-```
+```python
 extracted_commits.show()
 ```
 
 hmmm... did all of our stuff get extracted ?
 Problem: more nested json than before
-```
+```python
 extracted_commits.printSchema()
 ```
 
 Use SparkSQL
 First, create a Spark "TempTable" (aka "view")
-```
+```python
 extracted_commits.registerTempTable('commits')
 ```
 
 Then we can create DataFrames from queries
-```
+```python
 spark.sql("select commit.committer.name from commits limit 10").show()
 
 spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10").show()
 ```
 
 Grab what we want
-```
+```python
 some_commit_info = spark.sql("select commit.committer.name, commit.committer.date, sha from commits limit 10")
 ```
 
 Write to hdfs
 We can write that out
-```
+```python
 some_commit_info.write.parquet("/tmp/some_commit_info")
 ```
 
@@ -263,7 +261,7 @@ docker-compose exec cloudera hadoop fs -ls /tmp/commits/
 
 Exit
 Remember you can exit pyspark using either ctrl-D or exit()
-```
+```python
 exit()
 ```
 
