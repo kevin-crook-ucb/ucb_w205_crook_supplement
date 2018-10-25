@@ -1,3 +1,16 @@
+### Assignment 8 notes for unrolling the nested json
+
+When using csv files, the structure is always flat with no nested structure, so it's very easy to load into a spark data frame and impose a schema on read (registering as a temp table) and using spark SQL to query the spark data frame.
+
+When using json files, the ease of use depends on the structure.  There are three options:
+
+* json is flat - just as easy as csv to impose schema on read and use spark SQL to query the data frame.
+
+* json is nested, but no multi-value (no nested lists) - we can impose schema and TBD
+
+For assignment 8, the json assessments file has a fairly complicated nested json structure
+
+
 for assignment 8, a lot of students seem to be having issues querying into the nested structure of the json for the assessments 
 
 here is an example query that will work:
