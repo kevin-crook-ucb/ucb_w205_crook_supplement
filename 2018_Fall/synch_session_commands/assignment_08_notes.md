@@ -49,17 +49,10 @@ spark.sql("select keen_id from assessments limit 10").show()
 spark.sql("select keen_timestamp, sequences.questions[0].user_incomplete from assessments limit 10").show()
 ```
 
-
-
-
-```Let's talk about nulls
-Spark allows some flexibility in inferring schema for json in case some of the json object have a value and others don't 
-it infers null for those
-here is an example of an obviously made up column and it infers it as null
-try it:
-
-spark.sql("select sequences.abc123 from assessments limit 10").show()```
-
+nulls - Spark allows some flexibility in inferring schema for json in the case of some of the json objects have a value and others don't have the value.  It infers a null for those.  Here is an example of an obviously made up column called "abc123" and see that it infers null for the column:
+```python
+spark.sql("select sequences.abc123 from assessments limit 10").show()
+```
 
 How do we do "select sequence.id from assessments limit 10" as it won't work directly?
 
@@ -101,15 +94,5 @@ spark.sql("select id, my_count from questions limit 10").show()
 
 spark.sql("select q.keen_id, a.keen_timestamp, q.id from assessments a join questions q on a.keen_id = q.keen_id limit 10").show()
 
-
-Here is a link to a jupyter notebook (run it outside of spark) to help understand the structure of this json file
-it will read the json file
-pretty print the first object (with dictionary keys in alphabetic order to make it easier to undrestand)
-recursively walk through the entire structure in alphabetic order and putting indices such as [0] [1] etc. on the embeded lists
-
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_summer/assignments/assignment_08.ipynb
-
-just looking at the example, I think it's easy to see how it could not infer schema
-look at the pieces that don't infer and see how they look in the recursive layout
 
 
