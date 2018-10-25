@@ -1,36 +1,37 @@
 ### Assignment 8 notes for unrolling the nested json
 
-When using csv files, the structure is always flat with no nested structure, so it's very easy to load into a spark data frame and impose a schema on read (registering as a temp table) and using spark SQL to query the spark data frame.
+The assignment 8 json file has a moderately complicated structure.  It includes nested json and in several cases the nesting is multi-valued (lists).  To access these will require writing custom lamdba transform code in spark.
 
-When using json files, the ease of use depends on the structure.  There are three options:
+Let's start by reviewing how spark handles csv and json files:
+
+#### csv files
+
+When using csv files, the structure is always flat with no nested structure, so it has a natrual table structure, and it's very easy to load into a spark data frame and impose a schema on read (registering as a temp table) and using spark SQL to query the spark data frame.
+
+#### json files
+
+When using json files, the ease of use depends on the structure.  There are three main options:
 
 * json is flat - just as easy as csv to impose schema on read and use spark SQL to query the data frame.
 
-* json is nested, but no multi-value (no nested lists) - we can impose schema and TBD
+* json is nested, but no multi-value (no nested lists) - we can impose schema and use our "dot notation" such as xxx.yyy.zzz when yyy is nested below xxx and zzz is nested below yyy
 
-For assignment 8, the json assessments file has a fairly complicated nested json structure
+* json is nested and multi-value (nested lists) - We can pull out single values from the list using our dot notations and/or the [] operator,  or we can pull out all values from the list by writing a custom labmda transform, creating a another data frame, registering it as a temp table, and joining it to data frames of outer nesting layers.
 
+#### Review the structure of the assessments json file using a separate Jupyter Notebook
 
-for assignment 8, a lot of students seem to be having issues querying into the nested structure of the json for the assessments 
+The following Jupter Notebook will allow you to review the structure of the assessments json file and see how the nesting with multi-valued looks:
 
-here is an example query that will work:
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_Fall/synch_session_commands/assignment_08_json.ipynb
 
-spark.sql("select keen_timestamp, sequences.questions[0].user_incomplete from assessments limit 10").show()
+If this does not render, this website provides an online nbviewer:
 
-note that because questions is a list we have to use [0] to pull out an individual element of the list
+https://nbviewer.jupyter.org/
 
+#### Examples of unrolling the assessments data
 
-Tonight in my office hours we worked through some examples of unrolling the assessments json file
-There are parts that Spark cannot infer schema for 
-specifically, if there is a mix of a list and other non-list items it wasn't able to infer schema
-there are several ways to fix this:
-* write python code outside of spark to fix it up before loading into spark (but it would not be MPP)
-* write custom lambda transforms to fix it up in the DataFrame or RDD and then impose schema (very hard work)
-* write separate lambda transforms to create separate Data Frames, register them also as temp tables, and then use joins in SparkSQL (that is the method I'll show some examples of)
-
-
-Let's start with what works:
-
+In the following example, we use our dot notation with the [] operator to pull out a single item from a list.  Note that sequences.questions is a list (multi-valued).
+```python
 raw_assessments = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe","commits").option("startingOffsets", "earliest").option("endingOffsets", "latest").load() 
 
 raw_assessments.cache()
@@ -46,6 +47,8 @@ extracted_assessments.registerTempTable('assessments')
 spark.sql("select keen_id from assessments limit 10").show()
 
 spark.sql("select keen_timestamp, sequences.questions[0].user_incomplete from assessments limit 10").show()
+```
+
 
 
 
