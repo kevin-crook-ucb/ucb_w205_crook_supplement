@@ -62,6 +62,7 @@ spark.sql("select sequences.abc123 from assessments limit 10").show()
 
 Let's see an example of a nested multi-value as a dictionary.  First note that the following will NOT work because sequences value is a dictionary, so id is a key of the nested dictionary:
 ```python
+# does NOT work!
 spark.sql("select sequence.id from assessments limit 10").show()
 ```
 
