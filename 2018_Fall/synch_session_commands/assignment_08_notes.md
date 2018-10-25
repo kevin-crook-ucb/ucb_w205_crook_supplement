@@ -10,15 +10,21 @@ When using csv files, the structure is always flat with no nested structure, so 
 
 #### json files
 
-When using json files, the ease of use depends on the structure.  There are three main options:
+When using json files, the ease of use depends on the structure.  There are some common options:
 
-* json is flat - just as easy as csv to impose schema on read and use spark SQL to query the data frame.
+* json is flat - Just as easy as csv to impose schema on read and use spark SQL to query the data frame.
 
-* json is nested, but no multi-value (no nested lists) - we can impose schema and use our "dot notation" such as xxx.yyy.zzz when yyy is nested below xxx and zzz is nested below yyy
+* json is nested, but no multi-value (no nested list or nested dictionary) - We can impose schema and use our "dot notation" such as xxx.yyy.zzz when yyy is nested below xxx and zzz is nested below yyy
 
-* json is nested and multi-value (nested lists) - We can pull out single values from the list using our dot notations and/or the [] operator,  or we can pull out all values from the list by writing a custom labmda transform, creating a another data frame, registering it as a temp table, and joining it to data frames of outer nesting layers.
+* json is nested and multi-valued in the form of a dictionary - We need to write a custom lambda transform to extract the json dictionary string, convert it into a python dictionary, extract the data we need, create another data frame, register it as a temp table, and join it to data frames of the outer nesting layers.
+
+* json is nested and multi-valued in the form of a list - We can pull out single values from the list using our dot notations and/or the [] operator.  We can pull out all values from the list by writing a custom labmda transform, creating a another data frame, registering it as a temp table, and joining it to data frames of outer nesting layers.
+
+* json is nested in a complex multi-valued way - a list nests a dictionary that nests a list, etc. in various combinations.
 
 #### Review the structure of the assessments json file using a separate Jupyter Notebook
+
+The assessments json file is nested in a complex multi-valued way.  It has nested dictionaries that nest lists that nest dictionaries that nest lists that nest dictionaries. 
 
 The following Jupter Notebook will allow you to review the structure of the assessments json file and see how the nesting with multi-valued looks:
 
@@ -49,15 +55,18 @@ spark.sql("select keen_id from assessments limit 10").show()
 spark.sql("select keen_timestamp, sequences.questions[0].user_incomplete from assessments limit 10").show()
 ```
 
-nulls - Spark allows some flexibility in inferring schema for json in the case of some of the json objects have a value and others don't have the value.  It infers a null for those.  Here is an example of an obviously made up column called "abc123" and see that it infers null for the column:
+Missing Values in some json objects - Spark allows some flexibility in inferring schema for json in the case of some of the json objects have a value and others don't have the value.  It infers a null for those.  Here is an example of an obviously made up column called "abc123" and see that it infers null for the column:
 ```python
 spark.sql("select sequences.abc123 from assessments limit 10").show()
 ```
 
-How do we do "select sequence.id from assessments limit 10" as it won't work directly?
+Let's see an example of a nested multi-value as a dictionary.  First note that the following will NOT work because sequences value is a dictionary, so id is a key of the nested dictionary:
+```python
+spark.sql("select sequence.id from assessments limit 10").show()
+```
 
-Let's try creating another Data Frame and impose schema on it and then join it to the assessments table we just created:
-
+We can extract sequence.id by writing a custom lambda transform, creating a separate data frame, registering it as a temp table, and use spark SQL to join it to the outer nesting layer:
+```python
 def my_lambda_sequences_id(x):
     raw_dict = json.loads(x.value)
     my_dict = {"keen_id" : raw_dict["keen_id"], "sequences_id" : raw_dict["sequences"]["id"]}
@@ -70,12 +79,10 @@ my_sequences.registerTempTable('sequences')
 spark.sql("select sequences_id from sequences limit 10").show()
 
 spark.sql("select a.keen_id, a.keen_timestamp, s.sequences_id from assessments a join sequences s on a.keen_id = s.keen_id limit 10").show()
+```
 
-
-Ok, sequence.id was kinda easy because it was "flat" 
-What if we want to do a list such as questions?
-We would have to loop through the list and pull out the items and flat map them to the RDD
-
+Let's see an example of a multi-valued in the form of a list.  Previously, we saw that we can pull out 1 item using the [] operator. In this example, we will pull out all values from the list by writing a custom labmda transform, creating a another data frame, registering it as a temp table, and joining it to data frames of outer nesting layers.
+```python
 def my_lambda_questions(x):
     raw_dict = json.loads(x.value)
     my_list = []
@@ -93,6 +100,4 @@ my_questions.registerTempTable('questions')
 spark.sql("select id, my_count from questions limit 10").show()
 
 spark.sql("select q.keen_id, a.keen_timestamp, q.id from assessments a join questions q on a.keen_id = q.keen_id limit 10").show()
-
-
-
+```
