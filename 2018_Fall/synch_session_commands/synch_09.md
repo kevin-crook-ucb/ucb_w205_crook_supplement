@@ -1,4 +1,4 @@
-# Work in progress.  Please wait until I get a chance to run through this and verify.
+### Work in progress.  Please wait until I get a chance to run through this and verify.
 
 
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #9
@@ -11,31 +11,7 @@ Right now, this checklist has things in it we haven't covered yet, so just do wh
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_Fall/synch_session_commands/checklist_b4_class_assignments.md
 
-### Discuss Project 2: Tracking User Activity
-
-Assignment 6 - Get and Clean Data 
-
-Assignment 7 - Setup Pipeline
-
-Assignment 8 - Build and Write-up Pipeline
-
-# UCB MIDS W205 Summer 2018 - Kevin Crook's agenda for Synchronous Session #9
-
-## Update docker images (before class)
-
-Run these command in your droplet (but **NOT** in a docker container):
-
-```
-docker pull midsw205/base:0.1.8
-docker pull confluentinc/cp-zookeeper:latest
-docker pull confluentinc/cp-kafka:latest
-```
-
-## Update the course-content repo in your docker container in your droplet (before class)
-
-See instructions in previous synchronous sessions.
-
-## Project 3 - Understanding User Behavior Project
+### Project 3 - Understanding User Behavior Project
 
 Assignment-09 - Define your Pipeline
 
@@ -45,15 +21,15 @@ Assignment-11 - Setup Pipeline, Part 2
 
 Assignment-12 - Synthesis Assignment
 
-## Activity - setup a web server running a simple web API service which will service web API calls by writing them to a kafka topic, using curl make web API calls to our web service to test, manually consume the kafka topic to verify our web service is working
+### Flask with Kafka
 
-Create a directory:
 ```
 mkdir ~/w205/flask-with-kafka
 cd ~/w205/flask-with-kafka
 ```
 
-Create a `docker-compose.yml` with the following.  Remember to fix the drive mappings if needed:
+Setup
+Create a docker-compose.yml with the following
 ```yml
 ---
 version: '2'
@@ -101,46 +77,23 @@ services:
       
 ```
 
-Start the docker cluster:
+Spin up the cluster
 ```
 docker-compose up -d
 ```
 
-Create the kafka topic events (as we have done before):
-```
-docker-compose exec kafka \
-   kafka-topics \
-     --create \
-     --topic events \
-     --partitions 1 \
-     --replication-factor 1 \
-     --if-not-exists \
-     --zookeeper zookeeper:32181
-```
-
-The same command on 1 line for convenience:
+Create a topic events
 ```
 docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
-Should see the following output:
+Should show
 ```
 Created topic "events".
 ```
 
-Example scenario:
-* You're a mobile game developer.  During gameplay, your users perform various
-actions such as
-  * purchase a sword
-  * purchase a knife
-  * join a guild
-* To process these actions, your mobile app makes API calls to a web-based
-API-server.  
-
-We will use the python flask module to write a simple API server.  
-
-- Use the python `flask` library to write our simple API server. Create a file `~/w205/flask-with-kafka/game_api.py` with the following python code:
-
+Flask
+Use the python flask library to write our simple API server
 ```python
 #!/usr/bin/env python
 from flask import Flask
@@ -157,20 +110,28 @@ def purchase_sword():
     
 ```
 
-Run the python script using the following command.  This will tie up this linux command line window.  We will see output from our python program here as we make our web API calls:
+Save this as 
+```
+~/w205/flask-with-fafka/game_api.py
+```
+
+run it via
 ```
 docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
 ```
 
-Using another linux command line window, use curl to make web API calls. Note that TCP port 5000 is the port we are using.
+Test it out
 ```
 docker-compose exec mids curl http://localhost:5000/
+
 docker-compose exec mids curl http://localhost:5000/purchase_a_sword
 ```
 
-In the flask window, stop flask with a control-C
+Stop flask
+Kill flask with control-C
 
-Edit our python flask script to publish to the kafka topic in a addition to writing to standard output:
+Generate events from our webapp
+Let's add kafka into the mix 
 ```python
 #!/usr/bin/env python
 from kafka import KafkaProducer
@@ -192,28 +153,25 @@ def purchase_sword():
     return "\nSword Purchased!\n"
     
 ```
-
-Run the python flask script as before:
+Run that
 ```
 docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
 ```
 
-In another linux command line windows, use curl to make web API calls.
+Test it out
+Generate events
 ```
 docker-compose exec mids curl http://localhost:5000/
+
 docker-compose exec mids curl http://localhost:5000/purchase_a_sword
 ```
 
-Use kafkacat to consume the messages that our web service wrote to the kafka topic:
+read from kafka
+Use kafkacat to consume events from the events topic
 ```
 docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t events -o beginning -e"
 ```
-
-Optional, if you want, go back and generate more web API calls and consume the topic to see how they show up.
-
-In the flask window, stop flask with a control-C
-
-Tear down the docker cluster:
+down
 ```
 docker-compose down
 ```
