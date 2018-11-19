@@ -1,5 +1,3 @@
-# under construction - please wait until I have worked through everything and removed this message
-
 ## UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #11
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -26,8 +24,11 @@ Setup
 Setup directory, get docker-compose
 ```
 mkdir ~/w205/spark-from-files/
+
 cd ~/w205/spark-from-files
+
 cp ~/w205/course-content/11-Storing-Data-III/docker-compose.yml .
+
 cp ~/w205/course-content/11-Storing-Data-III/*.py .
 ```
 
@@ -66,6 +67,7 @@ docker-compose exec mids env FLASK_APP=/w205/spark-from-files/game_api.py flask 
 Generate events from browser (where xxxx is your IP address)
 ```
 http://xxxxx:5000/
+
 http://xxxxx:5000/purchase_a_sword
 ```
 
