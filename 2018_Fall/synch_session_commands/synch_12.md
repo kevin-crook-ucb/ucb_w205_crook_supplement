@@ -124,4 +124,4 @@ docker-compose down
 
 SecureShell (SSH)
 
-(already covered earlier in the semester)
+(already covered earlier in the semester - see my supplement for synch 02)
