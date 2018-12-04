@@ -103,11 +103,6 @@ Query purchases table
 select * from sword_purchases;
 ```
 
-Query the number of rows from the sword_purchases table (same as last week):
-```
-presto:default> select count(*) from sword_purchases;
-```
-
 Add some data
 
 Seed a little data into the stream
@@ -137,6 +132,7 @@ Watch presto grow
 ```
 select count(*) from sword_purchases;
 ```
+
 down
 ```
 docker-compose down
