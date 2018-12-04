@@ -46,6 +46,9 @@ Spin up the cluster
 docker-compose up -d
 ```
 
+Web-app
+* Take our instrumented web-app from before ```~/w205/full-stack/fame_api.py```
+
 run flask
 ```
 docker-compose exec mids env FLASK_APP=/w205/full-stack/game_api.py flask run --host 0.0.0.0
@@ -83,7 +86,6 @@ docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 
 Queries from Presto
 
-
 Hive metastore
 * Track schema
 * Create a table
@@ -104,23 +106,12 @@ docker-compose exec spark pyspark
 
 ```python
 df = spark.read.parquet('/tmp/purchases')
+
 df.registerTempTable('purchases')
-```
 
-```python
-query = """
-create external table purchase_events
-  stored as parquet
-  location '/tmp/purchase_events'
-  as
-  select * from purchases
-"""
+query = "create external table purchase_events stored as parquet location '/tmp/purchase_events' as select * from purchases"
+
 spark.sql(query)
-```
-
-Same sql command on 1 line for convenience:
-```python
-spark.sql("create external table purchase_events stored as parquet location '/tmp/purchase_events' as select * from purchases")
 ```
 
 Can just include in job
@@ -145,17 +136,17 @@ docker-compose exec presto presto --server presto:8080 --catalog hive --schema d
 
 What tables do we have in Presto?
 ```
-presto:default> show tables;
+show tables;
 ```
 
 Describe purchases table
 ```
-presto:default> describe purchases;
+describe purchases;
 ```
 
 Query purchases table
 ```
-presto:default> select * from purchases;
+select * from purchases;
 ```
 
 Streaming
