@@ -24,15 +24,11 @@ Assignment-12 - Synthesis Assignment
 
 Get Started
 ```
-git pull in ~/w205/course-content
-
 mkdir ~/w205/full-stack2/
 
 cd ~/w205/full-stack2
 
 cp ~/w205/course-content/13-Understanding-Data/docker-compose.yml .
-
-docker-compose pull
 
 cp ~/w205/course-content/13-Understanding-Data/*.py .
 ```
