@@ -148,7 +148,7 @@ cd ~/w205/docker/mytools
 ```
 
 The Dockerfile
-Save this as Dockerfile in ```~/w205/docker/mytools/'
+Save this as Dockerfile in ```~/w205/docker/mytools/```
 ```Dockerfile
 FROM ubuntu:xenial
 MAINTAINER Mark Mims <mark@digitalocean.com>
