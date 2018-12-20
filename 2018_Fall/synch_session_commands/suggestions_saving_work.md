@@ -29,6 +29,20 @@ Using WinSCP gui, copy the w205.zip file down to your Windows PC
 
 Open a Windows file explorer, navigate to the w205.zip file, right click on w205.zip, select extract all.
 
-Using the Windows file explorer, walk the unzipped directory structure and verify.
+Using the Windows file explorer, walk the unzipped directory structure and verify that everything looks ok
 
+### For Mac or Linux users, make a tar ball (a tar file that is compress with gzip), use scp to copy the tar ball down to your Mac or Linux machine, extract the tar ball, and verify that everything looks ok
+
+In your droplet, login as science, and create a tar ball file in the droplet using the following commands:
+
+```
+cd /home/science
+tar cvfz w205.tgz w205
+```
+
+On the Mac (or Linux laptop / desktop side) use scp to copy the tar ball down to your Mac or Linux machine:
+
+```
+scp 
+```
 
