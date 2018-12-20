@@ -17,7 +17,6 @@ The Docker images are stored on Docker Hub and they will NOT go away, so you can
 ### For Windows users, make a zip file in the droplet, use WinSCP to copy the zip file down to your Windows PC, upzip, and verify that everything looks ok
 
 In your droplet, login as science, and create a zip file in the droplet using the following commands:
-
 ```
 cd /home/science
 zip -r w205.zip w205
@@ -34,15 +33,26 @@ Using the Windows file explorer, walk the unzipped directory structure and verif
 ### For Mac or Linux users, make a tar ball (a tar file that is compress with gzip), use scp to copy the tar ball down to your Mac or Linux machine, extract the tar ball, and verify that everything looks ok
 
 In your droplet, login as science, and create a tar ball file in the droplet using the following commands:
-
 ```
 cd /home/science
 tar cvfz w205.tgz w205
 ```
 
-On the Mac (or Linux laptop / desktop side) use scp to copy the tar ball down to your Mac or Linux machine:
+On the Mac (or Linux laptop / desktop side):
 
+Using scp, copy the tar ball file down to your local machine
 ```
-scp 
+scp science@my_ip_address:/home/science/w205.tgz .
+
+(of course, you must replace my_ip_address with your ip address)
 ```
+
+Extract the tar ball:
+```
+tar xvf w205.tgz
+```
+
+Verify directory and files extracted properly.
+
+
 
