@@ -10,6 +10,25 @@ The Docker images are stored on Docker Hub and they will NOT go away, so you can
 
 * For Mac or Linux users, make a tar ball (a tar file that is compress with gzip), use scp to copy the tar ball down to your Mac or Linux machine, extract the tar ball, and verify that everything looks ok
 
-* On your laptop, you can download either the Windows or Mac GitHub app and clone down all of your repos.  This will of course only copy repos 
+* On your laptop, you can download either the Windows or Mac GitHub app and clone down all of your repos.  This will of course only copy repos.  It will NOT save off the directories from the synch sessions
 
-* 
+* Make a new private repo on GitHub, rename all of the .git directories in the w205 tree, and check the entire w205 directory into the private repo on GitHub.
+
+### For Windows users, make a zip file in the droplet, use WinSCP to copy the zip file down to your Windows PC, upzip, and verify that everything looks ok
+
+In your droplet, login as science, and create a zip file in the droplet using the following commands:
+
+```
+cd
+zip -r w205.zip w205
+```
+
+On the Windows side:
+
+Using WinSCP gui, copy the w205.zip file down to your Windows PC
+
+Open a Windows file explorer, navigate to the w205.zip file, right click on w205.zip, select extract all.
+
+Using the Windows file explorer, walk the unzipped directory structure and verify.
+
+
