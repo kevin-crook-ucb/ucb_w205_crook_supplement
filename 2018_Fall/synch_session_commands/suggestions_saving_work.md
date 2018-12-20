@@ -55,4 +55,19 @@ tar xvf w205.tgz
 Verify directory and files extracted properly.
 
 
+### On your laptop, you can download either the Windows or Mac GitHub app and clone down all of your repos.  This will of course only copy repos.  It will NOT save off the directories from the synch sessions
+
+This is GUI based so I won't provide instructions here.
+
+### Make a new private repo on GitHub, rename all of the .git directories in the w205 tree, and check the entire w205 directory into the private repo on GitHub.
+
+Using the GitHub web interface, create a new private repo.  Your academic discount gives you free private repos.
+
+In the w205 tree, for each GitHub repo, you can delete or rename the .git file.  GitHub does not allow repos inside of repos.  
+
+```
+mv .git .git.backup
+```
+
+When you have renamed all of the .git directories, you can simply cd into the /home/science/w205 directory and check it into the private repo in GitHub.
 
