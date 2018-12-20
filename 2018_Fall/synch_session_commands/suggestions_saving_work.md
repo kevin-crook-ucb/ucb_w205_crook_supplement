@@ -19,7 +19,7 @@ The Docker images are stored on Docker Hub and they will NOT go away, so you can
 In your droplet, login as science, and create a zip file in the droplet using the following commands:
 
 ```
-cd
+cd /home/science
 zip -r w205.zip w205
 ```
 
