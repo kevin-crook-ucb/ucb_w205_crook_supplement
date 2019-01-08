@@ -6,7 +6,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_Fall/synch_session_commands/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Spring/synch_session_commands/checklist_b4_class_assignments.md
 
 #### Mac users - connect to droplet
 
@@ -47,9 +47,9 @@ git clone link_to_repo
 
 The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
 
-#### assignment-00 (formerly known as the sign up assignment)
+#### signup assignment (not graded - just for practice)
 
-in the previous commands, we cloned, the assignment-00 repo to our droplet.
+in the previous commands, we cloned, the signup repo to our droplet.
 
 change directories into the repo directory
 
