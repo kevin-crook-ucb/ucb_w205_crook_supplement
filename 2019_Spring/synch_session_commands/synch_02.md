@@ -16,6 +16,21 @@ Note the same header on all 3 assignments.  The header is for the project as a w
 
 #### Google BigQuery Queries
 
+Suggestions:
+* use the Chrome browser
+* use an incognito window to avoid cookie conflicts
+* make you have given them a credit card and enabled billing on the project
+
+Links:
+
+https://cloud.google.com/bigquery/
+
+https://cloud.google.com/bigquery/docs/
+
+https://console.cloud.google.com/marketplace/details/san-francisco-public-data/sf-bike-share?filter=category:public-safety
+
+https://cloud.google.com/bigquery/public-data/
+
 Example first query:
 ```sql
 #standardSQL
