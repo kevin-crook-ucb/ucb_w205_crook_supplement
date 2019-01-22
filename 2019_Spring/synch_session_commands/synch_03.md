@@ -54,8 +54,8 @@ https://explainshell.com/
 Save data into your `w205` directory:
 ```
 cd ~/w205
-curl -L -o annot_fpid.json https://goo.gl/rcickz
-curl -L -o lp_data.csv https://goo.gl/rks6h3
+curl -L -o annot_fpid.json https://goo.gl/qWiu7d
+curl -L -o lp_data.csv https://goo.gl/FDFPYB
 ```
 
 What's in this file?
