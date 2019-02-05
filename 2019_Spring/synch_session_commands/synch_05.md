@@ -219,6 +219,7 @@ curl -L -o trips.csv https://goo.gl/QvHLKe
 
 Spin up the cluster
 ```
+cd ~/w205/redis-cluster
 docker-compose up -d
 ```
 
