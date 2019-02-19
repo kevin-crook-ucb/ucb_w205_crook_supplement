@@ -1,5 +1,3 @@
-#  Under construction - please wait until I've completed a test run
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #7
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
