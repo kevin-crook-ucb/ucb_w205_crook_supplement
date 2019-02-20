@@ -1,4 +1,4 @@
-### Assignment 8 notes for unrolling the nested json  
+### Project 2 notes for unrolling the nested json  
 
 #### (optional - for students who are looking at how to unroll the more complex areas of the json assignments file)
 
