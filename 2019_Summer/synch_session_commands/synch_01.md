@@ -6,22 +6,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Spring/synch_session_commands/checklist_b4_class_assignments.md
-
-#### Mac users - connect to droplet
-
-```
-ssh science@ipaddress
-```
-password does not echo!
-
-#### Windows users - use PuTTY
-
-https://www.putty.org/
-https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
-
-Recommended download: Alternative Binary Files => putty.zip => 64 bit
-make a directory, download the zip file, extract it, we will use putty.exe and puttygen.exe
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Summer/synch_session_commands/checklist_b4_class_assignments.md
 
 #### Updating Docker and running Docker in your droplet
 
