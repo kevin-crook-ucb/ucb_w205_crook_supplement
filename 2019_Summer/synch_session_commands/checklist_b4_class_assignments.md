@@ -4,9 +4,9 @@ These are general instruction for how to do some updates and cleanup before clas
 
 #### Ownership issues between science and root
 
-Files created in your droplet will be owned by science with group science. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **droplet** when logged in as science to change the owner to science and the group to science, recursively, for a directory:
+Files created in your virtual machine will be owned by your Google generated username and group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to xxxxx and the group to yyyyy, recursively, for a directory:
 ```
-sudo chown -R science:science ~/w205
+sudo chown -R xxxxx:yyyyyy ~/w205
 ```
 
 #### It's a good idea to always update the course-content repo prior to class or before working on assignments
