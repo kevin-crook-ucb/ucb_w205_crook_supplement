@@ -2,7 +2,7 @@
 
 These are general instruction for how to do some updates and cleanup before class or before working on assignments.  These will clear up a lot of issues students have struggled with in the past.
 
-#### Ownership issues between science and root
+#### Ownership issues
 
 Files created in your virtual machine will be owned by your Google generated username and group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to xxxxx and the group to yyyyy, recursively, for a directory:
 ```
