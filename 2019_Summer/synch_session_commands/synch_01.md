@@ -15,7 +15,7 @@ docker pull midsw205/base
 
 mkdir w205
 
-docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+docker run -it --rm -v /home/xxxxx/w205:/w205 midsw205/base:latest bash
 
 (use exit to exit the container)
 ```
