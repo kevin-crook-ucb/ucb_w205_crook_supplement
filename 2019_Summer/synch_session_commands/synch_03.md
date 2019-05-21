@@ -149,11 +149,6 @@ cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10
 
 #### Google BigQuery command line interface: bq cli
 
-The gcloud command is not part of standard linux.  It's a Google utility.  bq is installed in our docker container midsw205/base, so if you are **NOT** already in a docker container from the previous jq exercise, you will want to do the following to get into a docker container:
-```
-docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-```
-
 setup bq cli
 auth the GCP client
 ```
@@ -166,19 +161,11 @@ Here is a link to the Google Zones.  If you are running docker in the Digital Oc
 https://cloud.google.com/compute/docs/regions-zones/
 
 Google Cloud configuration data is stored here:
-container:
 ```
 ls -l /w205/.config/gcloud
 or
 ls -l ~/.config/gcloud
 ```
-droplet:
-```
-ls -l /home/science/w205/.config/gcloud
-or
-ls -l ~/w205/.config/gcloud
-```
-
 
 associate `bq` with a project
 ```
