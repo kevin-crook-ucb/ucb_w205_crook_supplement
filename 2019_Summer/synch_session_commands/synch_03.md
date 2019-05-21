@@ -98,11 +98,6 @@ What have we got in this file?
 head annot_fpid.json
 ```
 
-Up until now, we have been using the droplet. The jq command is not part of standard linux.  jq is installed in our docker container midsw205/base, so we can startup a container, and run the remaining command in our container:
-```
-docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
-```
-
 Hmmm, what now? jq
 pretty print the json
 ```
