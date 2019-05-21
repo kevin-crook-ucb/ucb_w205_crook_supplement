@@ -36,6 +36,8 @@ FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 2016-08-31 23:48:00
 ```
 
+
+
 How many bikes are there?
 ```sql
 #standardSQL
@@ -204,3 +206,16 @@ Fix the ""s issue
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
+#### Jupyter Notebooks for Assignment 4
+
+Clone down your assignment 4 repo.  Open Jupyter Hub.  Navigate and open the Jupyter Notebook for assignment 4.
+
+The queries will not run as is.  Replace them with the following queries:
+
+```
+! bq query --use_legacy_sql=FALSE 'SELECT trip_id, start_station_name, end_station_name, count(trip_id) as trip_freq FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_id, start_station_name, end_station_name ORDER BY trip_freq DESC LIMIT 5'
+```
+
+```
+! bq query --use_legacy_sql=FALSE --format=csv 'SELECT trip_id, start_station_name, end_station_name, count(trip_id) as trip_freq FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_id, start_station_name, end_station_name ORDER BY trip_freq DESC LIMIT 5' > result.csv
+```
