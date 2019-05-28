@@ -10,13 +10,37 @@ Right now, this checklist has things in it we haven't covered yet, so just do wh
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Summer/synch_session_commands/checklist_b4_class_assignments.md
 
-#### For assignment 4, we will be creating a branch in our docker container.  We will work only on the branch and leave the master branch untouched.  We will create a pull request on the branch.
-
-First be sure you are in a docker container:
+Run the regular container
 ```
-docker run -it --rm -v /home/science/w205:/w205 midsw205/base:latest bash
+docker run -it --rm -v ~/w205:/w205 midsw205/base:latest bash
 ```
 
+What containers are running right now?
+```
+docker ps
+```
+
+What containers exist?
+```
+docker ps -a
+```
+
+What images do I have?
+```
+docker images
+```
+
+Clean up containers
+```
+docker rm -f name_of_container
+```
+
+Idiomatic docker
+```
+docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
+```
+
+Clone a repo
 Clone down the assignment 4 repo from inside the docker container.  Remember to use the method of going out to the GitHub website and using the green dropdown.  (If you have already cloned down assignment 4 and committed and pushed changes to the master branch that is ok.):
 ```
 git clone link_to_your_repo_for_assignment_04
@@ -59,29 +83,3 @@ git push origin assignment
 
 #### Create a pull request.  This is done in the GitHub web gui.  Pull Requests are part of GitHub, but not part of git command line.  Follow the instructions on the slide.
 
-#### Docker 
-
-What containers are running right now?
-```
-docker ps
-```
-
-What containers exist?
-```
-docker ps -a
-```
-
-What images do I have?
-```
-docker images
-```
-
-Clean up containers
-```
-docker rm -f name_of_container
-```
-
-Idiomatic docker
-```
-docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
-```
