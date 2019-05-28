@@ -40,8 +40,7 @@ Idiomatic docker
 docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
 ```
 
-Clone a repo
-Clone down the assignment 4 repo from inside the docker container.  Remember to use the method of going out to the GitHub website and using the green dropdown.  (If you have already cloned down assignment 4 and committed and pushed changes to the master branch that is ok.):
+Clone a repo from GitHub
 ```
 git clone link_to_your_repo_for_assignment_04
 ```
@@ -61,8 +60,11 @@ Switch to that branch:
 git checkout assignment
 ```
 
-Make changes to your README.md using vi:
+Make changes to code
+(use nano or vi)
 ```
+nano README.md
+
 vi README.md
 ```
 
@@ -80,6 +82,3 @@ Push the changes to GitHub:
 ```
 git push origin assignment
 ```
-
-#### Create a pull request.  This is done in the GitHub web gui.  Pull Requests are part of GitHub, but not part of git command line.  Follow the instructions on the slide.
-
