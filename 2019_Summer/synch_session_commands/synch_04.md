@@ -42,6 +42,7 @@ docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
 
 Clone a repo from GitHub
 ```
+cd ~/w205
 git clone link_to_your_repo_for_assignment_04
 ```
 
