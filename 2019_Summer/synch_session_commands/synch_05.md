@@ -66,7 +66,6 @@ Run stuff
 ipython
 ```
 
-(I don't think the redis module is available in the droplet, so we may need to skip this part)
 ```python
 import redis
 r = redis.Redis(host='localhost', port='6379')
