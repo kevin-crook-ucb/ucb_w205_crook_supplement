@@ -50,4 +50,6 @@ docker pull midsw205/spark-python:0.0.6
 docker pull midsw205/cdh-minimal:latest
 docker pull midsw205/hadoop:0.0.2
 docker pull midsw205/presto:0.0.1
+
+
 ```
