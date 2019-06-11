@@ -61,7 +61,6 @@ services:
 
 Docker compose spin things up
 ```
-cd ~/w205/kafka
 docker-compose up -d
 docker-compose ps
 ```
