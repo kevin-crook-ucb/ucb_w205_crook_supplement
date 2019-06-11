@@ -156,7 +156,6 @@ cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
 
 Pull data
 ```
-cd ~/w205/kafka/
 curl -L -o github-example-large.json https://goo.gl/Y4MD58
 ```
 
