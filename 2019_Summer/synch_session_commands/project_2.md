@@ -30,7 +30,7 @@ The assessments json file is nested in a complex multi-valued way.  It has neste
 
 The following Jupter Notebook will allow you to review the structure of the assessments json file and see how the nesting with multi-valued looks:
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2018_Fall/synch_session_commands/assignment_08_json.ipynb
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Summer/synch_session_commands/project_2_json.ipynb
 
 If this does not render, this website provides an online nbviewer:
 
