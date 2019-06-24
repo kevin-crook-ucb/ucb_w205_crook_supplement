@@ -261,6 +261,8 @@ You can see results in hadoop
 docker-compose exec cloudera hadoop fs -ls /tmp/
 
 docker-compose exec cloudera hadoop fs -ls /tmp/commits/
+
+docker-compose exec cloudera hadoop fs -ls /tmp/some_commit_info/
 ```
 
 Exit
