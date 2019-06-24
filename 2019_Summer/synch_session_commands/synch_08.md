@@ -215,6 +215,8 @@ commits.write.parquet("/tmp/commits")
 Extract more fields
 Let's extract our json fields again
 ```python
+import json
+
 extracted_commits = commits.rdd.map(lambda x: json.loads(x.value)).toDF()
 ```
 
