@@ -29,6 +29,15 @@ cd ~/w205/spark-with-kafka-and-hdfs
 cp ~/w205/course-content/08-Querying-Data/docker-compose.yml .
 ```
 
+Download the dataset for World Cup players in ~/w205/
+```
+cd ~/w205
+
+curl -L -o players.json https://goo.gl/vsuCpZ
+
+cd ~/w205/spark-with-kafka-and-hdfs
+```
+
 Spin up the cluster
 ```
 docker-compose up -d
@@ -56,15 +65,6 @@ docker-compose exec kafka kafka-topics --create --topic players --partitions 1 -
 Should show
 ```
 Created topic "players".
-```
-
-Download the dataset for github players in ~/w205/
-```
-cd ~/w205
-
-curl -L -o players.json https://goo.gl/vsuCpZ
-
-cd ~/w205/spark-with-kafka-and-hdfs
 ```
 
 Use kafkacat to produce test messages to the players topic
