@@ -46,6 +46,8 @@ raw_assessments.cache()
 
 assessments = raw_assessments.select(raw_assessments.value.cast('string'))
 
+import json
+
 from pyspark.sql import Row
 
 extracted_assessments = assessments.rdd.map(lambda x: Row(**json.loads(x.value))).toDF()
