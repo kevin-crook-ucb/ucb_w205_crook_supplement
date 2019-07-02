@@ -24,7 +24,9 @@ Assignment-12 - Synthesis Assignment
 
 ```
 mkdir ~/w205/flask-with-kafka
+
 cd ~/w205/flask-with-kafka
+
 cp ~/w205/course-content/09-Ingesting-Data/docker-compose.yml .
 ```
 
@@ -45,30 +47,13 @@ Created topic "events".
 
 Flask
 Use the python flask library to write our simple API server
-```python
-#!/usr/bin/env python
-from flask import Flask
-app = Flask(__name__)
-
-@app.route("/")
-def default_response():
-    return "\nThis is the default response!\n"
-
-@app.route("/purchase_a_sword")
-def purchase_sword():
-    # business logic to purchase sword
-    return "\nSword Purchased!\n"
-    
 ```
-
-Save this as 
-```
-~/w205/flask-with-fafka/game_api.py
+cp ~/w205/course-content/09-Ingesting-Data/basic_game_api.py .
 ```
 
 run it via
 ```
-docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
+docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/basic_game_api.py flask run
 ```
 
 Test it out
@@ -83,26 +68,8 @@ Kill flask with control-C
 
 Generate events from our webapp
 Let's add kafka into the mix 
-```python
-#!/usr/bin/env python
-from kafka import KafkaProducer
-from flask import Flask
-app = Flask(__name__)
-event_logger = KafkaProducer(bootstrap_servers='kafka:29092')
-events_topic = 'events'
-
-@app.route("/")
-def default_response():
-    event_logger.send(events_topic, 'default'.encode())
-    return "\nThis is the default response!\n"
-
-@app.route("/purchase_a_sword")
-def purchase_sword():
-    # business logic to purchase sword
-    # log event to kafka
-    event_logger.send(events_topic, 'purchased_sword'.encode())
-    return "\nSword Purchased!\n"
-    
+```
+cp ~/w205/course-content/09-Ingesting-Data/game_api.py .
 ```
 Run that
 ```
