@@ -25,55 +25,7 @@ Assignment-12 - Synthesis Assignment
 ```
 mkdir ~/w205/flask-with-kafka
 cd ~/w205/flask-with-kafka
-```
-
-Setup
-Create a docker-compose.yml with the following
-```yml
----
-version: '2'
-services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 32181
-      ZOOKEEPER_TICK_TIME: 2000
-    expose:
-      - "2181"
-      - "2888"
-      - "32181"
-      - "3888"
-    extra_hosts:
-      - "moby:127.0.0.1"
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    expose:
-      - "9092"
-      - "29092"
-    extra_hosts:
-      - "moby:127.0.0.1"
-
-  mids:
-    image: midsw205/base:0.1.8
-    stdin_open: true
-    tty: true
-    volumes:
-      - ~/w205:/w205
-    expose:
-      - "5000"
-    ports:
-      - "5000:5000"
-    extra_hosts:
-      - "moby:127.0.0.1"
-      
+cp ~/w205/course-content/09-Ingesting-Data/docker-compose.yml .
 ```
 
 Spin up the cluster
