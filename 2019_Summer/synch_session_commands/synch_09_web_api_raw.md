@@ -10,6 +10,12 @@ You can issue a GET on / using HTTP version 1.0.  Version 1.0 hangs up after eve
 
 ```
 GET / HTTP/1.0
+hit enter if no payload to be sent
 ```
 
-You can issue a GET on / using HTTP
+You can issue a GET on / using HTTP version 1.1.  It will hang on to the connection until it times out or until you hang up.
+
+```
+GET / HTTP/1.1
+hit enter if no payload to be sent
+```
