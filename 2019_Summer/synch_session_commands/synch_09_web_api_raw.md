@@ -89,3 +89,10 @@ I you want to extract a certificate from a host using SNI, where there are multi
 echo | openssl s_client -connect api.wheretheiss.at:443 -showcerts -servername api.wheretheiss.at 2>&1 | sed --quiet '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > api.wheretheiss.at.crt
 ```
 
+If you want to print a certificate file in human readable text:
+```
+openssl x509 -in google.com.crt -noout -text
+
+openssl x509 -in api.wheretheiss.at.crt -noout -text
+
+```
