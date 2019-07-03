@@ -74,7 +74,18 @@ hit enter if no more headers to be sent
 
 If you would like to study certificates futher.  Here are some examples:
 
-The following command will download and extract the certificate for google.com and save it into a file google.com.crt
+The following command will download and extract the final "leaf" certificate for google.com and save it into a file google.com.crt
 ```
 echo | openssl s_client -connect google.com:443 2>&1 | sed --quiet '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > google.com.crt
 ```
+
+If you want to extract the entire certificate chain, add the -showcerts option:
+```
+echo | openssl s_client -connect google.com:443 -showcerts 2>&1 | sed --quiet '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > google.com.crt
+```
+
+I you want to extract a certificate from a host using SNI, where there are multiple hosts, add the -servername option:
+```
+echo | openssl s_client -connect api.wheretheiss.at:443 -showcerts -servername api.wheretheiss.at 2>&1 | sed --quiet '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > api.wheretheiss.at.crt
+```
+
