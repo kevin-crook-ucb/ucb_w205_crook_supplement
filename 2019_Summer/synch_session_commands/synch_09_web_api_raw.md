@@ -22,15 +22,15 @@ hit enter if no payload to be sent
 
 The response will be in this format:
 
-the first line will give you the version of HTTP, the return code, and the return code string. 200 is success.  400's are errors.
+* the first line will give you the version of HTTP, the return code, and the return code string. 200 is success.  400's are errors.
 
-the next line starts the headers in the format of key colon values.  note the cookies are set this way using headers.
+* the next line starts the headers in the format of key colon values.  note the cookies are set this way using headers.
 
-a blank line follows
+* a blank line follows
 
-if it's HTTP/1.1, the next line has the number of bytes in the return payload.  We need this because we need to know when the message ends as it will be multiple TCP/IP packets.  if it's HTTP/1.0, this line is omitted
+* if it's HTTP/1.1, the next line has the number of bytes in the return payload.  We need this because we need to know when the message ends as it will be multiple TCP/IP packets.  if it's HTTP/1.0, this line is omitted
 
-the next line starts the return payload, typically HTML or encoded binary for images, videos, etc.
+* the next line starts the return payload, typically HTML or encoded binary for images, videos, etc.
 
 telnet only works for unencrypted unauthenticated http traffic.  If a website or web API server is running https, then the traffic will be encrypted and also must be authenticated. There is a utility in your virtual machine (available in all Linux versions that I know of) called openssl that we can use in place of telnet.
 
