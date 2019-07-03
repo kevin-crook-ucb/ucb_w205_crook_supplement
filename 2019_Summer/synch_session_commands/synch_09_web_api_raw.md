@@ -13,7 +13,7 @@ GET / HTTP/1.0
 hit enter if no headers to be sent
 ```
 
-Inside the telnet session, you can issue a GET on / using HTTP version 1.1.  It will hang on to the connection so you can make multiple requests.  If you hang up with a control-C it will also hang up.  If it sits a while without you entering a command, it will timeout.
+Inside the telnet session, you can issue a GET on / using HTTP version 1.1.  It will hang on to the connection so you can make multiple requests.  If you hang up with a control-C it will also hang up.  If it sits a while without you entering a command, it will timeout and hang up.
 
 ```
 GET / HTTP/1.1
