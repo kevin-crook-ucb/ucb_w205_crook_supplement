@@ -71,3 +71,10 @@ GET /v1/satellites/25544/tles?format=text HTTP/1.1
 Host: api.wheretheiss.at
 hit enter if no more headers to be sent
 ```
+
+If you would like to study certificates futher.  Here are some examples:
+
+The following command will download and extract the certificate for google.com and save it into a file google.com.crt
+```
+echo | openssl s_client -connect google.com:443 2>&1 | sed --quiet '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > google.com.crt
+```
