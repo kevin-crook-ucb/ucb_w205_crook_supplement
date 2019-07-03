@@ -44,6 +44,8 @@ It will respond with the details of the authentication, including the certificat
 
 You can can enter commands as before with telnet.
 
+In the above example, we are using google.com which only had 1 host per IP address.  It's possible for a web server to have multiple hosts per IP address, typically using a system called **SNI (Server Name Identification)**.  When using SNI, we will to add a web header with the host name, such as Host: google.com
+
 One really good website to learn how to use a web API is **Where is the ISS at?**  This website tracks the location of the International Space Station.  It uses HTTPS and returns everything in JSON format.
 
 https://wheretheiss.at/w/developer
@@ -54,7 +56,7 @@ you can connect like this:
 openssl s_client -connect api.wheretheiss.at:443
 ```
 
-you can try commands like these.  since they run multiple domains on the same ip address, we need to add a header with the specific domain:
+you can try commands like these.  since they use SNI to run multiple hosts on the same ip address, we need to add a header with the specific host:
 
 ```
 GET /v1/satellites HTTP/1.1
