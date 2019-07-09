@@ -98,6 +98,8 @@ Test it - generate events
 docker-compose exec mids curl http://localhost:5000/
 
 docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+
+docker-compose exec mids curl http://localhost:5000/purchase_a_frog
 ```
 
 Read from kafka
