@@ -81,6 +81,8 @@ Should show
 ...
 ```
 
+Exit Flask with a control-C
+
 Even more informative events
 ```
 cp ~/w205/course-content/10-Transforming-Streaming-Data/game_api_with_extended_json_events.py .
