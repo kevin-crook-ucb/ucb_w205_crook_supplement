@@ -1,5 +1,3 @@
-# please wait until I have verified
-
 # Connecting Jupyter Notebook to pyspark
 
 We have been using pyspark in command line mode.  
