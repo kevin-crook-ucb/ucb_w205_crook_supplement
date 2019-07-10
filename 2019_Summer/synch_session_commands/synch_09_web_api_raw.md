@@ -111,7 +111,7 @@ cat rsa_private.key
 
 Take a look at the RSA private key in human readable format:
 ```
-openssl rsa -text -in rsa_private.key
+openssl rsa -noout -text -in rsa_private.key
 ```
 
 Generate an RSA public key from corresponding RSA private key:
@@ -126,7 +126,7 @@ cat rsa_public.key
 
 Take a look at the RSA public key in human readable format:
 ```
-openssl rsa -text -in rsa_public.key
+openssl rsa -noout -text -in rsa_public.key
 ```
 
 
