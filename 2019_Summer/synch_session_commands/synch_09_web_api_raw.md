@@ -96,3 +96,39 @@ openssl x509 -in google.com.crt -noout -text
 openssl x509 -in api.wheretheiss.at.crt -noout -text
 
 ```
+
+Since we are on the subject of openssl, you may also want to generate a public key / private key pair and see what they look like.
+
+Create a public RSA private key:
+```
+openssl genrsa -out rsa_private.key 4096
+```
+
+Take a look at the RSA private key in machine readable format (Base64 encoded ASCII files):
+```
+cat rsa_private.key
+```
+
+Take a look at the RSA private key in human readable format:
+```
+openssl rsa -text -in rsa_private.key
+```
+
+Generate an RSA public key from corresponding RSA private key:
+```
+openssl rsa -in rsa_private.key -pubout -out rsa_public.key
+```
+
+Take a look at the RSA public key in machine readable format (Base64 encoded ASCII files):
+```
+cat rsa_public.key
+```
+
+Take a look at the RSA public key in human readable format:
+```
+openssl rsa -text -in rsa_public.key
+```
+
+
+
+
