@@ -40,7 +40,7 @@ Let's now do a POST instead of a get.  A POST is similar to GET, except it allow
 telnet httpbin.org 80
 ```
 
-Inside the telnet session, we will issue the POST command.  We must at least give a web header Content-Length that must of course math our payload size.  We follow with a blank line.  We follow that with the payload which could be multi-line.  We follow that with a blank line to signal the send of the POST.
+Inside the telnet session, we will issue the POST command.  We must at least give a web header Content-Length that must of course match our payload size.  We follow with a blank line.  We follow that with the payload which could be multi-line.  We follow that with a blank line to signal the send of the POST.
 
 ```
 POST /post HTTP/1.0
