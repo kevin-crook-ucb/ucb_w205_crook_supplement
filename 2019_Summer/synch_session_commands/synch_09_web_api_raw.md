@@ -126,7 +126,7 @@ cat rsa_public.key
 
 Take a look at the RSA public key in human readable format:
 ```
-openssl rsa -noout -text -in rsa_public.key
+openssl rsa -noout -text -pubin -in rsa_public.key
 ```
 
 
