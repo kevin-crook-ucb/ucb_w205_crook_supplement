@@ -106,3 +106,16 @@ spark.sql("select id, my_count from questions limit 10").show()
 
 spark.sql("select q.keen_id, a.keen_timestamp, q.id from assessments a join questions q on a.keen_id = q.keen_id limit 10").show()
 ```
+
+When unrolling the json for the assessments dataset, if you are trying to unroll a key in a dictionary that does not exist for all the items, it will generate an error when you try to reference in the cases it does not exist.
+
+Below is some example code for raw_dict["sequences"]["counts"]["correct"] which exists for some but not all of the json objects.  To keep it from generating errors, you would need to check it piece meal to make sure it exists before referencing it.  I default the value to 0 if it does not exist.
+
+```python
+my_correct = 0
+
+if "sequences" in raw_dict:
+    if "counts" in raw_dict["sequences"]:
+        if "correct" in raw_dict["sequences"]["counts"]:
+            my_correct = raw_dict["sequences"]["counts"]["correct"]
+```
