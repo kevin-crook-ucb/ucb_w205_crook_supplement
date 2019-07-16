@@ -66,11 +66,12 @@ Run it
 docker-compose exec mids env FLASK_APP=/w205/spark-from-files/game_api.py flask run --host 0.0.0.0
 ```
 
-Generate events from browser (where xxxx is your IP address)
+Generate events 
+use curl
 ```
-http://xxxxx:5000/
+docker-compose exec mids curl http://localhost:5000/
 
-http://xxxxx:5000/purchase_a_sword
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
 ```
 
 Read from kafka
