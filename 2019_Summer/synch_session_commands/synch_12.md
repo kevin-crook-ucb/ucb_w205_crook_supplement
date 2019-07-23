@@ -134,7 +134,67 @@ down
 docker-compose down
 ```
 
-SecureShell (SSH)
+#### Using ssh to login without a password
 
-(already covered earlier in the semester - see my supplement for synch 02)
+In your virtual machine, change to the ~/.ssh directory:
+
+```
+cd ~/.ssh
+```
+
+Generate a pair of keys:
+```
+ssh-keygen -t rsa -b 2048
+(hit return through the prompts)
+```
+
+This will create two files: 
+* id_rsa - the private key file
+* id_rsa.pub - the public key file
+
+Append the public key file to the end of the authorized_keys file:
+
+```
+cat id_rsa.pub >>authorized_keys
+```
+
+**Windows**
+
+Windows users will first need to install two program families.  These will not use the windows installer, they will both be installed by making a directory, downloading a zip file, and extracting the zip file into the directory.
+
+Install PuTTY:
+
+Make a folder C:\PuTTY
+
+Download the **Alternative binary files putty.zip (scroll down until you find it!)** in zip format using the link below, and extract the zip file into the folder c:\PuTTY
+
+https://www.chiark.greenend.org.uk/~sgtatham/putty/
+
+Install WinSCP:
+
+Make a folder C:\WinSCP
+
+Download the **portable executable (scroll down until you find it!)**  in zip format using the link below, and extract the zip file into the folder C:\WinSCP
+
+https://winscp.net/eng/downloads.php
+
+Using C:\WinSCP\WinSCP.exe, download the id_rsa file to your local machine (remember where you downloaded it to!).
+
+Using C:\PuTTY\PUTTYGEN.EXE, convert the id_rsa key to putty key format.
+
+
+
+**Mac**
+
+Mac users will use the scp commands to copy the private key file down to their local machine.  
+
+```
+scp username@external_ip_address:/home/username/.ssh/id_rsa ~/.ssh/w205.rsa
+```
+
+Specify the private key file on the command line when connecting:
+```
+ssh -i ~/.ssh/w205.rsa science@ip_address
+```
+
 
