@@ -243,6 +243,6 @@ Examples of different Dockerfiles
 - [nginx](https://github.com/docker-library/nginx/blob/master/1.7/Dockerfile)
 - [mysql](https://github.com/docker-library/mysql/blob/master/8.0/Dockerfile)
 
-Docker library:
+Docker official images:
 
-- [etc...](https://github.com/docker-library/)
+- [Docker official images](https://github.com/docker-library/)
