@@ -24,7 +24,7 @@ docker run -it --rm -v /home/xxxxx/w205:/w205 midsw205/base:latest bash
 
 #### Using git command line
 
-clone the course-content repo and the assignment-00 repos:
+clone the course-content repo and the GitHub Classroom assignment repos:
 
 ```
 cd w205
