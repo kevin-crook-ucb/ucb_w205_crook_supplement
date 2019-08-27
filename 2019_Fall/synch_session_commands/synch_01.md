@@ -17,7 +17,7 @@ docker pull midsw205/base
 
 mkdir w205
 
-docker run -it --rm -v /home/xxxxx/w205:/w205 midsw205/base:latest bash
+docker run -it --rm -v ~/w205:/w205 midsw205/base:latest bash
 
 (use exit to exit the container)
 ```
@@ -27,9 +27,9 @@ docker run -it --rm -v /home/xxxxx/w205:/w205 midsw205/base:latest bash
 clone the course-content repo and the GitHub Classroom assignment repos:
 
 ```
-cd w205
+cd ~/w205
 
-git clone link_to_repo
+git clone <link_to_repo>
 ```
 
 The best way to get a link to a repo is to go into the repo on GitHub web interface and use the green dropdown "Clone or download" button.
@@ -43,7 +43,13 @@ change directories into the repo directory
 edit the README.md file using either vi (preferred) or nano (easier alternative to vi, although not always available)
 
 ```
+cd ~/w205
+
+git clone <link_to_repo>
+
 git status
+
+<edit the README.md file using vi or nano and save your changes>
 
 git add README.md
 
