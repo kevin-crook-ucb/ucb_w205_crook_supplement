@@ -45,11 +45,25 @@ cd ~/w205
 
 git clone <link_to_repo>
 
+cd <repo directory>
+
+git status
+
+git branch assignment
+
+git status
+
+git checkout assignment
+
 git status
 
 <edit the README.md file using vi or nano and save your changes>
 
+git status
+
 git add README.md
+
+git status
 
 git commit -m "my new readme"
 ```
@@ -67,7 +81,9 @@ after setting these continue again with the commit:
 ```
 git commit -m "my new readme"
 
-git push origin master
+git status
 
-go to the github web interface for your repo, refresh if needed, verify your changes made it.
+git push origin assignment
+
+go to the github web interface for your repo, refresh if needed, verify your changes made it.  You may also make a pull request there and only select your instructor as a reviewer.
 ```
