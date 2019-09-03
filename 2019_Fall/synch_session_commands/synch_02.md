@@ -29,6 +29,14 @@ https://console.cloud.google.com/marketplace/details/san-francisco-public-data/s
 
 https://cloud.google.com/bigquery/public-data/
 
+There are 2 sets of tables related to the San Francisco Bike Share: a static set and a dynamic set.  The dynamic set is the one mentioned in link above.  Since it's much easier for beginners to use the static set, that is what we will use.  If you use the dynamic set, the query results will not match the examples we give you, and can possible change with every 15 minute update.  Here are the tables we will be using:
+
+```
+bigquery-public-data.san_francisco.bikeshare_status
+bigquery-public-data.san_francisco.bikeshare_stations
+bigquery-public-data.san_francisco.bikeshare_trips
+```
+
 Example first query:
 ```sql
 #standardSQL
