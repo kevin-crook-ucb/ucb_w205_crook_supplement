@@ -85,5 +85,7 @@ git status
 
 git push origin assignment
 
+git status
+
 go to the github web interface for your repo, refresh if needed, verify your changes made it.  You may also make a pull request there and only select your instructor as a reviewer.
 ```
