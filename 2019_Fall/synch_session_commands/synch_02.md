@@ -111,3 +111,4 @@ SELECT distinct station_id, total_bikes
 FROM `xxxx.bike_trip_data.total_bikes`
 WHERE station_id = 22
 ```
+ 
