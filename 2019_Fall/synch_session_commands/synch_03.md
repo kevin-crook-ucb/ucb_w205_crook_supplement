@@ -60,6 +60,12 @@ curl -L -o annot_fpid.json https://goo.gl/qWiu7d
 curl -L -o lp_data.csv https://goo.gl/FDFPYB
 ```
 
+Install jq
+```
+sudo apt update
+sudo apt install jq
+```
+
 What's in this file?
 ```
 head lp_data.csv
