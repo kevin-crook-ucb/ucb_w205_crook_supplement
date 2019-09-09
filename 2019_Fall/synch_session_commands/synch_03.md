@@ -8,7 +8,7 @@ Right now, this checklist has things in it we haven't covered yet, so just do wh
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Summer/synch_session_commands/checklist_b4_class_assignments.md
 
-#### First three queries of assignment 02
+#### First three queries of part 1 of project 1
 
 What's the size of this dataset? (i.e., how many trips)
 ```sql
