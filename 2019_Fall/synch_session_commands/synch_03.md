@@ -163,23 +163,22 @@ auth the GCP client
 gcloud init
 ```
 
-Follow the instructions.  This will include pasting a link into a Google Chrome browser that is logged into your Google Cloud account.  You may need to use igcognito for this for it to work right.  You will get a string to paste back into your docker container.
+* It will ask which Google Cloud account you want to use. For most students, you will only have 1 account and it will be item #1 on the list.  
 
-Here is a link to the Google Zones.  If you are running docker in the Digital Ocean droplet, select a region near northern California:
-https://cloud.google.com/compute/docs/regions-zones/
+* It will ask which Project you want to use.  For most students, you will only have 1 project, and it will be item #1 on the list
+
+* It will ask if you want to configure a default Compute Region and Zone, you can say n for no to this.  It will just use the same compute region and zone as your VM if you say no which is fine.
 
 Google Cloud configuration data is stored here:
 ```
-ls -l /w205/.config/gcloud
-or
+ls -l ~/.config
 ls -l ~/.config/gcloud
 ```
 
-associate `bq` with a project
+See if bq runs:
 ```
 bq
 ```
-and select project if asked
 
 Run some Google BigQuery queries using the bq cli
 ```
