@@ -218,17 +218,21 @@ BigQuery table names need to be wrapped in back ticks (single back quotes) `
 When running queries from the command line, the examples we have wrap them with single ticks (single straight quotes) '
 as in the following example
 
+```
 bq query --use_legacy_sql=false '
 SELECT count(*) 
 FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+```
 
 What if we need to have a single quote inside?  There are several ways to get around this. One is to wrap the query in double single quotes " and escape the back ticks with a back slash as in \`
 as in the following example
 
+```
 bq query --use_legacy_sql=false "
 SELECT count(*) 
 FROM \`bigquery-public-data.san_francisco.bikeshare_trips\`
 where start_station_name = 'Mezes' "
+```
 
 If you are using an editor on the desktop to save queries while you are developing them, please be careful as some editors will place an artistic interpretation of the characters.  They will often slant single or double quotes to make them look better.  If it does this, the changes to the characters won't work in BigQuery.
 
