@@ -155,23 +155,11 @@ cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10
 
 #### Google BigQuery command line interface: bq cli
 
-setup bq cli
-auth the GCP client
-```
-gcloud init
-```
+Please double check your VM and make sure that you have the option "Allow full access to all Cloud APIs" is set.
 
-* It will ask which Google Cloud account you want to use. For most students, you will only have 1 account and it will be item #1 on the list.  
+To check this: Navigation Menu => Compute Engine => VM Instances => see the list of VMs => click on the name of your VM to bring up the "VM instance details" page => scroll down to the end where you will see the section "Cloud API access scopes" and make sure it says "Allow full access to all Cloud APIs"
 
-* It will ask which Project you want to use.  For most students, you will only have 1 project, and it will be item #1 on the list
-
-* It will ask if you want to configure a default Compute Region and Zone, you can say n for no to this.  It will just use the same compute region and zone as your VM if you say no which is fine.
-
-Google Cloud configuration data is stored here:
-```
-ls -l ~/.config
-ls -l ~/.config/gcloud
-```
+If it does not: if the VM is running, probably best to stop it => scroll to the top of the "VM instance details" page => click "EDIT" => scroll down to change "Cloud API access scopes" to "Allow full access to all Cloud APIs" => start the VM
 
 See if bq runs:
 ```
