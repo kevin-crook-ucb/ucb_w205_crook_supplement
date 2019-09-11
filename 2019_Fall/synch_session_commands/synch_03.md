@@ -197,9 +197,9 @@ Fix the ""s issue
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
-#### Jupyter Notebooks for Assignment 4
+#### Jupyter Notebooks for Project 1
 
-Clone down your assignment 4 repo.  Open Jupyter Hub.  Navigate and open the Jupyter Notebook for assignment 4.
+Clone down your project 1 repo.  Open Jupyter Hub.  Navigate and open the Jupyter Notebook for project 1.
 
 The queries will not run as is.  Replace them with the following queries:
 
