@@ -77,10 +77,7 @@ Verify that you are on the assignment branch.  Note that if you never move off t
 git status
 ```
 
-As needed: make edits to existing files, create new files.  You will need edited or new files tracked:
-```
-git status
-```
+As needed: make edits to existing files, create new files.  You will see edited or new files tracked with a status check.
 
 Stage the changes.  Note that you should only stage the file that you want to be in the repo.  Checksum files, swap files, data files, etc. you may not want to put into your repo:
 ```
