@@ -47,15 +47,22 @@ docker run -it --rm -v ~/w205:/w205 midsw205/base pwd
 Clone a repo from GitHub
 ```
 cd ~/w205
-git clone link_to_your_repo_for_assignment_04
+git clone <link_to_repo>
 ```
 
 Change directory into your repo:
 ```
-cd assignment-04-xxxx
+cd <repo directory>
 ```
 
-Create a branch to work from.  (You can call the branch anything you want, however, if you call it assignment in all lower case, later in the semester, it will make it easiers to script against if you want to archive all of your assignment branches.):
+Check to see what branch we are on:
+```
+git status
+```
+
+You should be on the assignment branch.  If not, then you will need to create a branch called assignment and switch to that branch. 
+
+Create a branch called assignment:
 ```
 git branch assignment
 ```
@@ -65,15 +72,17 @@ Switch to that branch:
 git checkout assignment
 ```
 
-Make changes to code
-(use nano or vi)
+Verify that you are on the assignment branch.  Note that if you never move off the assignment branch, this clone will remain on the assignment branch:
 ```
-nano README.md
-
-vi README.md
+git status
 ```
 
-Stage the changes:
+As needed: make edits to existing files, create new files.  You will need edited or new files tracked:
+```
+git status
+```
+
+Stage the changes.  Note that you should only stage the file that you want to be in the repo.  Checksum files, swap files, data files, etc. you may not want to put into your repo:
 ```
 git add README.md
 ```
@@ -87,3 +96,11 @@ Push the changes to GitHub:
 ```
 git push origin assignment
 ```
+
+You may edit files, add new files, stage, commit, and push as often as you wish.  
+
+Once you are done and want to turn in the assignment, you should create a pull request comparing assignment branch to master branch.
+
+You should have only 1 pull request, and not make any changes after the pull request. 
+
+What if you want to make a change after the pull request?  Then close the pull request without merge, make changes, stage, commit, and push.  Once you are done, create a new pull request.
