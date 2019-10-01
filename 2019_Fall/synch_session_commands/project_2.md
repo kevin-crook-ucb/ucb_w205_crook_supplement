@@ -1,7 +1,5 @@
 ### Project 2 notes for unrolling the nested json  
 
-#### (optional - for students who are looking at how to unroll the more complex areas of the json assignments file)
-
 The assignment 8 json file has a moderately complicated structure.  It includes nested json and in several cases the nesting is multi-valued (lists).  To access these will require writing custom lamdba transform code in spark.
 
 Let's start by reviewing how spark handles csv and json files:
