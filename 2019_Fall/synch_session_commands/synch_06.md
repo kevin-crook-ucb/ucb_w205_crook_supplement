@@ -10,18 +10,6 @@ Right now, this checklist has things in it we haven't covered yet, so just do wh
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
 
-#### Pipes
-```
-cat junk.csv | sort | uniq | wc -l
-```
-
-#### Discuss Project 2: Tracking User Activity
-
-Assignment 6 - Get and Clean Data
-
-Assignment 7 - Setup Pipeline
-
-Assignment 8 - Build and Write-up Pipeline
 
 #### Kafka
 
@@ -29,34 +17,7 @@ Create a kafka directory and change to it:
 ```
 mkdir ~/w205/kafka
 cd ~/w205/kafka
-```
-
-vi the docker-compose.yml and insert the following
-```yml
----
-version: '2'
-services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    network_mode: host
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 32181
-      ZOOKEEPER_TICK_TIME: 2000
-    extra_hosts:
-      - "moby:127.0.0.1"
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    network_mode: host
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: localhost:32181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    extra_hosts:
-      - "moby:127.0.0.1"
+cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
 ```
 
 Docker compose spin things up
@@ -67,10 +28,11 @@ docker-compose ps
 
 Should see something like
 ```
-    Name                        Command            State   Ports
-    -----------------------------------------------------------------------
-    kafkasinglenode_kafka_1       /etc/confluent/docker/run   Up
-    kafkasinglenode_zookeeper_1   /etc/confluent/docker/run   Up
+      Name                   Command            State                    Ports                 
+-----------------------------------------------------------------------------------------------
+kafka_kafka_1       /etc/confluent/docker/run   Up      29092/tcp, 9092/tcp                    
+kafka_mids_1        /bin/bash                   Up      8888/tcp                               
+kafka_zookeeper_1   /etc/confluent/docker/run   Up      2181/tcp, 2888/tcp, 32181/tcp, 3888/tcp
 ```
 
 Check zookeeper
@@ -100,7 +62,7 @@ Should see something like
 
 Create a Topic foo
 ```
-docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper localhost:32181
+docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
 ```
 
 Should see something like
@@ -110,7 +72,7 @@ Created topic "foo".
 
 Check the topic
 ```
-docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper localhost:32181
+docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
 ```
 
 Should see something like
@@ -148,11 +110,6 @@ docker-compose down
 ```
 
 #### Kafka with "real" messages / Kafka with json example
-
-Copy the docker-compose.yml from the course-content repo
-```
-cp ~/w205/course-content/06-Transforming-Data/docker-compose.yml ~/w205/kafka/
-```
 
 Pull data
 ```
