@@ -1,10 +1,20 @@
+# under construction - please wait until I have verified everything
+
 # Connecting Jupyter Notebook to pyspark
 
 We have been using pyspark in command line mode.  
 
-In synch 12, we will use Juptyer Notebook connected to a pyspark kernel.
+In synch 12, we will formally introduce the use of Juptyer Notebook against a pyspark kernel.
 
-Some students want to use it earlier, so here are the instructions that will work with synch 10.  (synch 9 doesn't use pyspark)
+In Project 2, students have the option of using pyspark command line (as we did in class), or using a Jupyter Notebook against a pyspark kernel.  
+
+I'm providing instructions here for how to make the modifications necessary to run Jupyter Notebook against a pyspark kernel.
+
+## Step 1 - Modify your docker-compose.yml file entry for the Spark container to export port 8888 and map it externally.  Remove any references to 8888 in the Hadoop container.
+
+TBD
+
+## Step 2 - Run an enhanced version of the pyspark command line to target Jupyter Notebook
 
 Instead of starting a pyspark command line, use the following command to start a Jupyter Notebook for a pyspark kernel.  In this command we set the ip address to 0.0.0.0:
 
@@ -29,6 +39,8 @@ Since we will be connecting from a Chrome browser on your laptop / desktop, in t
 If you have been running a Jupyter Notebook to another source, there will be cookie conflicts between them. The solution is to run a new ingocnito window in the Google Chrome browser.
 
 Open a new Google Chrome browser ingocnito window, and copy and paste the URL with the modified ip address from your notepad and the Jupyter Notebook should come up.
+
+## Step 3 - Create a symbolic link in the Spark container to the /205 mount point
 
 Once inside the Jupyter Notebook, you will notice that the directory structure is not that of the w205 directory and that the w205 directory is not listed.  It is mounted to /w205.  One quick way to rememdy this is to simply create a symbolic link from the Jupyter Notebooks directory to the /w205 directory.
 
