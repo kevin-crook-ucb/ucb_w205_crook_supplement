@@ -12,12 +12,8 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fa
 
 ## Discuss Project 2: Tracking User Activity
 
-Assignment 6 - Get and Clean Data 
 
-Assignment 7 - Setup Pipeline
 
-Assignment 8 - Build and Write-up Pipeline
-  
 ## Spark Stack with Kafka
 
 Setup
