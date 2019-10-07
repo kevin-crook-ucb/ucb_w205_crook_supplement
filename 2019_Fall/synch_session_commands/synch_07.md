@@ -10,6 +10,7 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fa
 
 ## Discuss Project 2: Tracking User Activity
 
+Will probably defer this to the end of class to take into account what we do in class today.
 
 ## Spark Stack with Kafka
 
