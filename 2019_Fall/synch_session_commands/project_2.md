@@ -62,6 +62,8 @@ Missing Values in some json objects - Spark allows some flexibility in inferring
 spark.sql("select sequences.abc123 from assessments limit 10").show()
 ```
 
+#### Nested multi-value as a dictionary
+
 Let's see an example of a nested multi-value as a dictionary.  First note that the following will NOT work because sequences value is a dictionary, so id is a key of the nested dictionary:
 ```python
 # does NOT work!
@@ -84,6 +86,8 @@ spark.sql("select sequences_id from sequences limit 10").show()
 spark.sql("select a.keen_id, a.keen_timestamp, s.sequences_id from assessments a join sequences s on a.keen_id = s.keen_id limit 10").show()
 ```
 
+#### Nested multi-valued as a list
+
 Let's see an example of a multi-valued in the form of a list.  Previously, we saw that we can pull out 1 item using the [] operator. In this example, we will pull out all values from the list by writing a custom labmda transform, creating a another data frame, registering it as a temp table, and joining it to data frames of outer nesting layers.
 ```python
 def my_lambda_questions(x):
@@ -104,6 +108,8 @@ spark.sql("select id, my_count from questions limit 10").show()
 
 spark.sql("select q.keen_id, a.keen_timestamp, q.id from assessments a join questions q on a.keen_id = q.keen_id limit 10").show()
 ```
+
+#### How to handle "holes" in json data
 
 When unrolling the json for the assessments dataset, if you are trying to unroll a key in a dictionary that does not exist for all the items, it will generate an error when you try to reference in the cases it does not exist.
 
