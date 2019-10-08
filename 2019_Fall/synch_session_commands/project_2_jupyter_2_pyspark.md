@@ -12,7 +12,16 @@ I'm providing instructions here for how to make the modifications necessary to r
 
 ## Step 1 - Modify your docker-compose.yml file entry for the Spark container to export port 8888 and map it externally.  Remove any references to 8888 in the Hadoop container.
 
-TBD
+In your docker-compose.yml file, you will need to add the following specification for the spark container.  It would generally follow the volumes section:
+
+```yml
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+```
+
+Also, check and see if you have a cloudera section.  If you have a cloudera section, you should comment out (or remove) the 8888 in both the expose section and the ports section.  If it's the only entry in the expose section, then comment out (or remove) the expose section. If it's the only entry in the ports section, then comment out (or remove) the ports section.
 
 ## Step 2 - Run an enhanced version of the pyspark command line to target Jupyter Notebook
 
