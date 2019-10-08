@@ -8,9 +8,9 @@ In Project 2, students have the option of using pyspark command line (as we did 
 
 I'm providing instructions here for how to make the modifications necessary to run Jupyter Notebook against a pyspark kernel.
 
-## Step 1 - Modify your docker-compose.yml file entry for the Spark container to export port 8888 and map it externally.  Remove any references to 8888 in the Hadoop container.
+## Step 1 - Check and if necessary, modify your docker-compose.yml file
 
-In your docker-compose.yml file, you will need to add the following specification for the spark container.  It would generally follow the volumes section:
+Check your docker-compose.yml file to make sure that the spark container has an expose section and ports section with the following entries:
 
 ```yml
     expose:
@@ -19,7 +19,40 @@ In your docker-compose.yml file, you will need to add the following specificatio
       - "8888:8888"
 ```
 
-Also, check and see if you have a cloudera section.  If you have a cloudera section, you should comment out (or remove) the 8888 in both the expose section and the ports section.  If it's the only entry in the expose section, then comment out (or remove) the expose section. If it's the only entry in the ports section, then comment out (or remove) the ports section.
+Also, check to make sure that if you have a cloudera container, verify that it does NOT have the above entries (it will cause a conflict on port 8888).
+
+If you need to make changes to your docker-compose.yml file, you will need to first tear down your cluster:
+
+```
+docker-compose down
+```
+
+If necessary, add the sections to the spark container and comment out the sections in the cloudera container.
+
+Then bring the cluster back up:
+
+```
+docker-compose up -d
+```
+
+## Step 2 - Create a symbolic link in the Spark container to the /205 mount point
+
+First exec a bash shell into the spark container:
+
+```
+docker-compose exec spark bash
+```
+
+Create a symbolic link from the spark directory to /w205 :
+
+```
+ln -s /w205 w205
+```
+
+Exit the container:
+```
+exit
+```
 
 ## Step 2 - Run an enhanced version of the pyspark command line to target Jupyter Notebook
 
@@ -45,45 +78,7 @@ Since we will be connecting from a Chrome browser on your laptop / desktop, in t
 
 If you have been running a Jupyter Notebook to another source, there will be cookie conflicts between them. The solution is to run a new ingocnito window in the Google Chrome browser.
 
-Open a new Google Chrome browser ingocnito window, and copy and paste the URL with the modified ip address from your notepad and the Jupyter Notebook should come up.
-
-## Step 3 - Create a symbolic link in the Spark container to the /205 mount point
-
-Once inside the Jupyter Notebook, you will notice that the directory structure is not that of the w205 directory and that the w205 directory is not listed.  It is mounted to /w205.  One quick way to rememdy this is to simply create a symbolic link from the Jupyter Notebooks directory to the /w205 directory.
-
-First exec a bash shell into the spark container:
-
-```
-docker-compose exec spark bash
-```
-
-Create a symbolic link from the spark directory to /w205 :
-
-```
-ln -s /w205 w205
-```
-
-Exit the container:
-```
-exit
-```
-
-Now you should see the w205 directory listed in the Jupyter Notebook directory structure.
-
-As a side note, anytime I have a Jupyter Notebook directory and I'm not sure which directory I'm in, one easy way to just create an Python notebook and run some code cells to pull the current working directory.
-
-If it's on a Linux based system, you can use the following code cell:
-
-```
-!pwd
-```
-
-The following will always work, regardless of operating system, provided the os module is avaiable (it usually is):
-
-```
-import os
-os.getcwd()
-```
+Open a new Google Chrome browser incognito window, and copy and paste the URL with the modified ip address from your notepad and the Jupyter Notebook should come up.
 
 ## Troubleshooting Suggestions
 
