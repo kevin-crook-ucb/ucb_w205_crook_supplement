@@ -10,6 +10,11 @@ Right now, this checklist has things in it we haven't covered yet, so just do wh
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
 
+Before class:
+* checklist
+* start VM
+* create 4 linux command lines: general commands, kafka virtual console, hadoop, spark
+
 ### Discuss Project 2: Tracking User Activity
 
 We will wait until the end of class to discuss project 2.  What we learn in class today will be needed for project 2. 
