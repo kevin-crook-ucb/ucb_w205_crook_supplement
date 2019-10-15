@@ -178,7 +178,7 @@ Publish some stuff to kafka
 docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
 ```
 
-Spin up a pyspark process using the spark container
+Spin up a pyspark process using the spark container (if you left pyspark running, you can skip this step):
 ```
 docker-compose exec spark pyspark
 ```
