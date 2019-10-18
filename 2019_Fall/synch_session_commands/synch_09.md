@@ -7,20 +7,14 @@ We will try to follow the official slides as close as we can in class.  I will p
 ### Before class
 
 * VM running
-* create 4 linux command lines: general commands, kafka virtual console, hadoop, spark
+* create 3 linux command lines: general cluster commands, flask web API server, curl web API test commands
 * go through the checklist:
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
 
 ### Project 3 - Understanding User Behavior Project
 
-Assignment-09 - Define your Pipeline
-
-Assignment-10 - Setup Pipeline, Part 1
-
-Assignment-11 - Setup Pipeline, Part 2
-
-Assignment-12 - Synthesis Assignment
+We will talk about project 3 at the end of class.
 
 ### Flask with Kafka
 
