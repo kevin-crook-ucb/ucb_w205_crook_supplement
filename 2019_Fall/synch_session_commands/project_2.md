@@ -75,7 +75,7 @@ We can extract sequence.id by writing a custom lambda transform, creating a sepa
 def my_lambda_sequences_id(x):
     raw_dict = json.loads(x.value)
     my_dict = {"keen_id" : raw_dict["keen_id"], "sequences_id" : raw_dict["sequences"]["id"]}
-    return my_dict
+    return Row(**my_dict)
 
 my_sequences = assessments.rdd.map(my_lambda_sequences_id).toDF()
 
@@ -97,7 +97,7 @@ def my_lambda_questions(x):
     for l in raw_dict["sequences"]["questions"]:
         my_count += 1
         my_dict = {"keen_id" : raw_dict["keen_id"], "my_count" : my_count, "id" : l["id"]}
-        my_list.append(my_dict)
+        my_list.append(Row(**my_dict))
     return my_list
 
 my_questions = assessments.rdd.flatMap(my_lambda_questions).toDF()
