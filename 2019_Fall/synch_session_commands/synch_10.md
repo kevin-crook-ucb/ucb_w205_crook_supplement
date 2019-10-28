@@ -5,7 +5,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 ### Before class
 
 * VM running
-* create 4 linux command lines: general cluster commands, flask web API server, curl web API test commands, spark
+* create 4 linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
 * go through the checklist:
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
