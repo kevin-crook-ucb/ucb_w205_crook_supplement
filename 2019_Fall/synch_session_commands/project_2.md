@@ -113,13 +113,49 @@ spark.sql("select q.keen_id, a.keen_timestamp, q.id from assessments a join ques
 
 When unrolling the json for the assessments dataset, if you are trying to unroll a key in a dictionary that does not exist for all the items, it will generate an error when you try to reference in the cases it does not exist.
 
-Below is some example code for raw_dict["sequences"]["counts"]["correct"] which exists for some but not all of the json objects.  To keep it from generating errors, you would need to check it piece meal to make sure it exists before referencing it.  I default the value to 0 if it does not exist.
+Below is some example code for raw_dict["sequences"]["counts"]["correct"] which exists for some but not all of the json objects.  To keep it from generating errors, you would need to check it piece meal to make sure it exists before referencing it. 
+
+We could just default it to 0 if it doesn't exist.  
+
+However, suppose we want to find the average or standard deviatation, the 0's would skew the data too low.  In order to not include it, I add a level of indirection on top of the dictionary and only add the dictionary if it has meaningful data.  Instead of using the "map()" spark functional transformation, I use the "flatMap()" functional transformation, which removes a level of indirection at the end.
+
+Here is how the flat map works in this case.  Suppose A, B, C, and D are all dictionaries:
+
+```( (A), (), (B), (), (), (C), (D), () )```
+
+flat maps to:
+
+```( A, B, C, D)```
+
+Here is the full pyspark code:
 
 ```python
-my_correct = 0
+def my_lambda_correct_total(x):
+    
+    raw_dict = json.loads(x.value)
+    my_list = []
+    
+    if "sequences" in raw_dict:
+        
+        if "counts" in raw_dict["sequences"]:
+            
+            if "correct" in raw_dict["sequences"]["counts"] and "total" in raw_dict["sequences"]["counts"]:
+                    
+                my_dict = {"correct": raw_dict["sequences"]["counts"]["correct"], 
+                           "total": raw_dict["sequences"]["counts"]["total"]}
+                my_list.append(Row(**my_dict))
+    
+    return my_list
 
-if "sequences" in raw_dict:
-    if "counts" in raw_dict["sequences"]:
-        if "correct" in raw_dict["sequences"]["counts"]:
-            my_correct = raw_dict["sequences"]["counts"]["correct"]
+my_correct_total = assessments.rdd.flatMap(my_lambda_correct_total).toDF()
+
+my_correct_total.registerTempTable('ct')
+
+spark.sql("select * from ct limit 10").show()
+
+spark.sql("select correct / total as score from ct limit 10").show()
+
+spark.sql("select avg(correct / total)*100 as avg_score from ct limit 10").show()
+
+spark.sql("select stddev(correct / total) as standard_deviation from ct limit 10").show()
 ```
