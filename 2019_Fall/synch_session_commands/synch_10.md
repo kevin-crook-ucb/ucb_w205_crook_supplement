@@ -2,10 +2,6 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### Checklist before class and before working on assignments
-
-TBD - linux command lines
-
 ### Before class
 
 * VM running
