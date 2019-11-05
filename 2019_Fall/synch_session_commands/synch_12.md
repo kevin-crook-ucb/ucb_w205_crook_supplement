@@ -4,21 +4,19 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### Checklist before class and before working on assignments
+### Before class
 
-Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
+* VM running
+* create TBD linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
+* go through the checklist:
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Summer/synch_session_commands/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
+
 
 ### Project 3 - Understanding User Behavior Project
 
-Assignment-09 - Define your Pipeline
+We will wait and discuss project 3 at the end of class.
 
-Assignment-10 - Setup Pipeline, Part 1
-
-Assignment-11 - Setup Pipeline, Part 2
-
-Assignment-12 - Synthesis Assignment
 
 ### Flask-Kafka-Spark-Hadoop-Presto Part I
 
