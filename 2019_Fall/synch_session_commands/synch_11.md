@@ -7,7 +7,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 ### Before class
 
 * VM running
-* create TBD linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
+* create 4 linux command lines: general commands, hadoop virtual console, hadoop file commands, flask
 * go through the checklist:
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
@@ -120,9 +120,13 @@ docker-compose exec cloudera hadoop fs -ls /tmp/extracted_events/
 ```
 
 Deploying a Spark job to a cluster 
+
 standalone (this won't work here)
+
 yarn (this won't work here)
+
 mesos (this won't work here)
+
 kubernetes (this won't work here)
 
 More Spark!
