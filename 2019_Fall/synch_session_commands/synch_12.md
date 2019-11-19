@@ -1,4 +1,4 @@
-# please wait until I have reviewed this and removed this message - Kevin
+# Please wait until I have reviewed and removed this message
 
 ## UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #12
 
@@ -7,7 +7,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 ### Before class
 
 * VM running
-* create TBD linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
+* create 4 linux command lines: cluster commands, flask web API server, kafkacat, jupyter notebook server for pyspark kernel
 * go through the checklist:
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
@@ -134,6 +134,37 @@ docker-compose down
 
 #### Using ssh to login without a password
 
+**Note: this is optional.  Please be sure you have backed up any work into your GitHub remote repos.  Please follow all steps very carefully.  If you make a mistake, it's possible you will not be able to login to your VM again!
+
+**Mac**
+
+```
+cd ~/.ssh
+```
+
+Generate a pair of keys:
+```
+ssh-keygen -t rsa -b 4096
+(hit return through the prompts)
+```
+
+This will create two files: 
+* id_rsa - the private key file
+* id_rsa.pub - the public key file
+
+Mac users will use the scp commands to copy the public key file from their local machine to the  
+
+```
+scp username@external_ip_address:/home/username/.ssh/id_rsa ~/.ssh/w205.rsa
+```
+
+Specify the private key file on the command line when connecting:
+```
+ssh -i ~/.ssh/w205.rsa science@ip_address
+```
+
+
+
 In your virtual machine, change to the ~/.ssh directory:
 
 ```
@@ -142,7 +173,7 @@ cd ~/.ssh
 
 Generate a pair of keys:
 ```
-ssh-keygen -t rsa -b 2048
+ssh-keygen -t rsa -b 4096
 (hit return through the prompts)
 ```
 
@@ -182,16 +213,4 @@ Using C:\PuTTY\PUTTYGEN.EXE, convert the id_rsa key to putty key format.
 
 
 
-**Mac**
-
-Mac users will use the scp commands to copy the private key file down to their local machine.  
-
-```
-scp username@external_ip_address:/home/username/.ssh/id_rsa ~/.ssh/w205.rsa
-```
-
-Specify the private key file on the command line when connecting:
-```
-ssh -i ~/.ssh/w205.rsa science@ip_address
-```
 
