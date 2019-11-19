@@ -1,5 +1,3 @@
-# Please wait until I have reviewed and removed this message
-
 ## UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #12
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -134,7 +132,10 @@ docker-compose down
 
 #### Using ssh to login without a password
 
-**Note: this is optional.  Please be sure you have backed up any work into your GitHub remote repos.  Please follow all steps very carefully.  If you make a mistake, it's possible you will not be able to login to your VM again!
+**Note: this is optional.  Please be sure you have backed up any work into your GitHub remote repos.  Please follow all steps very carefully.  If you make a mistake, it's possible you will not be able to login to your VM again!**
+
+** It looks like the Google Cloud has issues with supporting this, as they have their own scheme known as OSLogin.  OSLogin is incompatible with our VM image, so we will revisit this later this semester **
+
 
 **Mac**
 
