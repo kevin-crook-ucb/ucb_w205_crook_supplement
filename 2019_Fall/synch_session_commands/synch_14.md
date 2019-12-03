@@ -1,5 +1,3 @@
-# please wait until I have reviewed this and removed this message - Kevin
-
 ## UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #14
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -7,7 +5,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 ### Before class
 
 * VM running
-* create TBD linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
+* create 6 linux command lines: general commands, flask web API server, kafkacat, spark, presto, apache bench
 * go through the checklist:
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
