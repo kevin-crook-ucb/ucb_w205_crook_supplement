@@ -1,14 +1,38 @@
-# Under Review - I'll remove this message when it's ready to go
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #1
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
 #### Checklist before class and before working on assignments
 
-Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
-
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
+
+#### Checklist for Today's Class
+
+- Introductions (we will wait until we get everyone going on GCP setup)
+
+- Everyone join the slack channels **w205** and **w205-crook-2020-spring**
+
+- Everyone ping me on slack using the following template:
+  * W205 Spring 2020
+  * Last Name:
+  * First Name:
+  
+- Google Form - everyone fill out
+
+- GitHub repo https://github.com/mids-w205-crook/course-content 
+  * Everyone verify access AFTER I add you based on Google Form
+  * Everyone clone 
+
+- Google Cloud Platform (GCP) - everyone sign up, enable billing, first project, enable APIs
+
+- GCP => AI Platform => Notebooks => Open Jupyterlab
+  * Everyone verify they can open a Jupyter Notebook
+  * Everyone verify they can open a linux command line using Jupyter: Compute Engine => VM Instances => SSH
+  * Everyone verify they can open a linux command line using SSH on the Virtual Machine: Settings Gear Upper Right => Change Linux Login => jupyter
+  
+- Docker - veryify everyone can run
+  
+- Syllabus 
 
 #### Updating Docker and running Docker in your Virtual Machine
 
