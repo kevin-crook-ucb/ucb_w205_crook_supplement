@@ -1,3 +1,5 @@
+# Under Review - I'll remove this message when it's ready to go
+
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #1
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -6,7 +8,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
 
 #### Updating Docker and running Docker in your Virtual Machine
 
