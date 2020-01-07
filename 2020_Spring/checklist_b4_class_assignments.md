@@ -1,3 +1,5 @@
+# in review due to the new JupyterLab image in GCP.  I'll remove this message when it's ready to go
+
 ### UCB MIDS W205 - Kevin Crook's checklist before class and before doing assignments:
 
 These are general instruction for how to do some updates and cleanup before class or before working on assignments.  These will clear up a lot of issues students have struggled with in the past.
