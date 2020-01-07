@@ -21,7 +21,7 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Sp
 
 - GitHub repo https://github.com/mids-w205-crook/course-content 
   * Everyone verify access AFTER I add you based on Google Form
-  * Everyone clone 
+  * Everyone clone down to their Virtual Machine
 
 - Google Cloud Platform (GCP) - everyone sign up, enable billing, first project, enable APIs
 
@@ -31,6 +31,10 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Sp
   * Everyone verify they can open a linux command line using SSH on the Virtual Machine: Settings Gear Upper Right => Change Linux Login => jupyter
   
 - Docker - veryify everyone can run
+  
+- GitHub Classroom
+  * Everyone accept the link for the signup assignment, find their name, wait for signup assignment repo to be created (may take several minutes)
+  * Clone down the signup assignment, create branch, track, stage, commit, push, create pull request.
   
 - Syllabus 
 
