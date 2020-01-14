@@ -174,3 +174,44 @@ Take a look at the RSA public key in human readable text:
 ```
 openssl rsa -noout -text -pubin -in rsa_public.key
 ```
+
+### Terminology 
+
+If you have ever taken a class on cryptography, you will find the terminology used in the commercial implementations of RSA is a bit different than that found in textbooks.  Here is a mapping:
+
+**Academic or Textbook Terminology**
+
+n = p * q
+
+n is the product of two large random prime integers of a given bit size (such as 4096 in the examples above)
+
+p is a large random prime integer, of half the bit size of n (typically we make p > q, but not a hard and fast rule)
+
+q is the other large random prime integer, of half the bit size of n
+
+e is the encryption exponent, an odd integer, relatively prime to Euler's Phi = (p - 1) (q - 1)
+
+d is the decryption exponent, the inverse of e in Euler's Phi obtained by using the Extended Euclidean Algorithm
+
+In key exchange, e is public key, d is private key
+
+In security certificates, d is public key, e is private key
+
+We can use a short exponent (65537) for the public key to speed up, but not the private key
+
+OpenSSL, TLS, X509 Terminology
+
+modulus is n
+
+publicExponent is usually 65537 and would be e or d depending on usage
+
+privateExponent is large, same order of bits as n, and would be e or d depending on usage
+
+prime1 is the larger of p and q (there are some minor optimizations that can be made by knowing which is larger)
+
+prime2 is the smaller of p and q 
+
+exponent1, exponent2, coefficient are the pre-computed values that go into the Chinese Remainder Theorem to speed up the long exponent
+
+What can be public?  Only the modulus and the publicExponent (65537) can be public, everything else must be kept private!
+
