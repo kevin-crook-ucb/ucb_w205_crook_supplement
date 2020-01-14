@@ -211,7 +211,7 @@ We can use a **short exponent (65537)** for the public key to speed up, but not 
 
 **prime2** is the smaller of p and q 
 
-**exponent1, exponent2, coefficient** are the pre-computed values that go into the Chinese Remainder Theorem to speed up the long exponent
+**exponent1, exponent2, coefficient** are the pre-computed values that go into the Chinese Remainder Theorem to speed up the publicExponent
 
 **What can be public?**  Only the **modulus** and the **publicExponent (65537)** can be public, everything else must be kept private!
 
