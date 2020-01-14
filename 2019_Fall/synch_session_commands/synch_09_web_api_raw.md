@@ -199,7 +199,7 @@ In security certificates, d is public key, e is private key
 
 We can use a short exponent (65537) for the public key to speed up, but not the private key
 
-OpenSSL, TLS, X509 Terminology
+**OpenSSL, TLS, X509 Terminology**
 
 modulus is n
 
