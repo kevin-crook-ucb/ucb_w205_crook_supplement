@@ -43,7 +43,7 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Sp
 ```
 docker pull midsw205/base
 
-mkdir w205
+mkdir ~/w205
 
 docker run -it --rm -v ~/w205:/w205 midsw205/base:latest bash
 
