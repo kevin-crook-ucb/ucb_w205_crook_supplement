@@ -22,6 +22,9 @@ SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 ```
 
 What is the earliest start time and latest end time for a trip?
+
+You can do it as two separate queries:
+
 ```sql
 #standardSQL
 SELECT min(start_date) 
@@ -36,7 +39,13 @@ FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 2016-08-31 23:48:00
 ```
 
+Or do it as 1 query:
 
+```sql
+#standardSQL
+SELECT min(start_date), max(end_date)
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+```
 
 How many bikes are there?
 ```sql
