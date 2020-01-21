@@ -166,13 +166,8 @@ cat annot_fpid.json | jq '.[][]' -r | sort | uniq -c | sort -gr | head -10
 
 #### Google BigQuery command line interface: bq cli
 
-Please double check your VM and make sure that you have the option "Allow full access to all Cloud APIs" is set.
 
-To check this: Navigation Menu => Compute Engine => VM Instances => see the list of VMs => click on the name of your VM to bring up the "VM instance details" page => scroll down to the end where you will see the section "Cloud API access scopes" and make sure it says "Allow full access to all Cloud APIs"
-
-If it does not: if the VM is running, probably best to stop it => scroll to the top of the "VM instance details" page => click "EDIT" => scroll down to change "Cloud API access scopes" to "Allow full access to all Cloud APIs" => click "Save" button => start the VM
-
-See if bq runs:
+Verify that bq runs (it should respond with a version and details of the command line arguments available):
 ```
 bq
 ```
@@ -208,30 +203,11 @@ Fix the ""s issue
 cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
 ```
 
-#### Jupyter Notebooks for Project 1
-
-Clone down your project 1 repo.  Open Jupyter Hub.  Navigate and open the Jupyter Notebook for project 1.
-
-The queries will not run as is.  Replace them with the following queries:
-
-```
-! bq query --use_legacy_sql=FALSE 'SELECT trip_id, start_station_name, end_station_name, count(trip_id) as trip_freq FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_id, start_station_name, end_station_name ORDER BY trip_freq DESC LIMIT 5'
-```
-
-```
-! bq query --use_legacy_sql=FALSE --format=csv 'SELECT trip_id, start_station_name, end_station_name, count(trip_id) as trip_freq FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_id, start_station_name, end_station_name ORDER BY trip_freq DESC LIMIT 5' > result.csv
-```
-
 #### Running Google BigQuery queries from the command line using bq may encounter some issues with the ' and ` characters
 
 BigQuery table names need to be wrapped in back ticks (single back quotes) ` 
 
 When running queries from the command line, the examples we have wrap them with single ticks (single straight quotes) '
-as in the following example
-
-```
-bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
-```
 
 What if we need to have a single quote inside?  There are several ways to get around this. One is to wrap the query in double single quotes " and escape the back ticks with a back slash as in \`
 as in the following example
@@ -241,3 +217,4 @@ bq query --use_legacy_sql=false "SELECT count(*) FROM \`bigquery-public-data.san
 ```
 
 If you are using an editor on the desktop to save queries while you are developing them, please be careful as some editors will place an artistic interpretation of the characters.  They will often slant single or double quotes to make them look better.  If it does this, the changes to the characters won't work in BigQuery.
+
