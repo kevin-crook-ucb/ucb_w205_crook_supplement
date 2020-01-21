@@ -1,17 +1,20 @@
-# in review due to the new JupyterLab image in GCP.  I'll remove this message when it's ready to go
-
 ### UCB MIDS W205 - Kevin Crook's checklist before class and before doing assignments:
 
 These are general instruction for how to do some updates and cleanup before class or before working on assignments.  These will clear up a lot of issues students have struggled with in the past.
 
+#### Make sure you are logged in as jupyter
+
+Make sure you are logged in to your virtual machine as user jupyter. If you are in ssh and seeing another user name (such as a variation of your first and last name), then in the upper right corner, there is a gear icon, with a drop down, click on the drop down and choose "Change Linux Username", then enter the name jupyter and click the blue change button.  Please make sure you spell jupyter right.  After you change username you can verify by doing an `ls -l` command.
+
 #### Ownership issues
 
-Files created in your virtual machine will be owned by your Google generated username and group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to xxxxx and the group to yyyyy, recursively, for a directory:
+Files created in your virtual machine will be owned by the jupyter username and the jupyter group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to jupyter and the group to jupyter, recursively, for a directory:
 ```
-sudo chown -R xxxxx:yyyyyy ~/w205
+sudo chown -R jupyter:jupyter ~/w205
 ```
 
 #### It's a good idea to always update the course-content repo prior to class or before working on assignments
+
 Note that if you made changes to your course-content repo, you won't be able to update it due to conflicts.  In that case, you will need to delete it and bring it down fresh.
 ```
 cd ~/w205/course-content
@@ -31,9 +34,10 @@ Remove a stray container (where xxxxx is the container id (hex string) or contai
 docker rm -f xxxxx
 ```
 
-Remove all containers.  Nuclear option will destory all containers.  Good for cases when you have several stray containers and you are sure you don't want to keep any of them
+Please be careful that you do NOT remove the following container, it's part of the image for Jupyter Lab:
+
 ```
-docker rm -f $(docker ps -aq)
+6793591eaeab        gcr.io/inverting-proxy/agent   "/bin/sh -c '/opt/bi…"   3 hours ago         Up 3 hours                              proxy-agent
 ```
 
 #### It's a good idea to bring down / update docker images prior to class and prior to working on assignments
