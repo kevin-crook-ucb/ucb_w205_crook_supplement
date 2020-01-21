@@ -76,3 +76,15 @@ SELECT start_date,
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 order by start_date asc
 ```
+
+#### Summary queries which aggregate data can be very useful in analytics
+
+```sql
+#standardSQL
+SELECT start_station_name, end_station_name, count(*) as number_of_trips
+FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+WHERE start_station_name <> end_station_name
+GROUP BY start_station_name, end_station_name
+HAVING number_of_trips > 100
+ORDER BY 1, 2, 3
+```
