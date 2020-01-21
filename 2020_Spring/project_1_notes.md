@@ -19,7 +19,7 @@ Let's consider trip duration times. Run the query below and see the first few pa
 #standardSQL
 SELECT duration_sec
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-order by duration_sec asc
+ORDER BY duration_sec ASC
 ```
 
 The durations are given in terms of seconds.  It might be more useful to see them in terms of minutes or maybe even in hours.
@@ -27,11 +27,11 @@ The durations are given in terms of seconds.  It might be more useful to see the
 ```sql
 #standardSQL
 SELECT duration_sec, 
-       cast(round(duration_sec / 60.0) as INT64) as duration_minutes,
-       cast(round(duration_sec / 3600.0) as INT64) as duration_hours_rounded,
-       round(duration_sec / 3600.0, 1) as duration_hours_tenths
+       CAST(ROUND(duration_sec / 60.0) AS INT64) AS duration_minutes,
+       CAST(ROUND(duration_sec / 3600.0) AS INT64) AS duration_hours_rounded,
+       ROUND(duration_sec / 3600.0, 1) AS duration_hours_tenths
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-order by duration_sec asc
+ORDER BY duration_sec ASC
 ```
 
 You may want to do some exploratory queries to see if durations are reasonable.  Try some queries to see how many, what percentage are below a reasonable threshold, or above a reasonable threshold.
@@ -50,7 +50,7 @@ The basic query would be to just pull out the start_date as it is stored:
 #standardSQL
 SELECT start_date 
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-order by start_date asc
+ORDER BY start_date ASC
 ```
 
 In order to make our analytics easier, we may want to do some "feature engineering", in the form of creating some new columns that are easier to work with:
@@ -58,30 +58,32 @@ In order to make our analytics easier, we may want to do some "feature engineeri
 ```sql
 #standardSQL
 SELECT start_date,
-       extract(dayofweek from start_date) as dow_int,
-       case extract(dayofweek from start_date)
-           when 1 then "Sunday"
-           when 2 then "Monday"
-           when 3 then "Tuesday"
-           when 4 then "Wednesday"
-           when 5 then "Thursday"
-           when 6 then "Friday"
-           when 7 then "Saturday"
-       end as dow_str,
-       case 
-           when extract(dayofweek from start_date) in (1, 7) then "Weekend"
-           else "Weekday"
-       end as dow_weekday,
-       extract(hour from start_date) as start_hour
+       EXTRACT(DAYOFWEEK FROM start_date) AS dow_int,
+       CASE EXTRACT(DAYOFWEEK FROM start_date)
+           WHEN 1 THEN "Sunday"
+           WHEN 2 THEN "Monday"
+           WHEN 3 THEN "Tuesday"
+           WHEN 4 THEN "Wednesday"
+           WHEN 5 THEN "Thursday"
+           WHEN 6 THEN "Friday"
+           WHEN 7 THEN "Saturday"
+           END AS dow_str,
+       CASE 
+           WHEN EXTRACT(DAYOFWEEK FROM start_date) IN (1, 7) THEN "Weekend"
+           ELSE "Weekday"
+           END AS dow_weekday,
+       EXTRACT(HOUR FROM start_date) AS start_hour
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-order by start_date asc
+ORDER BY start_date ASC
 ```
 
 #### Summary queries which aggregate data can be very useful in analytics
 
+This queries aggregates trips that have different start and end stations.  After the aggregation, it filters only those with more than 100 trips.
+
 ```sql
 #standardSQL
-SELECT start_station_name, end_station_name, count(*) as number_of_trips
+SELECT start_station_name, end_station_name, count(*) AS number_of_trips
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 WHERE start_station_name <> end_station_name
 GROUP BY start_station_name, end_station_name
