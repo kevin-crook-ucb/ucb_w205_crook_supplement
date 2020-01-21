@@ -9,7 +9,7 @@ bigquery-public-data.san_francisco.bikeshare_trips
 
 #### Best to create your own dataset with your own views
 
-I think it's best to create your own dataset with views.  The views allow you to have your own virtual copy of the data with dirty data fixed or removed, only the columns that you need for your analysis, any new columns that you have derived and added, summary views with aggregated data, etc.
+I think it's best to create your own dataset with views.  The views allow you to have your own virtual copy of the data with dirty data fixed or removed, only the columns that you need for your analysis, any new columns that you have derived and added, summary views with aggregated data, etc.  Also having easy column names instead of complicated expressions makes it a whole lot easier.
 
 #### trip duration times
 
@@ -34,19 +34,7 @@ FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 order by duration_sec asc
 ```
 
-You may want to do some exploratory queries to see if durations are reasonable:
-
-```sql
-#standardSQL
-SELECT duration_sec, 
-       cast(round(duration_sec / 60.0) as INT64) as duration_minutes,
-       cast(round(duration_sec / 3600.0) as INT64) as duration_hours_rounded,
-       round(duration_sec / 3600.0, 1) as duration_hours_tenths
-FROM `bigquery-public-data.san_francisco.bikeshare_trips`
-order by duration_sec asc
-```
-
-Try some queries to see how many, what percentage are below a reasonable threshold, or above a reasonable threshold.
+You may want to do some exploratory queries to see if durations are reasonable.  Try some queries to see how many, what percentage are below a reasonable threshold, or above a reasonable threshold.
 
 #### Start and end dates use an inappropriate data type
 
