@@ -42,6 +42,8 @@ You will notice that the start_date and end_date use an inappropriate data type.
 
 This is just like the proverbial real world - people use the wrong data types all the time!
 
+#### Adding some columns to make the day of week and hour easier to analyze
+
 The basic query would be to just pull out the start_date as it is stored:
 
 ```sql
