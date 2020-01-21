@@ -8,14 +8,14 @@ Make sure you are logged in to your virtual machine as user jupyter. If you are 
 
 #### Ownership issues
 
-Files created in your virtual machine will be owned by the jupyter username and the jupyter group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to jupyter and the group to jupyter, recursively, for a directory:
+Files created in your virtual machine will be owned by the jupyter username and the jupyter group. Files created in your Docker containers will be owned by root with group root.  The following command can be used in the **virtual machine** to change the owner to jupyter and the group to jupyter, recursively, for a directory. Note that you can always run this command, it won't hurt anything if it's not needed:
 ```
 sudo chown -R jupyter:jupyter ~/w205
 ```
 
 #### It's a good idea to always update the course-content repo prior to class or before working on assignments
 
-Note that if you made changes to your course-content repo, you won't be able to update it due to conflicts.  In that case, you will need to delete it and bring it down fresh.
+Before class and prior to working on projects, it's best to update the course-content repo.  Note that if you made changes to your course-content repo, you won't be able to update it due to conflicts.  In that case, you will need to delete it and bring it down fresh.
 ```
 cd ~/w205/course-content
 git pull --all
@@ -24,12 +24,12 @@ cd
 
 #### It's a good idea to always check for and remove any stray containers prior to class and before working on assignments
 
-Check for stray containers
+Check for stray containers:
 ```
 docker ps -a
 ```
 
-Remove a stray container (where xxxxx is the container id (hex string) or container name)
+Remove a stray container (where xxxxx is the container id (hex string) or container name):
 ```
 docker rm -f xxxxx
 ```
@@ -42,7 +42,7 @@ Please be careful that you do NOT remove the following container, it's part of t
 
 #### It's a good idea to bring down / update docker images prior to class and prior to working on assignments
 
-We won't be using all of these day one.  (I'll be adding these as the semester goes by)
+We won't be using all of these day one.  (I'll be adding these as the semester goes by):
 
 ```
 docker pull midsw205/base:latest
