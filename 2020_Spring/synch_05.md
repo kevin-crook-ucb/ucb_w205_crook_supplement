@@ -8,7 +8,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
 
 #### Add firewall rule to open port 8888 
 
@@ -62,6 +62,20 @@ check tcp and put 8888 in the box next to it
 
 Click blue Create button
 
+#### Install Docker Compose
+
+Try the following command and see if it works:
+
+```
+docker-compose
+```
+
+If it doesn't you need to install Docker Compose using the following commands:
+
+```
+sudo apt update
+sudo apt install docker-compose
+```
 
 #### Redis single container examples
 
