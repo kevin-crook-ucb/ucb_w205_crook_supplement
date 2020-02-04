@@ -60,6 +60,9 @@ Protocols and ports:
 Specified protocols and ports
 check tcp and put 8888 in the box next to it
 
+Enforcement:
+Enabled should be selected
+
 Click blue Create button
 
 #### Install Docker Compose
