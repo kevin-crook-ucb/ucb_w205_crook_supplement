@@ -101,6 +101,12 @@ docker ps -a
 docker rm -f redis
 ```
 
+#### Install the Redis package into Python 3.x at the VM level
+
+```
+sudo pip3 install redis
+```
+
 #### Create a docker cluster with redis standalone
 
 ```
