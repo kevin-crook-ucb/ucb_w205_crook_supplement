@@ -22,6 +22,29 @@ git pull --all
 cd
 ```
 
+#### Connection Pool Warning from docker-compose
+
+When starting a cluster, you may see the following warning message:
+```
+WARNING: Connection pool is full, discarding connection: localhost
+```
+
+This is related to the new Google AI Platform, Notebooks instances Virtual Machine images.  (As of February 2020, it's still in Beta, so hopefully this will get increased soon.)
+
+Generally this warning is harmless, as will just discard connections that are no longer in use.  
+
+If you want to clean this up prior to starting a cluster, you can use these commands. 
+
+To see the docker networks:
+```
+docker network ls
+```
+
+To remove all networks not used by at least 1 container:
+```
+docker network prune
+```
+
 #### It's a good idea to always check for and remove any stray containers prior to class and before working on assignments
 
 Check for stray containers:
