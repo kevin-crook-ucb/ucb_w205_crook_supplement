@@ -91,6 +91,11 @@ numbers_as_strings.printSchema()
 numbers_as_strings.count()
 ```
 
+To exit pyspark, we need to do a well formed scala call:
+```
+exit()
+```
+
 down
 ```
 docker-compose down
