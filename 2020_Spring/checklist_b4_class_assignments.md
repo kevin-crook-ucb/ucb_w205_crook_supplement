@@ -45,6 +45,19 @@ To remove all networks not used by at least 1 container:
 docker network prune
 ```
 
+It's possible that stray containers, even after forced removal, may hold on to networks. In order to get rid of these, you may need to do the following:
+
+* verify you have no stray containers with ```docker ps -a```
+
+* stop and restart your virtual machine
+
+* see if there are still stray networks with ```docker network ls```
+
+* try to stop the stray networks with ```docker network rm xxxxx```
+
+* if that doesn't work, force the removal with ```docker network rm -f xxxx```
+
+
 #### It's a good idea to always check for and remove any stray containers prior to class and before working on assignments
 
 Check for stray containers:
