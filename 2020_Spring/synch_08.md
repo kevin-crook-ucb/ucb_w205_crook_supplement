@@ -155,6 +155,8 @@ check out hadoop
 Let's check out hdfs before we write anything to it
 ```
 docker-compose exec cloudera hadoop fs -ls /tmp/
+
+docker-compose exec cloudera hadoop fs -ls /tmp/extracted_players/
 ```
 
 Create a topic 
