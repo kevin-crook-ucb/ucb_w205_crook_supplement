@@ -58,16 +58,8 @@ exit
 
 Instead of starting a pyspark command line, use the following command to start a Jupyter Notebook for a pyspark kernel.  In this command we set the ip address to 0.0.0.0:
 
-Multi-line for readability:
-```
-docker-compose exec spark \
-  env \
-    PYSPARK_DRIVER_PYTHON=jupyter \
-    PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root' \
-  pyspark
-```
+NOTE: leave the ip address as 0.0.0.0 !!!
 
-For convenience, the command above on 1 line (remember to leave the ip address as 0.0.0.0):
 ```
 docker-compose exec spark env PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root' pyspark
 ```
