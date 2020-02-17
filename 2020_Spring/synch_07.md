@@ -211,6 +211,11 @@ first_message
 print(first_message['commit']['committer']['name'])
 ```
 
+To exit pyspark, we need to do a well formed scala call:
+```
+exit()
+```
+
 Down
 ```
 docker-compose down
