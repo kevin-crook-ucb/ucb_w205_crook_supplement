@@ -22,6 +22,24 @@ git pull --all
 cd
 ```
 
+#### It's a good idea to always check for and remove any stray containers prior to class and before working on assignments
+
+Check for stray containers:
+```
+docker ps -a
+```
+
+Remove a stray container (where xxxxx is the container id (hex string) or container name):
+```
+docker rm -f xxxxx
+```
+
+Please be careful that you do NOT remove the following container, it's part of the image for Jupyter Lab:
+
+```
+6793591eaeab        gcr.io/inverting-proxy/agent   "/bin/sh -c '/opt/bi…"   3 hours ago         Up 3 hours                              proxy-agent
+```
+
 #### Connection Pool Warning from docker-compose
 
 When starting a cluster, you may see the following warning message:
@@ -57,24 +75,6 @@ It's possible that stray containers, even after forced removal, may hold on to n
 
 * if that doesn't work, force the removal with ```docker network rm -f xxxx```
 
-
-#### It's a good idea to always check for and remove any stray containers prior to class and before working on assignments
-
-Check for stray containers:
-```
-docker ps -a
-```
-
-Remove a stray container (where xxxxx is the container id (hex string) or container name):
-```
-docker rm -f xxxxx
-```
-
-Please be careful that you do NOT remove the following container, it's part of the image for Jupyter Lab:
-
-```
-6793591eaeab        gcr.io/inverting-proxy/agent   "/bin/sh -c '/opt/bi…"   3 hours ago         Up 3 hours                              proxy-agent
-```
 
 #### It's a good idea to bring down / update docker images prior to class and prior to working on assignments
 
