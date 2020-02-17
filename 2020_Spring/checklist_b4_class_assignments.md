@@ -58,9 +58,27 @@ To see the docker networks:
 docker network ls
 ```
 
+As of February 2020, these are the networks used by the Google AI Platform.  If you don't have any containers running, nor any stray containers, you should see the similar to the following:
+```
+NETWORK ID          NAME                DRIVER              SCOPE
+2fac6dcb9205        bridge              bridge              local
+7faf4695f1bf        host                host                local
+5557405dd1c5        none                null                local
+```
+
 To remove all networks not used by at least 1 container:
 ```
 docker network prune
+```
+
+To remove a specific network:
+```
+docker network rm xxxx
+```
+
+If that does not work to force removal of a specific network (be VERY careful!!!):
+```
+docker network rm -f xxxx
 ```
 
 It's possible that stray containers, even after forced removal, may hold on to networks. In order to get rid of these, you may need to do the following:
@@ -74,6 +92,8 @@ It's possible that stray containers, even after forced removal, may hold on to n
 * try to stop the stray networks with ```docker network rm xxxxx```
 
 * if that doesn't work, force the removal with ```docker network rm -f xxxx```
+
+* stop and restart your virtual machine again
 
 
 #### It's a good idea to bring down / update docker images prior to class and prior to working on assignments
