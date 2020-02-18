@@ -76,11 +76,6 @@ To remove a specific network:
 docker network rm xxxx
 ```
 
-If that does not work to force removal of a specific network (be VERY careful!!!):
-```
-docker network rm -f xxxx
-```
-
 It's possible that stray containers, even after forced removal, may hold on to networks. In order to get rid of these, you may need to do the following:
 
 * verify you have no stray containers with ```docker ps -a```
@@ -90,10 +85,6 @@ It's possible that stray containers, even after forced removal, may hold on to n
 * see if there are still stray networks with ```docker network ls```
 
 * try to stop the stray networks with ```docker network rm xxxxx```
-
-* if that doesn't work, force the removal with ```docker network rm -f xxxx```
-
-* stop and restart your virtual machine again
 
 
 #### It's a good idea to bring down / update docker images prior to class and prior to working on assignments
