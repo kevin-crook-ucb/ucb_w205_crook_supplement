@@ -104,6 +104,16 @@ docker-compose exec cloudera hadoop fs -ls /tmp/purchases/
 
 Queries from Spark
 
+create a symbolic link so we can access our mounted w205 directory:
+```
+docker-compose exec spark bash
+
+ln -s /w205 w205
+
+exit
+
+```
+
 spin up a notebook
 ```
 docker-compose exec spark env PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port 8888 --ip 0.0.0.0 --allow-root' pyspark
