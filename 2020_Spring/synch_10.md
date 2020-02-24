@@ -2,6 +2,10 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
+#### Checklist before class and before working on assignments
+
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
+
 ### Project 3 - Understanding User Behavior Project
 
 We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10.
