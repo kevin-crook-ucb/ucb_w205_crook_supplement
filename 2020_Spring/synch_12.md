@@ -85,9 +85,9 @@ def purchase_a_knife():
 
 Add some purchase knife events, which will have a different schema:
 ```
-docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_knife
+docker-compose exec mids ab -n 10 -H "Host: user1.comcast.com" http://localhost:5000/purchase_a_knife
 
-docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_knife
+docker-compose exec mids ab -n 10 -H "Host: user2.att.com" http://localhost:5000/purchase_a_knife
 ```
 
 run this
