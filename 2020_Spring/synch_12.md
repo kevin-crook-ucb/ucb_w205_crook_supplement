@@ -4,18 +4,13 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### Before class
+#### Checklist before class and before working on assignments
 
-* VM running
-* create 4 linux command lines: cluster commands, flask web API server, kafkacat, jupyter notebook server for pyspark kernel
-* go through the checklist:
-
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
-
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
 
 ### Project 3 - Understanding User Behavior Project
 
-We will wait and discuss project 3 at the end of class.
+We will wait and discuss project 3 at the end of class.  It covers weeks 10 through 13.  
 
 
 ### Flask-Kafka-Spark-Hadoop-Presto Part I
