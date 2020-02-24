@@ -4,19 +4,13 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### Before class
+#### Checklist before class and before working on assignments
 
-* VM running
-* create 6 linux command lines: general commands, flask web API server, kafkacat, spark, presto, apache bench
-* go through the checklist:
-
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
-
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
 
 ### Project 3 - Understanding User Behavior Project
 
-We will wait and discuss project 3 at the end of class.
-
+Due tonight at 11:59 pm.  Any last minute questions or issues at the end of class.
 
 ### Full-Stack Streaming
 
