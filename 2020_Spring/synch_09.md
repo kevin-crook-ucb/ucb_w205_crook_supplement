@@ -14,10 +14,6 @@ At the end of class, briefly talk about any outstanding issues with Project 2.
 
 Covers weeks 6, 7, 8.
 
-### Discuss Project 2: Tracking User Activity
-
-At the end of class, briefly talk about any outstanding issues with Project 2.
-
 ### Project 3 - Understanding User Behavior Project
 
 We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10, so you should focus on finishing up Project 2.
