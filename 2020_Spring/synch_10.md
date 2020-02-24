@@ -4,18 +4,9 @@
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
-### Before class
-
-* VM running
-* create 4 linux command lines: cluster commands & kafka, flask web API server, curl web API test commands, spark
-* go through the checklist:
-
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2019_Fall/synch_session_commands/checklist_b4_class_assignments.md
-
-
 ### Project 3 - Understanding User Behavior Project
 
-We will wait and discuss project 3 at the end of class.
+We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10.
 
 ### Flask with Kafka and Spark
 
