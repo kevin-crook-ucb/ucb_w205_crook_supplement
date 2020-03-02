@@ -1,10 +1,10 @@
 ### Optional !!! - Automating linux command line commands using Python
 
-### Concurrent execution in Python in Linux
+### Concurrent execution using Python in Linux
 
-There are 3 ways to produce concurrent processing in Pytyhon
+There are 3 main ways to produce concurrent execution using Python in Linux
 
-#### Process Based Parallel Processing aka "multiprocessing" 
+#### Process Based Parallel Processing
 
 In Linux, each process has its own stack and heap.  
 
@@ -12,7 +12,7 @@ The stack is used to store the calling frame.  Each time a function is called, t
 
 The heap is used to store the bulk of memory and in a 64 bit operating system, can store more memory than we could at present buy in RAM.  
 
-If processes want to communicate with each other, they would need to use Linux Inter-Process Communications (IPC), such as shared memory segments, message queues, etc.  They would also need use lock management, which can get tricky.
+If processes want to communicate with each other, they would need to use Linux Inter Process Communications (IPC), such as shared memory segments, message queues, etc.  They would also need use lock management, which can get tricky.
 
 For more information, please check out this link:
 https://docs.python.org/3/library/multiprocessing.html
@@ -26,5 +26,18 @@ This makes communications between threads much easier, as all threads have acces
 For more information, please check out this link:
 https://docs.python.org/3/library/threading.html
 
-#### Subprocess Management - NOT Parallel Processing - allows the current process to create sub processes 
+#### Subprocess Management  
+
+In Linux, subprocesses are child processes spawned from the current process.  They will execute at the same time as the current process, however, it is customary for the current process to block (aka wait or suspends executation) until the child process has completed.  It's also customary for the current process to communicate with the child process using Standard I/O: Standard Input (STDIN), Standard Output (STDOUT), and Stardard Error (STDERR).
+
+Note that I said "customary".  Subprocesses are real process and can do anything that a process can do.  But if you want to do that kind of stuff, it's best left to Process Based or Thread Based Parallel Processing, as they are better fits.
+
+Using subprocesses would be the best way to automate bash shell commands. 
+
+### Specific to Project 2
+
+If you would like to try to automate your bash shell commands, such as bringing up the cluster, checking to make sure that the cluster is up all the way, creating the kafka topic, and writing the assessments to the kafka topic, the subprocess management package of Python would probably be your best bet.
+
+Here is some very raw sample code to get your started.  This is very raw.  There are a lot of improvments that can be made to make it better:
+
 
