@@ -12,7 +12,7 @@ The stack is used to store the calling frame.  Each time a function is called, t
 
 The heap is used to store the bulk of memory and in a 64 bit operating system, can store more memory than we could at present buy in RAM.  
 
-If processes want to communicate with each other, they would need to use Linux Inter Process Communications (IPC), such as shared memory segments, message queues, etc.  They would also need use lock management, which can get tricky.
+If processes want to communicate with each other, they would need to use Linux Inter Process Communications (IPC), such as shared memory segments, message queues, named pipes, etc.  They would also need use lock management, which can get tricky.
 
 For more information, please check out this link:
 https://docs.python.org/3/library/multiprocessing.html
