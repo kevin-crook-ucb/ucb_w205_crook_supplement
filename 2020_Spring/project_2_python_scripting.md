@@ -47,3 +47,20 @@ Here is the actual error message I'm getting:
 stty: 'standard input': Inappropriate ioctl for device
 ```
 
+### A Basic example of using Subprocess Management 
+
+```python
+import subprocess
+import shlex
+
+my_command = ["ls", "-lah"]
+my_process = subprocess.run(my_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+my_process
+```
+
+The output should look something like this:
+
+```
+CompletedProcess(args=['ls', '-lah'], returncode=0, stdout='total 9.1M\ndrwxr-xr-x  5 jupyter jupyter 4.0K Mar  2 23:47 .\ndrwxr-xr-x 18 jupyter jupyter 4.0K Feb 28 02:39 ..\n-rw-r--r--  1 jupyter jupyter 8.9M Feb 28 04:14 assessment-attempts-20180128-121051-nested.json\n-rw-r--r--  1 jupyter jupyter  713 Feb 28 04:13 derby.log\n-rw-r--r--  1 jupyter jupyter 1.1K Feb 28 04:07 docker-compose.yml\ndrwxr-xr-x  8 jupyter jupyter 4.0K Mar  2 23:48 .git\n-rw-r--r--  1 jupyter jupyter  41K Feb 28 04:25 history.txt\ndrwxr-xr-x  2 jupyter jupyter 4.0K Mar  2 23:11 .ipynb_checkpoints\ndrwxr-xr-x  5 jupyter jupyter 4.0K Feb 28 04:13 metastore_db\n-rw-r--r--  1 jupyter jupyter  11K Mar  2 23:47 Project_2_Automate_Linux_Command_Line.ipynb\n-rw-r--r--  1 jupyter jupyter  34K Feb 28 04:27 Project_2.ipynb\n-rw-r--r--  1 jupyter jupyter 3.7K Feb 21 03:44 README.md\n', stderr='')
+```
+
