@@ -8,6 +8,12 @@ You can use telnet to test unencrypted connections to a web API server.  He's ho
 telnet google.com 80
 ```
 
+Note: if telnet is not installed, you can install it into a Debian based Linux using:
+
+```
+sudo apt-get install telnet
+```
+
 Inside the telnet session, you can issue a GET on / using HTTP version 1.0.  Version 1.0 hangs up after every request.
 
 ```
