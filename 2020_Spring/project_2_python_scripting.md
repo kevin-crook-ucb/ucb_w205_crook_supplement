@@ -38,6 +38,12 @@ Using subprocesses would be the best way to automate bash shell commands.
 
 If you would like to try to automate your bash shell commands, such as bringing up the cluster, checking to make sure that the cluster is up all the way, creating the kafka topic, and writing the assessments to the kafka topic, the subprocess management package of Python would probably be your best bet.
 
-Here is some very raw sample code to get your started.  This is very raw.  There are a lot of improvments that can be made to make it better:
+UPDATE: 3/2/2020
 
+I tried using the subprocess management package of Pythyon, but it appears there is a bug with docker-compose.  docker-compose does not check and reset the ioctl device when it's not a pseudo terminal.  It makes it impossible to script any docker-compose commands from anything other than a terminal.
+
+Here is the actual error message I'm getting:
+```
+stty: 'standard input': Inappropriate ioctl for device
+```
 
