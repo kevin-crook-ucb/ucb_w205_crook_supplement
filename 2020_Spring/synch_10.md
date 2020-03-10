@@ -10,6 +10,26 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Sp
 
 We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10.
 
+### Python Requests Module
+
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/synch_10_python_requests.ipynb
+
+You can probably run this under your Anaconda install on your laptop.  Be careful of cookie conflicts with Jupyter Notebook (may want to use a Chrome incognito window).
+
+You can also run this using the Google Cloud Platform => AI Platform => Notebook instances => OPEN JUPYTERLAB
+
+Make a directory under w205, cd into it, curl down the raw version of the jupyter notebook, then open in jupterlab:
+
+```
+mkdir ~/w205/python-requests/
+
+cd ~/w205/python-requests/
+
+curl https://raw.githubusercontent.com/kevin-crook-ucb/ucb_w205_crook_supplement/master/2020_Spring/synch_10_python_requests.ipynb --output python_requests.ipynb
+
+```
+
+
 ### Flask with Kafka and Spark
 
 Set up directory, get docker-compose
