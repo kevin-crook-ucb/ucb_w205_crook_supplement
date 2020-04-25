@@ -1,4 +1,4 @@
-### MIDS w205 - Saving your work at the end of the semester
+### MIDS w205 - Backing up your work at the end of the semester
 
 #### GitHub classroom repos
 
