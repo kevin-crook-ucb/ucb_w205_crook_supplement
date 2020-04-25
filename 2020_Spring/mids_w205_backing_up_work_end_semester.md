@@ -1,3 +1,5 @@
+# work in progress - please wait until I have tested and verified these instruciton
+
 ### MIDS w205 - Backing up your work at the end of the semester
 
 #### GitHub classroom repos
@@ -16,4 +18,26 @@ The w205 directory should have all of your work for the semester, including cour
 
 However, I would suggest that you make a backup using one of the methods detailed in the following sections.
 
-#### 
+#### Backup option 1 - make a tarball, download to laptop/desktop, untar
+
+First create a command line to your VM.
+
+Issue a `pwd` command to make sure you are in the `/home/jupyter` directory.  If not, issue a `cd` to take your there and verify.
+
+Create a tarball file using the following command. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
+
+```
+tar cvfz mids_w205_backup_2020_04_25.tgz w205
+```
+
+```
+zip -r mids_w205_backup_2020_04_25.zip w205
+```
+
+Verify the file is there using this command or similar:
+
+```
+ls -lh mids_w205_backup_2020_04_25.zip
+```
+
+In your command line window, in the upper right corner, there should be a keyboard symbol and a gear symbol.  The gear symbol has a dropdown menu.  Click the dropdown menu.  Choose the option "download file".  
