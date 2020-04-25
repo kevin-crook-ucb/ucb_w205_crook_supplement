@@ -18,18 +18,45 @@ The w205 directory should have all of your work for the semester, including cour
 
 However, I would suggest that you make a backup using one of the methods detailed in the following sections.
 
+#### Before doing anything, make a local backup in your VM for safe keeping !
+
+Create a local backup in your VM using the following commands. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
+
+```
+cd
+
+pwd
+(make sure you are in /home/jupyter !!!)
+
+mkdir w205_2020_04_25
+
+cp -r w205/* w205_2020_04_25
+
+```
+
+Verify the backup using the following command or similar:
+
+```
+ls -lhR w205_2020_04_25
+```
+
+
 #### Backup option 1 - make a zipfile, download to laptop/desktop, unzip
 
 This should work on either Windows or Mac.
 
 First create a command line to your VM.
 
-Issue a `pwd` command to make sure you are in the `/home/jupyter` directory.  If not, issue a `cd` to take your there and verify.
-
-Create a zip file using the following command. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
+Create a zip file using the following commands. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
 
 ```
+cd
+
+pwd
+(make sure you are in /home/jupyter !!!)
+
 zip -r mids_w205_backup_2020_04_25.zip w205
+
 ```
 
 Verify the file is there using this command or similar:
@@ -50,11 +77,14 @@ Windows cannot read tarballs using built in utilities.  You can download the ope
 
 First create a command line to your VM.
 
-Issue a `pwd` command to make sure you are in the `/home/jupyter` directory.  If not, issue a `cd` to take your there and verify.
-
-Create a tarball file using the following command. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
+Create a tarball file using the following commands. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
 
 ```
+cd
+
+pwd
+(make sure you are in /home/jupyter !!!)
+
 tar cvfz mids_w205_backup_2020_04_25.tgz w205
 ```
 
@@ -78,7 +108,9 @@ If you are using Windows with 7zip, you can open it with 7zip and extract from t
 
 You can also clone your GitHub repos down to your desktop / laptop.  It's probably easiest to just download the GitHub client for Windows or Mac and use that.
 
-The downside to this is that you will only have the repos for course content and projects 1, 2, and 3.  You won't have the directories for the weekly in class exercises that we did.
+The downside to this is that you will only have the repos for course content and projects 1, 2, and 3.  
+
+You won't have the directories for the weekly in class exercises that we did.
 
 #### Creating a single prive repo in your private organization with all of the w205 directories in it
 
@@ -102,6 +134,9 @@ git clone xxx
 cp -r w205/* xxx
 (where xxx is the directory for your new repo such as ucb_mids_w205)
 
+cd xxx
+(where xxx is the directory for your new repo)
+
 ```
 
 Repos nested in side of other repos is not allowed.  GitHub will choke on this, so we need to remove the .git subdirectories.
@@ -109,7 +144,12 @@ Repos nested in side of other repos is not allowed.  GitHub will choke on this, 
 The following command will find and remove all .git directories.  Be very careful.  Make sure you did a backup before attempting this!
 
 ```
+
+pwd
+(make sure you are in your new repo!)
+
 find . -name .git | xargs rm -rf
+
 ```
 
 Add everything, commit, push to GitHub.
@@ -117,7 +157,7 @@ Add everything, commit, push to GitHub.
 ```
 git add *
 
-git commit -m "adding everything from w205
+git commit -m "adding everything from w205"
 
 git push origin master
 
