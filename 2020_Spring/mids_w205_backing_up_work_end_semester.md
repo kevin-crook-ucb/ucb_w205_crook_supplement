@@ -1,5 +1,3 @@
-# work in progress - I still need to run through and verify again and also I will make videos as soon as I get some spare time
-
 ### MIDS w205 - Backing up your work at the end of the semester
 
 #### GitHub classroom repos
