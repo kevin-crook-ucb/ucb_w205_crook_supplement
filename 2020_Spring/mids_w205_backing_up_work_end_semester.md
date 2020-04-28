@@ -149,7 +149,7 @@ The following command will find and remove all .git directories.  Be very carefu
 pwd
 (make sure you are in your new repo!)
 
-find . -name .git | grep -v ./.git | xargs rm -rf
+find . -name .git | grep -v "\./.git"| xargs rm -rf
 
 ```
 
