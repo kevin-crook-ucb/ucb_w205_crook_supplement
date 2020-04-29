@@ -112,9 +112,6 @@ You won't have the directories for the weekly in class exercises that we did.
 
 #### Creating a single private repo in your private organization with all of the w205 directories in it
 
-# I'm still working through this last piece and will create a video for it when I'm done
-
-
 Another option would be to creat a single repo with all of your w205 content in it.  
 
 This option is a bit more involved.
@@ -149,7 +146,7 @@ The following command will find and remove all .git directories.  Be very carefu
 pwd
 (make sure you are in your new repo!)
 
-find . -name .git | grep -v "\./.git"| xargs rm -rf
+find . -name .git | grep -v "\./.git" | xargs rm -rf
 
 ```
 
