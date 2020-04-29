@@ -1,6 +1,6 @@
-### MIDS w205 - Backing up your work at the end of the semester
+## MIDS w205 - Backing up your work at the end of the semester
 
-#### GitHub classroom repos
+### GitHub classroom repos
 
 GitHub classroom will delete all repos in the mids-w205-crook organization on GitHub.  This includes the repos for course content and projects 1, 2, and 3. 
 
@@ -8,7 +8,7 @@ If you forked a repo into the mids-w205-crook organization, the fork will also b
 
 If you forked a repo in the mids-w205-crook organization into your own organization, I'm not sure if it will be deleted or not.  GitHub classroom does not have any documentation that seems to address this, and I don't have a way to test it.   You can fork a repo in the mids-w205-crook organization to your own organization, but I would recommend that you also make another backup of it.
 
-#### Your VM in the GCP
+### Your VM in the GCP
 
 Your virtual machine (VM) in the Google Cloud Platform (GCP) will not go away, unless you delete it.  
 
@@ -16,7 +16,7 @@ The w205 directory should have all of your work for the semester, including cour
 
 However, I would suggest that you make a backup using one of the methods detailed in the following sections.
 
-#### Before doing anything, make a local backup in your VM for safe keeping !
+### Before doing anything, make a local backup in your VM for safe keeping !
 
 Create a local backup in your VM using the following commands. I like to put the date in the files so I know when I created the file.  You may want to update it with the current date.  I use the format YYYY_MM_DD so it sorts in a reasonable way:
 
@@ -39,7 +39,7 @@ ls -lhR w205_2020_04_25
 ```
 
 
-#### Backup option 1 - make a zipfile, download to laptop/desktop, unzip
+### Backup option 1 - make a zipfile, download to laptop/desktop, unzip
 
 This should work on either Windows or Mac.
 
@@ -67,7 +67,7 @@ In your command line window, in the upper right corner, there should be a keyboa
 
 You can simply open and/or extract the zip file like you would any other zip file.
 
-#### Backup option 2 - make a tarball, download to laptop/desktop, untar
+### Backup option 2 - make a tarball, download to laptop/desktop, untar
 
 tarballs can be untarred on the Mac using a command line with the tar command.  
 
@@ -102,7 +102,7 @@ tar xvf mids_w205_backup_2020_04_25.tgz
 
 If you are using Windows with 7zip, you can open it with 7zip and extract from there.
 
-#### Cloning repos down to your desktop / laptop
+### Cloning repos down to your desktop / laptop
 
 You can also clone your GitHub repos down to your desktop / laptop.  It's probably easiest to just download the GitHub client for Windows or Mac and use that.
 
@@ -110,7 +110,7 @@ The downside to this is that you will only have the repos for course content and
 
 You won't have the directories for the weekly in class exercises that we did.
 
-#### Creating a single private repo in your private organization with all of the w205 directories in it
+### Creating a single private repo in your private organization with all of the w205 directories in it
 
 Another option would be to creat a single repo with all of your w205 content in it.  
 
