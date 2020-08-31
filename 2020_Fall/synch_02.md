@@ -1,5 +1,3 @@
-# under review - this will be removed as soon as I verify it's good to go
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #2
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -8,7 +6,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 Right now, this checklist has things in it we haven't covered yet, so just do what we have covered.
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Fall/checklist_b4_class_assignments.md
 
 #### Project 1: Query Project
 
