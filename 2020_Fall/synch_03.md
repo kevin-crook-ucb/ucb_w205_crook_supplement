@@ -1,5 +1,3 @@
-# under review - I'll remove this when I've worked through it
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #3
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -69,7 +67,12 @@ curl -L -o annot_fpid.json https://goo.gl/qWiu7d
 curl -L -o lp_data.csv https://goo.gl/FDFPYB
 ```
 
-Install jq
+The latest release of Google AI Notebooks appears to have jq installed.  Prior releases did not have it installed. You can test this by running the following command and seeing if it prints the help for the command:
+```
+jq
+```
+
+If the jq command above doe not print the help for the command, you can install it as follows.  (If it printed the help for the command, you do not need to install it).
 ```
 sudo apt update
 sudo apt install jq
