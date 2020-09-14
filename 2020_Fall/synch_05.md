@@ -107,6 +107,12 @@ docker rm -f redis
 sudo pip3 install redis
 ```
 
+It looks like the new release of Google AI Notebooks needs it installed as the user level to work:
+
+```
+pip install redis
+```
+
 #### Create a docker cluster with redis standalone
 
 ```
