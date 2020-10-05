@@ -1,5 +1,3 @@
-# under review - I'll remove this as soon as my review is completed
-
 # Connecting Jupyter Notebook to pyspark
 
 We have been using pyspark in command line mode.  
