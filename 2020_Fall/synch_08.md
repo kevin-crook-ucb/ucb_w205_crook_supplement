@@ -6,7 +6,7 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 #### Checklist before class and before working on assignments
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Fall/checklist_b4_class_assignments.md
 
 ### Discuss Project 2: Tracking User Activity
 
