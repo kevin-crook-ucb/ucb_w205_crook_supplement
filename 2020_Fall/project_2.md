@@ -1,6 +1,4 @@
-# under review - I'll remove this as soon as I've reviewed it
-
-### Project 2 notes for unrolling the nested json  
+### Project 2 notes for unrolling the nested json
 
 The project 2 json file has a moderately complicated structure.  It includes nested json and in several cases the nesting is multi-valued (lists).  To access these will require writing custom lamdba transform code in spark.
 
@@ -36,7 +34,7 @@ If this does not render, this website provides an online nbviewer:
 
 https://nbviewer.jupyter.org/
 
-#### Examples of unrolling the assessments data
+#### Examples of unrolling the assessments data (will make sense after week 8 synch session)
 
 In the following example, we use our dot notation with the [] operator to pull out a single item from a list.  Note that sequences.questions is a list (multi-valued).
 ```python
