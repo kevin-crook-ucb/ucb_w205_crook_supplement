@@ -1,0 +1,91 @@
+### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #9
+
+We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
+
+#### Checklist before class and before working on assignments
+
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Spring/checklist_b4_class_assignments.md
+
+### Discuss Project 2: Tracking User Activity
+
+At the end of class, briefly talk about any outstanding issues with Project 2.
+
+Covers weeks 6, 7, 8.
+
+### Project 3 - Understanding User Behavior Project
+
+We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10, so you should focus on finishing up Project 2.
+
+### Flask with Kafka
+
+```
+mkdir ~/w205/flask-with-kafka
+
+cd ~/w205/flask-with-kafka
+
+cp ~/w205/course-content/09-Ingesting-Data/docker-compose.yml .
+```
+
+Spin up the cluster
+```
+docker-compose up -d
+```
+
+Create a topic events
+```
+docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+```
+
+Should show
+```
+Created topic "events".
+```
+
+Flask
+Use the python flask library to write our simple API server
+```
+cp ~/w205/course-content/09-Ingesting-Data/basic_game_api.py .
+```
+
+run it via
+```
+docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/basic_game_api.py flask run
+```
+
+Test it out
+```
+docker-compose exec mids curl http://localhost:5000/
+
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+
+Stop flask
+Kill flask with control-C
+
+Generate events from our webapp
+Let's add kafka into the mix 
+```
+cp ~/w205/course-content/09-Ingesting-Data/game_api.py .
+```
+Run that
+```
+docker-compose exec mids env FLASK_APP=/w205/flask-with-kafka/game_api.py flask run
+```
+
+Test it out
+Generate events
+```
+docker-compose exec mids curl http://localhost:5000/
+
+docker-compose exec mids curl http://localhost:5000/purchase_a_sword
+```
+
+read from kafka
+Use kafkacat to consume events from the events topic
+```
+docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t events -o beginning -e"
+```
+down
+```
+docker-compose down
+```
