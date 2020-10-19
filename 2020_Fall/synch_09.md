@@ -8,12 +8,6 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Fall/checklist_b4_class_assignments.md
 
-### Discuss Project 2: Tracking User Activity
-
-At the end of class, briefly talk about any outstanding issues with Project 2.
-
-Covers weeks 6, 7, 8.
-
 ### Project 3 - Understanding User Behavior Project
 
 We will talk about project 3 at the end of class.  Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 9 and 10, so you should focus on finishing up Project 2.
