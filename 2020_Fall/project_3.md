@@ -28,7 +28,7 @@ The final version will be week 13 with modifications to allow a jupyter notebook
 
 ### game-api.py
 
-The final version will be week 13, but modifications from prior weeks are minimal.
+The final version will be week 13.
 
 You will need to add events for:
 * buy a sword
