@@ -10,7 +10,7 @@ https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2020_Fa
 
 ### Project 3 - Understanding User Behavior Project
 
-We will wait and discuss project 3 at the end of class.  It covers weeks 11 through 13.
+We will wait and discuss project 3 at the end of class.  It covers weeks 11, 12, and 13.
 
 ### Flask-Fafka-Spark-Hadoop-Presto Part II
 
