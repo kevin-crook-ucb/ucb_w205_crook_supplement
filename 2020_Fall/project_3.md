@@ -1,3 +1,5 @@
+# under construction
+
 ## Checklist for working on Project 3
 
 ### Project 3 repo
@@ -42,5 +44,14 @@ You will need to add metadata (additional key / value slots to the json) for eac
 
 The pyspark code will be pulled from the spark batch jobs.  The final version will be based on the spark batch job write_swords_stream.py
 
-Be sure you include code for the following:
-*
+Be sure you include pyspark code for the following:
+
+* create a predicate function called is_sword_purchased to determine if an event is a sword purchase
+
+* read raw json data into a spark dataframe called raw_events
+
+* create a new dataframe called sword_purchases containing the raw_events, the kafka timestamp, and the extracted json data
+
+* create a streaming dataframe called sink that reads streaming data and writes into parquet files in HDFS
+
+* in the code, we used 
