@@ -1,5 +1,3 @@
-# under construction
-
 ## Suggestions and checklist for working on Project 3
 
 ### Project 3 repo
@@ -56,7 +54,6 @@ Create a markdown cell in the jupyter notebook and include the following linux c
 * shutdown the cluster
 
 From the job separate_events.py, pull the code and modify it to work with jupyter notebook.  Note that code written for batch jobs has to be modified to work with jupyter notebook with pyspark kernel.
-
 
 #### For week 12
 
