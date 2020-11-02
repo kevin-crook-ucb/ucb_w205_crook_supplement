@@ -16,23 +16,31 @@ Include the following files:
 * game-api.py
 * Project_3.ipynb (or similar name - they allowed you to pick a meaningful name)
 
+Stage and commit these file.  push the assignment branch.
+
+When you are finished, create a pull request comparing the assignment branch to the master branch.
+
 ### docker-compose.yml
 
-2) docker-compose.yml - the final version will be week 13 with modifications to allow a jupyter notebook server to be run in the spark container.
+The final version will be week 13 with modifications to allow a jupyter notebook to be run in the spark container.
 
-3) game-api.py - the final version will be week 13, but modifications from prior weeks are minimal.  
 
-3a) you will need to add events for: buy a sword and join a guild
+### game-api.py
 
-3b) you will need to add at least 1 additional metadata for each event.  they suggest sword type and guild name
+The final version will be week 13, but modifications from prior weeks are minimal.
 
-4) jupyter notebook, such as Project_3.ipynb, including the following code which you can pull out and modify from the spark batch jobs:
+You will need to add events for:
+* buy a sword
+* join a guild
 
-4a) read json data from kafka
+You will need to add metadata (additional key / value slots to the json) for each of the above, such as:
 
-4b) create a spark dataframe containing the extracted json data
+* type of sword
+* guild name
 
-4c) filter out only the purchase a sword extracted events
+### Project_3.ipynb (or similar name of your choosing)
 
-4d) write the purchase sword extracted events to parquet files stored as hdfs
+The pyspark code will be pulled from the spark batch jobs.  The final version will be based on the spark batch job write_swords_stream.py
 
+Be sure you include code for the following:
+*
