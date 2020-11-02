@@ -35,7 +35,7 @@ docker-compose up -d
 ```
 
 Web-app
-* Take our instrumented web-app from before ```~/w205/full-stack/fame_api.py```
+* Take our instrumented web-app from before ```~/w205/full-stack/game_api.py```
 
 run flask
 ```
