@@ -24,7 +24,7 @@ When you are finished, create a pull request comparing the assignment branch to 
 
 The final version will be week 13 with modifications to allow a jupyter notebook to be run in the spark container.
 
-### game-api.py
+### game_api.py
 
 The final version will be week 13.
 
