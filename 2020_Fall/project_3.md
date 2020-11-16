@@ -32,7 +32,7 @@ You will need to add events for:
 * buy a sword
 * join a guild
 
-You will need to add metadata (additional key / value slots to the json) for each of the above, such as:
+After week 12, you will need to add metadata (additional key / value slots to the json) for each of the above, such as:
 
 * type of sword
 * guild name
