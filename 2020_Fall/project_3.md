@@ -57,6 +57,8 @@ From the job separate_events.py, pull the code and modify it to work with jupyte
 
 #### For week 12
 
+Modify the flask server to add metadata to your events.  The filtered_write.py job should now filter out the other schemas so it will not dump core and give a stack trace.
+
 In your markdown cell of linux commands, add the commands:
 * individual apache bench commands
 * be sure and add apache bench commands for the new events that you added
