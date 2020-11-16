@@ -26,7 +26,7 @@ The final version will be week 13 with modifications to allow a jupyter notebook
 
 ### game_api.py
 
-The final version will be week 13.
+Start with the week 11 version of game_api.py.  
 
 You will need to add events for:
 * buy a sword
@@ -45,7 +45,7 @@ After week 12, you will need to add metadata (additional key / value slots to th
 * Hive command to create schema on read placed in a markdown cell
 * Presto query placed in a markdown cell
 
-#### For week 11
+#### After week 11's synch
 
 Create a markdown cell in the jupyter notebook and include the following linux commands:
 * startup the cluster
@@ -55,21 +55,21 @@ Create a markdown cell in the jupyter notebook and include the following linux c
 
 From the job separate_events.py, pull the code and modify it to work with jupyter notebook.  Note that code written for batch jobs has to be modified to work with jupyter notebook with pyspark kernel.
 
-#### For week 12
+#### After week 12's synch
 
-Modify the flask server to add metadata to your events.  The filtered_write.py job should now filter out the other schemas so it will not dump core and give a stack trace.
+Modify the flask server to add metadata to your events.  The filtered_writes.py job should now filter out the other schemas so it will not dump core and give a stack trace.
 
 In your markdown cell of linux commands, add the commands:
 * individual apache bench commands
 * be sure and add apache bench commands for the new events that you added
 
-From the job filtered_write.py, pull and modify the code to write the data frames out to parquet format.  
+From the job filtered_writes.py, pull and modify the code to write the data frames out to parquet format.  
 
 From the pyspark code, pull the code to read a parquet file, register as a temp table, perform some basic sql, and convert to Pandas.
 
 The project asks you to perform some basic analytics. The analytics is very basic. You need to formulate a couple of very simple business questions and use sql against the data frames to answer the questions.
 
-#### For week 13
+#### For week 13's synch
 
 In your markdown cell of linux commands, add the command:
 * infinite loop to run the apache bench command
