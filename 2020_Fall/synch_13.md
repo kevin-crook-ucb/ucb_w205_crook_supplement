@@ -32,6 +32,11 @@ Spin up the cluster
 docker-compose up -d
 ```
 
+Create a topic events
+```
+docker-compose exec kafka kafka-topics --create --topic events --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+```
+
 Web-app
 * Take our instrumented web-app from before ```~/w205/full-stack/game_api.py```
 
