@@ -76,7 +76,7 @@ In your markdown cell of linux commands, add the command:
 
 From the job write_swords_stream.py
 * pull and modify the code to write hdfs files in streaming mode
-* sink.awaitTermination() needs to be changes to sink.start() and sink.stop(), both in separate code cells to stop and start the stream.
+* sink.awaitTermination() needs to be changed to sink.stop() to stop the stream
 
 Create a markdown cell to hold the hive command to create an external table for schema on read.  Include your hive code to create schema on read.
 
