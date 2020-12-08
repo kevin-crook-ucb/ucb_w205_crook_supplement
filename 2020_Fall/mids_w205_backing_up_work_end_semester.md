@@ -157,7 +157,7 @@ git add *
 
 git commit -m "adding everything from w205"
 
-git push origin master
+git push origin main
 
 ```
 
