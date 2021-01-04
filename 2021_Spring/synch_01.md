@@ -6,10 +6,10 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 - Introductions (we will wait until we get everyone going on GCP setup)
 
-- Everyone join the slack channels **w205** and **w205-crook-2020-fall**
+- Everyone join the slack channels **w205** and **w205-crook-2021-spring**
 
 - Everyone ping me on slack using the following template:
-  * W205 2020 Fall
+  * W205 2021 Spring
   * Last Name:
   * First Name:
   
