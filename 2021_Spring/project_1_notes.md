@@ -16,7 +16,6 @@ I think it's best to create your own dataset with views.  The views allow you to
 Let's consider trip duration times. Run the query below and see the first few pages and last few.  What do you notice?
 
 ```sql
-#standardSQL
 SELECT duration_sec
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 ORDER BY duration_sec ASC
@@ -25,7 +24,6 @@ ORDER BY duration_sec ASC
 The durations are given in terms of seconds.  It might be more useful to see them in terms of minutes or maybe even in hours.
 
 ```sql
-#standardSQL
 SELECT duration_sec, 
        CAST(ROUND(duration_sec / 60.0) AS INT64) AS duration_minutes,
        CAST(ROUND(duration_sec / 3600.0) AS INT64) AS duration_hours_rounded,
@@ -47,7 +45,6 @@ This is just like the proverbial real world - people use the wrong data types al
 The basic query would be to just pull out the start_date as it is stored:
 
 ```sql
-#standardSQL
 SELECT start_date 
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 ORDER BY start_date ASC
@@ -56,7 +53,6 @@ ORDER BY start_date ASC
 In order to make our analytics easier, we may want to do some "feature engineering", in the form of creating some new columns that are easier to work with:
 
 ```sql
-#standardSQL
 SELECT start_date,
        EXTRACT(DAYOFWEEK FROM start_date) AS dow_int,
        CASE EXTRACT(DAYOFWEEK FROM start_date)
@@ -91,7 +87,6 @@ ORDER BY start_date ASC
 This queries aggregates trips that have different start and end stations.  After the aggregation, it filters only those with more than 100 trips.
 
 ```sql
-#standardSQL
 SELECT start_station_name, end_station_name, count(*) AS number_of_trips
 FROM `bigquery-public-data.san_francisco.bikeshare_trips`
 WHERE start_station_name <> end_station_name
