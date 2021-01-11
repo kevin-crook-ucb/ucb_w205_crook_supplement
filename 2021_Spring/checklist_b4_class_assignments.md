@@ -4,7 +4,7 @@ These are general instruction for how to do some updates and cleanup before clas
 
 #### Make sure you are logged in as jupyter
 
-Make sure you are logged in to your virtual machine as user jupyter. If you are in ssh and seeing another user name (such as a variation of your first and last name), then in the upper right corner, there is a gear icon, with a drop down, click on the drop down and choose "Change Linux Username", then enter the name jupyter and click the blue change button.  Please make sure you spell jupyter right.  After you change username you can verify by doing an `ls -l` command.
+Make sure you are logged in to your virtual machine as user jupyter. If you are in ssh and seeing another user name (such as a variation of your first and last name), then in the upper right corner, there is a gear icon, with a drop down, click on the drop down and choose "Change Linux Username", then enter the name jupyter and click the blue change button.  Please make sure you spell jupyter correctly in all lower case.  When the command line refreshes, verify your are logged in as jupyter.  Do a clean exit by typing exit at the command line (don't just close the browser window - it won't save the login name change to jupyter).  Now open a new command line and verify it's logged in as jupyter.
 
 #### Ownership issues
 
