@@ -1,5 +1,3 @@
-# under review - I'll remove this as soon as my review is finished
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #3
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -190,18 +188,6 @@ How long a time period do these data cover?
 bq query --use_legacy_sql=false 'SELECT min(time), max(time) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
 ```
 Answer:  2013-08-29 12:06:01.000 UTC  2016-08-31 23:58:59.000 UTC   
-
-#### Advanced options 
-
-Sort by 'product_name'
-```
-cat lp_data.csv | awk -F',' '{ print $2,$1 }' | sort
-```
-
-Fix the ""s issue
-```
-cat lp_data.csv  | awk -F',' '{ print $2,$1 }' | sed 's/"//' | sort | less
-```
 
 #### Running Google BigQuery queries from the command line using bq may encounter some issues with the ' and ` characters
 
