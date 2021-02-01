@@ -80,27 +80,6 @@ sudo apt update
 sudo apt install docker-compose
 ```
 
-#### Redis single container examples
-
-```
-docker run redis
-(control c to exit)
-docker ps -a
-docker rm -f xxxxx
-
-docker run -d redis
-docker ps -a
-docker rm -f xxxxx
-
-docker run -d --name redis redis
-docker ps -a
-docker rm -f redis
-
-docker run -d --name redis -p 6379:6379 redis
-docker ps -a
-docker rm -f redis
-```
-
 #### Install the Redis package into Python 3.x at the VM level
 
 ```
