@@ -83,12 +83,6 @@ sudo apt install docker-compose
 #### Install the Redis package into Python 3.x at the VM level
 
 ```
-sudo pip3 install redis
-```
-
-It looks like the new release of Google AI Notebooks needs it installed as the user level to work:
-
-```
 pip install redis
 ```
 
