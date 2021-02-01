@@ -80,12 +80,6 @@ sudo apt update
 sudo apt install docker-compose
 ```
 
-#### Install the Redis package into Python 3.x at the VM level
-
-```
-pip install redis
-```
-
 #### Create a docker cluster with redis standalone
 
 ```
@@ -126,6 +120,12 @@ import redis
 r = redis.Redis(host='localhost', port='6379')
 r.keys()
 exit
+```
+
+If the redis module was not installed in the VM, use pip to install it and retry the previous python code.
+
+```
+pip install redis
 ```
 
 Tear down the stack:
