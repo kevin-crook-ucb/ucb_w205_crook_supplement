@@ -62,6 +62,12 @@ Should show
 ```
 Produced 42 messages.
 ```
+
+Use kafkacat to read all the messages on the topic:
+```
+docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
+```
+
 Run spark using the spark container
 ```
 docker-compose exec spark pyspark
@@ -94,6 +100,11 @@ numbers_as_strings.count()
 To exit pyspark, we need to do a well formed scala call:
 ```
 exit()
+```
+
+Again, let's use kafkacat to read all the messages on the topic:
+```
+docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
 ```
 
 down
