@@ -52,7 +52,7 @@ Inside the telnet session, we will issue the POST command.  We must at least giv
 POST /post HTTP/1.0
 Content-Length: 15
 hit enter if no more headers to be sent
-{'key':'value'}
+{'my_key':'my_value'}
 hit enter when the payload is complete 
 ```
 
