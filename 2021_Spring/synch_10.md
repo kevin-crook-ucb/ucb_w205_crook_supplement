@@ -27,7 +27,7 @@ mkdir ~/w205/python-requests/
 
 cd ~/w205/python-requests/
 
-curl https://raw.githubusercontent.com/kevin-crook-ucb/ucb_w205_crook_supplement/master/2020_Fall/synch_10_python_requests.ipynb --output python_requests.ipynb
+curl https://raw.githubusercontent.com/kevin-crook-ucb/ucb_w205_crook_supplement/master/2021_Spring/synch_10_python_requests.ipynb --output python_requests.ipynb
 
 ```
 
