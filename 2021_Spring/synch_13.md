@@ -8,6 +8,17 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2021_Spring/checklist_b4_class_assignments.md
 
+### Issue with Google AI Notebook Linux Image
+
+We had an issue with the Google AI Notebook Image that affects the Cloudera image we will use for weeks 13 and 14.   It involves a change to the boot partition, so please wait until class time to run through the procedures.  Here are some of the commands we will need (please wait until class to run them):
+
+```
+sudo -s
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="vsyscall=emulate"' >> /etc/default/grub
+update-grub
+reboot
+```
+
 ### Project 3 - Understanding User Behavior Project
 
 We will wait and discuss project 3 at the end of class.  It covers weeks 11, 12, and 13.
