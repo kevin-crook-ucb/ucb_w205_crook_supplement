@@ -21,7 +21,7 @@ We will try to follow the official slides as close as we can in class.  I will p
   * technical issues should go to w205 so TAs can pick them up and everyone can benefit
   * w205-crook-2021-summer should be non-technical issues related to my sections
 
-- Everyone ping me on slack using the following template:
+- Everyone send me a DM (direct message) on slack using the following template:
   * W205 2021 Summer
   * Last Name:
   * First Name:
