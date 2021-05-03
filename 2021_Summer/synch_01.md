@@ -61,7 +61,7 @@ We will try to follow the official slides as close as we can in class.  I will p
   
 - Docker - veryify everyone can run
   
-- Clone repos
+- Clone GitHub repos to the VM in GCP
   * course-content
   * signup assignment - walk though creating branch, making a change to a branch, tracking changes, staging changes, committing changes, pushing changes, and creating a pull request
   * project 1
