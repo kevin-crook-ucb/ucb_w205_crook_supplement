@@ -80,15 +80,19 @@ ORDER BY total_bikes
 
 ## Create our own private dataset named bike_trip_data, create our own private table named total_bikes in our private dataset, run some queries against our private table
 
-In the Google BigQuery user interface, on the left side panel, you will see the name of your project.  To the right of the project name, you will see a dropdown arrow.  Click on the dropdown arrow and choose "Create new dataset" and use this to create a new dataset named bike_trip_data.
+In the Google BigQuery, you may need to first pin your project.  On the left side, next to "Explorer", click on "ADD DATA" to pin your project.
 
-Execute the following query.  Once the results come back, towards the top right of the results panel, choose "Save as Table".  Create a table named total_bikes in and put it in the dataset you just created.
+Once your project is pinned, to the right of your project name, you will see 3 dots.  Click on the dots and choose "Create Dataset" and name it "bike_trip_data".
+
+Execute the following query.  
 
 ```sql
 SELECT station_id, docks_available, bikes_available, time, 
 (docks_available + bikes_available) as total_bikes
 FROM `bigquery-public-data.san_francisco.bikeshare_status`
 ```
+
+After the query results come back, click on "SAVE RESULTS", in the dropdown choose BigQuery Table, leave the project name, choose "bike_trip_data" for the dataset name, and name the table "total_bikes".
 
 Using the GUI examine the new table you created going through all of the tabs.  Pay close attention to the naming and use it to create a similar queries to the ones below.
 
@@ -103,4 +107,5 @@ FROM `bike_trip_data.total_bikes`
 WHERE station_id = 22
 ```
  
+As an alternative, you could also save the query as a view.  A view does not use space but works the same as a table for the most part.  To save as a view, on the query editor, click the dropdown "SAVE", and choose "Save View".
  
