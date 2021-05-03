@@ -37,16 +37,16 @@ We will try to follow the official slides as close as we can in class.  I will p
   * README.md file of the course-content repo
   * https://github.com/mids-w205-crook/course-content/blob/master/README.md
 
-- mids-w205-crook GitHub organization
-  * Everyone verify they can see and change to the organization
-  * Practice changing organizations
-  * Please do not fork or create additional repos to this organization, as it's very confusing to other students
-
 - Readings
   * Most are available from the Berkeley library at no cost.
   * You have to be setup with the Berkeley library. 
   * The library has support if you are having difficulty finding the books.
   * If you cannot find a book, please post to the w205 channel.
+
+- mids-w205-crook GitHub organization
+  * Everyone verify they can see and change to the organization
+  * Practice changing organizations
+  * Please do not fork or create additional repos to this organization, as it's very confusing to other students
 
 - GitHub Classroom
   * Links will be posted to slack so they aren't publicly available
