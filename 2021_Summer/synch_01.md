@@ -57,7 +57,13 @@ We will try to follow the official slides as close as we can in class.  I will p
 - Google Cloud Platform (GCP) - everyone sign up, enable billing, first project, enable APIs
 
 - Create a VM (virtual machine) on the GCP 
-  * TBD
+  * GCP => AI Platform => Notebooks 
+  * May need to enable the notebooks API (GCP makes frequent changes, so I don't have the current sequence for this)
+  * To the right of the word "Notebooks" => NEW INSTANCE
+  ** Choose Python 3 in the dropdown
+  * Region: us-west1 (Oregon) Zone: us-west1-b (seems to have the best luck, quite a few regions have technical issues)
+  * 
+  * 
   
 - Docker - veryify everyone can run
   
