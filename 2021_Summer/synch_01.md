@@ -54,16 +54,30 @@ We will try to follow the official slides as close as we can in class.  I will p
   * Choose your name from the list.  Please don't skip this.  Let me know if you name isn't there.
   * Please wait until one repo is created and verified before starting the next repo or you will risk corrupting them.
 
-- Google Cloud Platform (GCP) - everyone sign up, enable billing, first project, enable APIs
+- Google Cloud Platform (GCP)
+  * Chrome browser
+  * First time individual, non-business users get $300 credit - if you have used GCP before you, even a free trail or an education credit, you may not get the $300
+  * Individual not business
+  * Must give them a credit card to get the credit.  If you don't give a credit card, you may loose the $300 credit.
+  * Be sure you are logged into the right Google account (most of us have several Google accounts)
+  * Using an education email, such as berkeley.edu, will increase your chances of getting education credits in the future
 
 - Create a VM (virtual machine) on the GCP 
   * GCP => AI Platform => Notebooks 
   * May need to enable the notebooks API (GCP makes frequent changes, so I don't have the current sequence for this)
-  * To the right of the word "Notebooks" => NEW INSTANCE
-  ** Choose Python 3 in the dropdown
+  * Near the top, to the right of the word "Notebooks" => NEW INSTANCE
+  * Choose Python 3 in the dropdown
   * Region: us-west1 (Oregon) Zone: us-west1-b (seems to have the best luck, quite a few regions have technical issues)
-  * 
-  * 
+  * Machine type: 4 vCPUs, 15 GB RAM
+  * Book disk: 100 GB Standard persistence disk
+  * Data disk: 100 GB Standard persistence disk
+  
+- VM
+  * How to start
+  * How to stop
+  * How to create a JupterLab window
+  * How to create an SSH Linux Command Line
+  * How to verify the SSH Linux Command Line is logged in as jupyter and change it if it's not
   
 - Docker - veryify everyone can run
   
@@ -74,8 +88,6 @@ We will try to follow the official slides as close as we can in class.  I will p
   * project 2
   * project 3
   
-
-
 #### Updating Docker and running Docker in your Virtual Machine
 
 ```
