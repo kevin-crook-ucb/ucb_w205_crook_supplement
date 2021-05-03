@@ -55,14 +55,17 @@ w205 only has 3 things that will be graded, 3 projects:
 
 ```
 Project 1
+Due week 6
 Section 6, due Monday, June 7, 2021, at 11:59 pm Pacific
 Section 7, due Tuesday, June 8, 2021, at 11:59 pm Pacific
 
 Project 2
+Due week 11 (normall due week 10, but moved out a week due to the holiday)
 Section 6, due Monday, July 12, 2021, at 11:59 pm Pacific
 Section 7, due Tuesday, July 13, 2021, at 11:59 pm Pacific
 
 Project 3
-Section 6, due Monday, August 2, 2021, at 11:59 pm Pacific (last day of class)
-Section 7, due Tuesday, August 3, 2021, at 11:59 pm Pacific (last day of class)
+Due week 14 (last day of class)
+Section 6, due Monday, August 2, 2021, at 11:59 pm Pacific
+Section 7, due Tuesday, August 3, 2021, at 11:59 pm Pacific
 ```
