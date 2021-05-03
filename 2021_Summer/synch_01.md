@@ -1,3 +1,5 @@
+# Not verified for Summer 2021 yet (this will be removed when I've verified)
+
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #1
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
