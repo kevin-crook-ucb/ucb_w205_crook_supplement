@@ -6,35 +6,69 @@ We will try to follow the official slides as close as we can in class.  I will p
 
 #### Checklist for Today's Class
 
-- Introductions (we will wait until we get everyone going on GCP setup)
+- Introductions
+  * Name
+  * Preferred name you would like to be called
+  * Preferred pronouns
+  * Where you are located
+  * Education background
+  * Work background
+  * Experience with Data Science
+  * Experience with Data Engineering
 
-- Everyone join the slack channels **w205** and **w205-crook-2021-spring**
+- Everyone join the slack channels **w205** and **w205-crook-2021-summer**
+  * w205 channel is all sections, all instructions, all TAs.  
+  * technical issues should go to w205 so TAs can pick them up and everyone can benefit
+  * w205-crook-2021-summer should be non-technical issues related to my sections
 
 - Everyone ping me on slack using the following template:
-  * W205 2021 Spring
+  * W205 2021 Summer
   * Last Name:
   * First Name:
   
 - Google Form - everyone fill out
+  * Link will be posted to slack so it isn't publicly available
 
 - GitHub repo https://github.com/mids-w205-crook/course-content 
-  * Everyone verify access AFTER I add you based on Google Form
-  * Everyone clone down to their Virtual Machine
+  * Everyone verify access after I add you based on Google Form
+  * It may take me a while to add you, it won't be instantly
+
+- Syllabus 
+  * README.md file of the course-content repo
+  * https://github.com/mids-w205-crook/course-content/blob/master/README.md
+
+- mids-w205-crook GitHub organization
+  * Everyone verify they can see and change to the organization
+  * Practice changing organizations
+  * Please do not fork or create additional repos to this organization, as it's very confusing to other students
+
+- Readings
+  * Most are available from the Berkeley library at no cost.
+  * You have to be setup with the Berkeley library. 
+  * The library has support if you are having difficulty finding the books.
+  * If you cannot find a book, please post to the w205 channel.
+
+- GitHub Classroom
+  * Links will be posted to slack so they aren't publicly available
+  * Be sure you are logged into the correct GitHub account before clicking a link
+  * Choose your name from the list.  Please don't skip this.  Let me know if you name isn't there.
+  * Please wait until one repo is created and verified before starting the next repo or you will risk corrupting them.
 
 - Google Cloud Platform (GCP) - everyone sign up, enable billing, first project, enable APIs
 
-- GCP => AI Platform => Notebooks => Open Jupyterlab
-  * Everyone verify they can open a Jupyter Notebook
-  * Everyone verify they can open a linux command line using Jupyter: Compute Engine => VM Instances => SSH
-  * Everyone verify they can open a linux command line using SSH on the Virtual Machine: Settings Gear Upper Right => Change Linux Login => jupyter
+- Create a VM (virtual machine) on the GCP 
+  * TBD
   
 - Docker - veryify everyone can run
   
-- GitHub Classroom
-  * Everyone accept the link for the signup assignment, find their name, wait for signup assignment repo to be created (may take several minutes)
-  * Clone down the signup assignment, create branch, track, stage, commit, push, create pull request.
+- Clone repos
+  * course-content
+  * signup assignment - walk though creating branch, making a change to a branch, tracking changes, staging changes, committing changes, pushing changes, and creating a pull request
+  * project 1
+  * project 2
+  * project 3
   
-- Syllabus 
+
 
 #### Updating Docker and running Docker in your Virtual Machine
 
