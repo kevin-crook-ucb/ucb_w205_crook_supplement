@@ -1,10 +1,12 @@
+# Not verified for Summer 2021 yet (this will be removed when I've verified)
+
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #8
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
 
 #### Checklist before class and before working on assignments
 
-https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2021_Spring/checklist_b4_class_assignments.md
+https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2021_Summer/checklist_b4_class_assignments.md
 
 ### Discuss Project 2: Tracking User Activity
 
