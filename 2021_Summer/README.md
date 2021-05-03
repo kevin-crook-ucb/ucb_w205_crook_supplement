@@ -4,7 +4,7 @@
 
 ## Kevin Crook's Supplement for Summer 2021
 
-### Synchronous Class meetings:
+### Synchronous Class meetings
 
 ```
 Crook, w205, section 6, synch
@@ -20,7 +20,8 @@ If it's your section, please enter using ISVC.
 
 If you need to attend my other section, you may do so using the Zoom link I post in the slack channel.  You don't need to ask permission, but I ask that you voluntarily try to limit it to a max of 3 times per semester.
 
-### Office Hours:
+
+### Office Hours
 
 ```
 Monday and Tuesday
@@ -36,6 +37,17 @@ If it's after 6:30 pm and the last student has left, I will end my office hours.
 If it's not your class, use the Zoom link I post in the slack channel.
 ```
 
+### Holidays
+
+We have 2 holidays this semester, both on Mondays, so only section 6 will be affected. 
+
+Section 6 can either attend Section 7 that week, or watch a video recording that week, either is fine.
+
+```
+Monday, May 31, 2021, Memorial Day
+
+Monday, July 5, 2021, Independence Day (4th of July federal holiday is moved to Monday)
+```
 
 ### Due Dates for Projects
 
