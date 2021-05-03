@@ -24,12 +24,16 @@ If you need to attend my other section, you may do so using the Zoom link I post
 ### Office Hours
 
 ```
-TA Office Hours
+TA Office Hours:
 
-TA's will be holding office hours in addition to instructor office hours, including weekend hours.  Please check the w205 channel for details on TA office hours.  
+TA's will be holding office hours in addition to instructor office hours, including weekend hours.  
+
+Please check the w205 channel for details on TA office hours.  
 ```
 
 ```
+Instructor Office Hours:
+
 Monday and Tuesday
 
 Following class at 5:30 pm, although classes may run over a few minutes.
