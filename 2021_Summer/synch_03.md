@@ -1,5 +1,3 @@
-# Not verified for Summer 2021 yet (this will be removed when I've verified)
-
 ### UCB MIDS W205 - Kevin Crook's supplement for Synchronous Session #3
 
 We will try to follow the official slides as close as we can in class.  I will post commands here to make them easier for students to copy and paste.
@@ -99,6 +97,8 @@ cat lp_data.csv | sort
 Take a look at what options there are for sort
 ```
 man sort
+
+(man uses the "less" movement modes, similar to vi, hit the q key to quit)
 ```
 
 fix so sorting correctly
