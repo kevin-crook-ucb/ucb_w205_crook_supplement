@@ -16,7 +16,7 @@ Project 3 is based on weeks 9 through 13, but there isn't a lot for it in weeks 
 
 https://github.com/kevin-crook-ucb/ucb_w205_crook_supplement/blob/master/2021_Summer/synch_10_python_requests.ipynb
 
-You can probably run this under your Anaconda install on your laptop.  Be careful of cookie conflicts with Jupyter Notebook (may want to use a Chrome incognito window).
+You can probably run this under your Anaconda install on your laptop. 
 
 You can also run this using the Google Cloud Platform => AI Platform => Notebook instances => OPEN JUPYTERLAB
 
