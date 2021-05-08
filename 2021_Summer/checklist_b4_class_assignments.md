@@ -29,16 +29,18 @@ Check for stray containers:
 docker ps -a
 ```
 
-Remove a stray container (where xxxxx is the container id (hex string) or container name):
-```
-docker rm -f xxxxx
-```
-
 Please be careful that you do NOT remove the following container, it's part of the image for Jupyter Lab:
 
 ```
 6793591eaeab        gcr.io/inverting-proxy/agent   "/bin/sh -c '/opt/bi…"   3 hours ago         Up 3 hours                              proxy-agent
 ```
+
+Remove a stray container (where xxxxx is the container id (hex string) or container name):
+```
+docker rm -f xxxxx
+```
+
+
 
 #### Connection Pool Warning from docker-compose
 
