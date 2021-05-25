@@ -1,4 +1,4 @@
-### GitHub branch issue: assignment branch is one commit ahead and one commit behind master
+### GitHub branch issue: assignment branch is 1 commit ahead and 1 commit behind master
 
 When you push your assignment branch up to GitHub, you may see the issue of the assignment branch is 1 commit ahead and 1 commit behind.
 
