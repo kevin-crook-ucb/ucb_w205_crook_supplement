@@ -54,6 +54,13 @@ Exit the container:
 exit
 ```
 
+You can also do this in a single line process:
+
+```
+docker-compose exec spark ln -s /w205 w205
+```
+
+
 ## Step 3 - Run an enhanced version of the pyspark command line to target Jupyter Notebook
 
 Instead of starting a pyspark command line, use the following command to start a Jupyter Notebook for a pyspark kernel.  In this command we set the ip address to 0.0.0.0:
