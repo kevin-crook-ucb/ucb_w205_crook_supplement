@@ -73,13 +73,13 @@ Startup hive and run a hive command to create an external table for the schema o
 
 Starup presto and run a presto command to query the external table using the schema on read created in hive above.  If the query returns a large number of rows, you can simply use a limit 5 or similar.
 
-In your markdown cell of linux commands, be sure to add the command:
-* infinite loop to run the apache bench command
-* hive command to create an external table for the schema on read
-* presto query against the external table.  Include the query and first few lines of the result (you can simply use a limit 5 or similar)
-
 The project asks you to perform some basic analytics. The analytics is very basic. You need to formulate a couple of very simple business questions and use sql against the data frames to answer the questions.
 
+In your markdown cell of linux commands, be sure to add the command:
+* infinite loop to run the apache bench command for purchase a sword
+* hive command to create an external table for the schema on read
+* presto query against the external table.  Include the query and first few lines of the result (you can simply use a limit 5 or similar)
+* simple analytics: business questions and sql and results to answer the questions
 
 # Checklist
 
@@ -105,11 +105,12 @@ markdown cells for the following:
 * titles, introduction, executive summary, summary, etc.  format is open ended. whatever you feel is the best format.
 * startup the cluster
 * create the topic
-* startup the flask server
-* run the apache bench commands (be sure and include the new events)
-* infinite loop to run the apache bench command
-* 
-* provided analytical question(s) with queries and answers
+* startup the flask server (may need to modify the directory and file name)
+* run the apache bench commands (be sure and include for the new events)
+* infinite loop to run the apache bench command for purchase a sword
+* hive command to create an external table for the schema on read
+* presto query against the external table. Include the query and first few lines of the result (you can simply use a limit 5 or similar)
+* simple analytics: business questions and sql and results to answer the questions
 * shutdown the cluster
 
 code cells for the following:
