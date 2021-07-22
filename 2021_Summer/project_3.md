@@ -47,12 +47,23 @@ From the job filtered_writes.py, pull and modify the code to write the data fram
 From the pyspark code, pull the code to read a parquet file, register as a temp table, perform some basic sql, and convert to Pandas.
 
 Be sure to include a markdown cell (or cells) in the jupyter notebook:
+
 * titles, introduction, executive summary, summary, etc. format is open ended. whatever you feel is the best format
 * startup the cluster
 * create the topic
 * startup the flask server (may need to modify the directory and file name)
 * run the apache bench commands (be sure and include for the new events)
 * shutdown the cluster
+
+Be sure to include code cells in the jupyter notebook:
+
+* read json data from kafka
+* create a spark dataframe containing the extracted json data
+* filter out only the purchase sword extracted events
+* write the purchase sword extracted events to parquet files stored in hdfs
+* read the parquet files from hdfs into another spark dataframe
+* register the spark dataframe as a temporary table to allow in memory sql against the dataframe
+* copy the dataframe to Pandas to demonstrate mixing MMP code with serial code
 
 ### AFTER week 13's synch
 
@@ -74,13 +85,14 @@ Startup hive and run a hive command to create an external table for the schema o
 
 Starup presto and run a presto command to query the external table using the schema on read created in hive above.  If the query returns a large number of rows, you can simply use a limit 5 or similar.
 
-The project asks you to perform some basic analytics. The analytics is very basic. You need to formulate a couple of very simple business questions and use sql against the data frames to answer the questions.
+The project asks you to perform some basic analytics. The analytics is very basic. You need to formulate a couple of very simple business questions and use sql in presto to answer the questions.
 
-In your markdown cell of linux commands, be sure to add the command:
+In your markdown cells be sure to add the commands:
+
 * infinite loop to run the apache bench command for purchase a sword
 * hive command to create an external table for the schema on read
 * presto query against the external table.  Include the query and first few lines of the result (you can simply use a limit 5 or similar)
-* simple analytics: business questions and sql and results to answer the questions
+* simple analytics: business questions and sql in presto and results to answer the questions
 
 # Checklist
 
