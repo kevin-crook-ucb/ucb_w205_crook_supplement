@@ -94,6 +94,12 @@ In your markdown cells be sure to add the commands:
 * presto query against the external table.  Include the query and first few lines of the result (you can simply use a limit 5 or similar)
 * simple analytics: business questions and sql in presto and results to answer the questions
 
+Be sure to add code cells:
+
+code cells for the following:
+
+* read live streaming data and write it to hadoop hdfs in parquet format
+
 # Checklist
 
 ### docker-compose.yml
@@ -123,7 +129,7 @@ markdown cells for the following:
 * infinite loop to run the apache bench command for purchase a sword
 * hive command to create an external table for the schema on read
 * presto query against the external table. Include the query and first few lines of the result (you can simply use a limit 5 or similar)
-* simple analytics: business questions and sql and results to answer the questions
+* simple analytics: business questions and sql in presto and results to answer the questions
 * shutdown the cluster
 
 code cells for the following:
