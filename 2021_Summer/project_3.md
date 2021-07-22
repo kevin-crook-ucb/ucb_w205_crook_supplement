@@ -46,7 +46,8 @@ From the job filtered_writes.py, pull and modify the code to write the data fram
 
 From the pyspark code, pull the code to read a parquet file, register as a temp table, perform some basic sql, and convert to Pandas.
 
-Be sure to include a markdown cell (or cells) in the jupyter notebook which include the following linux commands:
+Be sure to include a markdown cell (or cells) in the jupyter notebook:
+* titles, introduction, executive summary, summary, etc. format is open ended. whatever you feel is the best format
 * startup the cluster
 * create the topic
 * startup the flask server (may need to modify the directory and file name)
