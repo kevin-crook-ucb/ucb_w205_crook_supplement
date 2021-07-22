@@ -26,9 +26,9 @@ The assignment covers weeks 11, 12, and 13.  However, since week 12 repeats what
 
 ### AFTER week 12's synch
 
-Copy in the docker-compose.yml file. Verify and modify if necessary to allow a Jupyter Notebook to be run against a pySpark kernel.
+Copy in the week 12 docker-compose.yml file. Verify and modify if necessary to allow a Jupyter Notebook to be run against a pySpark kernel.
 
-Starup the cluster.
+Startup the cluster.
 
 Create the topic events.
 
@@ -50,21 +50,33 @@ Be sure to include a markdown cell (or cells) in the jupyter notebook which incl
 * startup the cluster
 * create the topic
 * startup the flask server (may need to modify the directory and file name)
-* run the apache bench commands
+* run the apache bench commands (be sure and include for the new events)
 * shutdown the cluster
 
 ### AFTER week 13's synch
 
-In your markdown cell of linux commands, add the command:
+Copy in the week 13 docker-compose.yml file. Verify and modify if necessary to allow a Jupyter Notebook to be run against a pySpark kernel.
+
+Startup the cluster.
+
+Create the topic events.
+
+Startup the flask server.
+
+Create a Jupyter Notebook against a pySpark kernel.  Be sure and first create the symbolic link so you can save your notebook to the project 2 repo directory.
+
+Run the bash shell infinite loop code.  This will put a steady stream of "purchase sword" events on kafka.
+
+Add to your Jupyter Notebook the new code from the spark submit job write_sword_stream.py  For the code sink.awaitTermination(), this is needed in the spark submit job, but not needed in the Jupyter Notebook, as code cells don't "fall off the end" like code in python file does.  If you want to stop the batch job while it's running, you can create a cell with sink.stop() and execute it to stop the stream processing.
+
+Startup hive and run a hive command to create an external table for the schema on read. 
+
+Starup presto and run a presto command to query the external table using the schema on read created in hive above.  If the query returns a large number of rows, you can simply use a limit 5 or similar.
+
+In your markdown cell of linux commands, be sure to add the command:
 * infinite loop to run the apache bench command
-
-From the job write_swords_stream.py
-* pull and modify the code to write hdfs files in streaming mode
-* sink.awaitTermination() is not needed in the jupyter notebook, only in the batch job.  If you want to stop the batch create a cell with sink.stop() and exeucte it to stop the stream
-
-Create a markdown cell to hold the hive command to create an external table for schema on read.  Include your hive code to create schema on read.
-
-Create a markdown cell to hold the presto query against the external table.  Include the query and the first few lines of the result or use a limit 5, etc.
+* hive command to create an external table for the schema on read
+* presto query against the external table.  Include the query and first few lines of the result (you can simply use a limit 5 or similar)
 
 The project asks you to perform some basic analytics. The analytics is very basic. You need to formulate a couple of very simple business questions and use sql against the data frames to answer the questions.
 
