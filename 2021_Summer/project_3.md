@@ -89,21 +89,39 @@ The final version will be week 13 with modifications to allow a jupyter notebook
 
 ### game_api.py
 
-Start with the week 11 version of game_api.py.  
-
 You will need to add events for:
 * buy a sword
 * join a guild
 
-After week 12, you will need to add metadata (additional key / value slots to the json) for each of the above, such as:
+You will need to add metadata (additional key / value slots to the json) for each of the above, such as:
 
 * type of sword
 * guild name
 
 ### Project_3.ipynb (or similar name of your choosing)
 
-* You will need to follow the 3 step process from my project 2 notes to get a jupyter notebook server running with a pyspark kernel
-* Linux commands will be placed in markdown cells
-* The pyspark code will be pulled from the spark batch jobs and modified and placed in code cells and executed
-* Hive command to create schema on read placed in a markdown cell
-* Presto query placed in a markdown cell
+markdown cells for the following:
+
+* titles, introduction, executive summary, summary, etc.  format is open ended. whatever you feel is the best format.
+* startup the cluster
+* create the topic
+* startup the flask server
+* run the apache bench commands (be sure and include the new events)
+* infinite loop to run the apache bench command
+* 
+* provided analytical question(s) with queries and answers
+* shutdown the cluster
+
+code cells for the following:
+
+* read json data from kafka
+* create a spark dataframe containing the extracted json data 
+* filter out only the purchase sword extracted events
+* write the purchase sword extracted events to parquet files stored in hdfs
+* read the parquet files from hdfs into another spark dataframe
+* register the spark dataframe as a temporary table to allow in memory sql against the dataframe
+* copy the dataframe to Pandas to demonstrate mixing MMP code with serial code
+* read live streaming data and write it to hadoop hdfs in parquet format
+
+
+
