@@ -98,7 +98,7 @@ docker-compose exec cloudera hive
 ```
 
 ```
-create external table if not exists default.purchases2 (Accept string, Host string, User_Agent string, event_type string, timestamp string) stored as parquet location '/tmp/purchases'  tblproperties ("parquet.compress"="SNAPPY");
+create external table if not exists default.purchases2 (Accept string, Host string, `User-Agent` string, event_type string, timestamp string) stored as parquet location '/tmp/purchases'  tblproperties ("parquet.compress"="SNAPPY");
 ```
 
 Or... we can do this an easier way
