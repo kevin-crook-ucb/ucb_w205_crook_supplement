@@ -171,7 +171,7 @@ docker-compose down
 
 Verify the docker cluster is down:
 ```
-docker-compose ps -a
+docker-compose ps
 ```
 
 ## Activity 2
